@@ -1,0 +1,115 @@
+@charset "UTF-8";
+/* 
+.vertical-menu {
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  top: 46px; Đặt top để đẩy thanh menu xuống dưới navbar
+  left: 0;
+  background-color: #F8F8FF; Màu nền của thanh menu
+  padding-top: 20px; Khoảng cách từ đỉnh thanh menu đến các mục
+  transition: height 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.vertical-menu a {
+  background-color: #f8f9fa; Màu nền của các mục
+  color: black; Màu chữ
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #e9ecef; Màu nền khi di chuột qua
+}
+
+.vertical-menu.collapsed {
+    width: 50px; Đặt chiều cao mong muốn khi menu được thu gọn
+    overflow: hidden; Ẩn phần dư thừa nếu có
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Time New Roman', sans-serif;
+}
+
+.menu{
+	position: fixed;
+	width: 210px;
+	height: 100vh;
+	top: -13px;
+	left: 0px;
+}
+
+.menu ul {
+  list-style: none;
+}
+
+.menu a {
+  text-decoration: none;
+}
+
+.menu h2 {
+  text-align: center;
+  margin: 20px auto;
+  color: #fff;
+}
+
+.accordion-menu {
+  width: 204px;
+  height: 100vh;
+  margin: 60px auto 20px;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 16px;
+
+}
+.accordion-menu li.open .dropdownlink {
+  color: #CDDC39;
+  .fa-chevron-down {
+    transform: rotate(180deg);
+  }
+}
+.accordion-menu li:last-child .dropdownlink {
+  border-bottom: 0;
+}
+.menu .dropdownlink {
+  cursor: pointer;
+  display: block;
+  padding: 15px 15px 15px 45px;
+  font-size: 16px !important;
+  border-bottom: 1px solid #ccc;
+  color: #212121;
+  position: relative;
+  transition: all 0.4s ease-out;
+  i {
+    position: absolute;
+    top: 17px;
+    left: 16px;
+  }
+  .fa-chevron-down {
+    right: 12px;
+    left: auto;
+  }
+}
+
+.menu .submenuItems {
+  display: none;
+  background: #C8E6C9;
+  li {
+    border-bottom: 1px solid #B6B6B6;
+  }
+}
+
+.menu .submenuItems a {
+  display: block;
+  color: #727272;
+  padding: 12px 12px 12px 45px;
+  transition: all 0.4s ease-out;
+  &:hover {
+    background-color: #CDDC39;
+    color: #fff;
+  }
+}

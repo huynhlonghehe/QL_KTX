@@ -1,0 +1,353 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+	overflow-x: hidden; 
+	background-color: #EEE9E9;
+}
+
+.main_content{
+	position: relative;
+	top: 40px;
+    left: 200px;
+}
+
+.main_content .title{
+	margin: 16px 540px;
+}
+
+table {
+    width: 86%;
+    background-color: #e0f2f1;
+    border-collapse: collapse;
+    border: 1px solid #333; 
+    position: absolute;
+    top: 120px;
+    left: 28px;
+    display: block; /* Biến table thành block để có thể áp dụng overflow */
+    max-height: 500px; /* Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng */
+    overflow-y: auto; /* Thêm thanh trượt dọc nếu nội dung bảng vượt quá chiều cao tối đa */
+}
+
+
+thead, tbody tr {
+    display: table; /* Đảm bảo các hàng vẫn tuân theo bố cục bảng */
+    width: 100%;
+    table-layout: fixed; /* Giữ cho các cột có chiều rộng đồng đều */
+}
+
+/* thead {
+    width: calc(100% - 17px); Trừ đi độ rộng của thanh trượt
+} */
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #fff;
+}
+
+thead, th {
+    position: sticky;
+    top: 0;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+   
+    z-index: 2; /* Đặt z-index lớn hơn các phần tử khác để hiển thị phía trên */
+}
+tr:hover {background-color: #f5f5f5;}
+
+.btn{
+	float: right;
+}
+
+/* Add button styling */
+.button_action {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.button_edit {
+    background-color: #fdd835;
+}
+
+.button_delete {
+    background-color: #f44336;
+}
+
+.button_action:hover {
+    background-color: #45a049;
+}
+
+.button_action:hover {
+    cursor: pointer;
+}
+
+.form_edit {
+    position: absolute;
+    top: 400px;
+    left: 66px;
+    width: 80%;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.form_edit form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center; /* Đảm bảo các items được căn giữa */
+}
+
+.form_edit label {
+    flex-basis: 20%; /* Điều chỉnh chiều rộng của label để phù hợp với 3 items trên một dòng */
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-right: 2%; /* Khoảng cách giữa label và input */
+}
+
+.form_edit input[type="text"] {
+    flex-basis: 22%; /* Điều chỉnh chiều rộng của input để phù hợp với 3 items trên một dòng */
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form_edit .btn-submit, .form_edit .btn-delete {
+    flex-basis: 48%; /* Giảm kích thước chiếm chỗ của mỗi nút để cho chúng cách nhau */
+    background-color: #4CAF50; /* Màu xanh cho nút Cập nhật */
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 12px;
+    margin-top: 8px;
+    margin-right: 2%; /* Thêm khoảng cách giữa hai nút */
+}
+
+.form_edit .btn-delete {
+    background-color: #FF0000; /* Màu đỏ cho nút Xoá */
+}
+
+.form_edit .btn-submit:last-child, .form_edit .btn-delete:last-child {
+    margin-right: 0; /* Đảm bảo nút cuối cùng không có margin bên phải */
+}
+
+.form_edit .btn-delete:hover {
+    background-color: #d32f2f; /* Đậm hơn khi hover */
+}
+
+.form_edit .btn-submit:hover {
+    background-color: #45a049;
+}
+
+
+.form_edit input[type="text"]:focus {
+    border-color: #4CAF50;
+}
+
+@media (max-width: 768px) {
+    .form_edit label, .form_edit input[type="text"] {
+        flex-basis: 48%; /* Khi màn hình nhỏ hơn, mỗi label và input chiếm gần nửa form */
+    }
+}
+
+.modal1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: scale(0);
+  color: white;
+}
+
+.confirmDelete {
+  width: 350px;
+  height: 200px;
+  background: #ccc;
+  border-radius: 20px;
+  position: absolute;
+  transform: scale(0);
+}
+
+.reasonCancel {
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  height: 73px;
+  border-color: rgb(100, 152, 205);
+  border-width: 1px;
+  width: 329px;
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+.form-control-order {
+  margin-left: 8px;
+}
+
+.confirmCancel {
+  width: 350px;
+  height: 227px;
+  background: #ccc;
+  border-radius: 20px;
+  position: absolute;
+  transform: scale(0);
+}
+
+.confirmDelete .desc {
+  border-radius: 20px 20px 0px 0px;
+  font-size: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 55px;
+  border-bottom: #000 solid 3px;
+  background-color: red;
+}
+
+.confirmCancel .desc {
+  border-radius: 20px 20px 0px 0px;
+  font-size: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 55px;
+  border-bottom: #000 solid 3px;
+  background-color: red;
+}
+
+.confirmDelete .action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmCancel .action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmDelete .action {
+  margin-left: 150px;
+}
+
+.confirmCancel .action {
+  margin-left: 150px;
+}
+
+.confirmDelete .action button {
+  font-size: 15px;
+  margin-top: 22px;
+  margin-left: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 30px;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.confirmCancel .action button {
+  font-size: 15px;
+  margin-top: 22px;
+  margin-left: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 30px;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.confirmDelete .denied {
+  font-size: 15px;
+  margin-top: 22px;
+  margin-left: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 30px;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: #545353;
+}
+
+.confirmCancel .denied {
+  font-size: 15px;
+  margin-top: 22px;
+  margin-left: 20px;
+  padding: 5px;
+  width: 70px;
+  height: 30px;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: #545353;
+}
+
+.confirmDelete p {
+  color: #000;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  transition: transform 0.5s ease;
+}
+
+.confirmCancel p {
+  color: #000;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  transition: transform 0.5s ease;
+}
+
+.modal1 .icon-close {
+  color: #000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.modal1.active {
+  transform: scale(1);
+}
+
+.confirmDelete.active {
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+
+.confirmCancel.active {
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+
+

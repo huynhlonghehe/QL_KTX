@@ -1,0 +1,55 @@
+/* Main content container */
+.main_content {
+	position: relative; /* Thiết lập vị trí của phần tử là tương đối để có thể sử dụng các thuộc tính vị trí khác */
+    margin: 20px auto; /* Tự căn chỉnh phần tử theo chiều ngang và căn giữa theo chiều dọc */
+    margin-left: 350px; /* Tạo một khoảng cách bên trái phần tử để tránh bị chồng lấn với phần menu */
+    margin-top: 100px; /* Tạo một khoảng cách từ đỉnh của phần tử đến phần menu */
+    width: 60%; /* Thiết lập chiều rộng của phần tử là 80% của phần tử cha */
+	border: 1px solid #ccc; /* Tạo viền xung quanh form */
+    border-radius: 5px; /* Làm tròn góc của form */
+    padding: 20px; /* Tạo khoảng cách bên trong form */
+}
+
+/* Form styling */
+.edit_form {
+	background-color: #fff; /* Thiết lập màu nền của edit_form là màu trắng */
+	border: 1px solid #ccc; /* Thiết lập viền của edit_form là viền 1px màu xám nhạt */
+	border-radius: 5px; /* Làm tròn các góc của edit_form */
+	padding: 20px; /* Tạo khoảng cách bên trong edit_form */
+}
+
+/* Input field styling */
+.edit_input {
+	min-width:100px;
+	max-width: 600px; /* Thiết lập độ rộng tối đa của ô input là 300px */
+    width: 100%; /* Thiết lập chiều rộng của các ô input là 100% để nói với trình duyệt sử dụng toàn bộ chiều rộng của phần tử cha */
+    margin-bottom: 10px; /* Tạo một khoảng cách phía dưới của mỗi ô input là 10px */
+    padding: 10px; /* Thiết lập độ dày của viền trong ô input là 10px */
+    border: 1px solid #ccc; /* Thiết lập viền cho ô input là viền 1px dày màu xám nhạt */
+    border-radius: 5px; /* Làm tròn các góc của ô input */
+    box-sizing: border-box; /* Đảm bảo rằng độ rộng và độ cao của phần tử bao gồm cả kích thước của padding và border, nhưng không phải margin */
+	display: block; /* Đưa ô input xuống hàng */
+}
+body{
+    overflow-x: hidden; 
+    background-color: #EEE9E9;
+}
+/* Button styling */
+.edit_button {
+    background-color: #4CAF50; /* Thiết lập màu nền của nút là màu xanh lá cây */
+    color: white; /* Thiết lập màu chữ của nút là trắng */
+    padding: 10px 20px; /* Thiết lập độ dày của viền trong nút là 10px ở trên và dưới, 20px ở trái và phải */
+    margin-top: 10px; /* Tạo một khoảng cách từ đỉnh của nút đến phần tử phía trên là 10px */
+    border: none; /* Xóa viền của nút */
+    border-radius: 5px; /* Làm tròn các góc của nút */
+    cursor: pointer; /* Thiết lập con trỏ chuột thành hình bàn tay khi di chuyển qua nút */
+}
+
+/* Button hover effect */
+.edit_button:hover {
+    background-color: #45a049; /* Khi di chuột qua nút, thay đổi màu nền của nút thành màu xanh lá cây nhạt */
+}
+
+/* Modal styling */
+.modal {
+    display: none

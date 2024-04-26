@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+	overflow-x: hidden; 
+	background-color: #EEE9E9 !important;
+}
+
+
+/* Main_content */
+
+.main_content{
+	position: relative;
+	top: 40px;
+    left: 200px;
+}
+
+.main_content .title{
+	margin: 16px 672px;
+}
+
+table {
+    width: 100%;
+    background-color: #e0f2f1;
+    border-collapse: collapse;
+    position: absolute;
+    top: 80px;
+    left: 16px;
+    display: block;
+    max-height: 588px;
+    overflow-y: auto;
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+thead {
+    width: calc(100% - 17px);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+thead, th {
+    position: sticky;
+    top: 0;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+   
+    z-index: 2; /* Đặt z-index lớn hơn các phần tử khác để hiển thị phía trên */
+}
+tr:hover {background-color: #f5f5f5;}
+
+/* Add button styling */
+.button_action {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.button_edit {
+    background-color: #fdd835;
+}
+
+.button_delete {
+    background-color: #f44336;
+}
+
+.button_action:hover {
+    background-color: #45a049;
+}
+
+.button_action:hover {
+    cursor: pointer;
+}
+
+.button_createTK{
+	position: absolute;
+    top: 38px;
+    right: 300px;
+}
+
+.button_createTK a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.button_createTK a:hover{
+	color: #fff;
+	text-decoration: none;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+
+/* CSS cho form tạo tài khoản */
+#createAccountForm {
+    max-width: 400px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100; /* Đặt z-index lớn hơn để form hiển thị trên cùng */
+    position: absolute; /* Đảm bảo form có vị trí tương đối */
+   	top: 310px;
+    left: 43%;
+    transform: translate(-50%, -50%); /* Dịch chuyển form ngược lại 50% của kích thước của chính nó, để căn giữa hoàn toàn */
+}
+
+#createAccountForm h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#createAccountForm .form-group {
+    margin-bottom: 20px;
+}
+
+#createAccountForm .form-group label {
+    font-weight: bold;
+}
+
+#createAccountForm .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createAccountForm .form-group button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#createAccountForm .form-group button:hover {
+    background-color: #45a049;
+}
+
+
+
+

@@ -1,0 +1,299 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+	overflow-x: hidden; 
+	background-color: #EEE9E9;
+}
+
+.main_content{
+	position: relative;
+	top: 40px;
+    left: 200px;
+}
+
+.main_content .title{
+	margin: 16px 540px;
+}
+
+table {
+    width: 86%;
+    background-color: #e0f2f1;
+    border-collapse: collapse;
+    border: 1px solid #333; 
+    position: absolute;
+    top: 60px;
+    left: 28px;
+    display: block; /* Biến table thành block để có thể áp dụng overflow */
+    max-height: 500px; /* Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng */
+    overflow-y: auto; /* Thêm thanh trượt dọc nếu nội dung bảng vượt quá chiều cao tối đa */
+}
+
+
+thead, tbody tr {
+    display: table; /* Đảm bảo các hàng vẫn tuân theo bố cục bảng */
+    width: 100%;
+    table-layout: fixed; /* Giữ cho các cột có chiều rộng đồng đều */
+}
+
+/* thead {
+    width: calc(100% - 17px); Trừ đi độ rộng của thanh trượt
+} */
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+
+thead, th {
+    position: sticky;
+    top: 0;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+   
+    z-index: 2; /* Đặt z-index lớn hơn các phần tử khác để hiển thị phía trên */
+}
+tr:hover {background-color: #f5f5f5;}
+
+/* Add button styling */
+.button_action {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.button_edit {
+    background-color: #fdd835;
+}
+
+.button_delete {
+    background-color: #f44336;
+}
+
+.button_action:hover {
+    background-color: #45a049;
+}
+
+.button_action:hover {
+    cursor: pointer;
+}
+/* CSS cho nút "Thêm Vật Tư" */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 28px;
+    margin-top: 15px;
+
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    outline: 0;
+}
+/* css cho nút thêm trong formThemVatTu */
+.btn-Them {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 1px;
+    margin-top: 15px;
+    
+}
+
+.btn-Them:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-Them:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    outline: 0;
+}
+/* CSS cho form tạo vật tư */
+#createVatTuForm {
+	max-width: 600px !important;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    position: inherit;
+    top: -30px;
+    left: 800px;
+    transform: translate(-50%, -50%);
+    margin-top: 300px;
+   	animation: animatetop 0.5s ease forwards; /* Áp dụng hiệu ứng với thời gian 0.5s và forwards để giữ lại trạng thái cuối cùng */
+}
+
+#createVatTuForm h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#createVatTuForm .form-group {
+    margin-bottom: 20px;
+}
+
+#createVatTuForm .form-group label {
+    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+    font-weight: bold;
+}
+
+#createVatTuForm .form-group input {
+	margin-bottom: 20px;
+	display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createVatTuForm .form-group select {
+	margin-bottom: 20px;
+	display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createVatTuForm .form-group button {
+	
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#createVatTuForm .form-group button:hover {
+    background-color: #45a049;
+}
+
+/* CSS cho modal */
+.modal {
+  display: none; 
+  position: fixed; 
+  overflow: auto; /* Đảm bảo thanh trượt xuất hiện nếu nội dung dài hơn kích thước modal */
+  z-index: 101; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+  border-radius: 8px;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+  
+}
+
+/* Modal Body */
+.modal-body {
+	padding: 2px 16px;
+	margin-top: 20px;
+    margin-bottom: 31%;
+}
+
+
+/* Modal Content */
+.modal-content {
+  position: fixed; /* Đảm bảo vị trí cố định trên trang */
+  top: 50%; /* Đưa modal lên phía trên 50% của trang */
+  left: 50%; /* Đưa modal sang phải 50% của trang */
+  transform: translate(-50%, -50%); /* Dịch chuyển nội dung modal điều chỉnh để căn giữa */
+  background-color: #fefefe;
+  margin: auto;
+  padding: 2px;
+  border: 5px solid #000000;
+  width: 30%;
+  height: 35%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  border-radius: 8px; 
+}
+
+.modal-footer {
+	display: flex;
+    justify-content: right;
+    padding: 10px 16px; /* Điều chỉnh padding cho phần footer */
+    background-color: #fefefe; /* Màu nền cho phần footer */
+    /* border-top: 1px solid #ddd; */ /* Đường viền trên cho phần footer */
+    border-radius: 0 0 8px 8px; /* Bo tròn góc phần footer */
+}
+
+.modal-footer button {
+    margin-right: 3px; /* Khoảng cách giữa các nút trong phần footer */
+}
+
+.close {
+  color: red;
+  float: right;
+  padding: 2px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #888;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Add Animation */
+@keyframes animatetop {
+  /*from {top: -300px; opacity: 0}
+  to {top: 400px; opacity: 1}*/
+  from {opacity: 0} /* Không cần thay đổi vị trí */
+  to {opacity: 1}	
+}
+
+/* Keyframes cho việc biến mất của modal */
+@keyframes disappearModal {
+  from {opacity: 1;}
+  to {opacity: 0; display: none;}
+}
+@keyframes appearForm {
+  from {opacity: 0; }
+  to {opacity: 1;}
+}

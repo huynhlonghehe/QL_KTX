@@ -1,0 +1,117 @@
+@charset "UTF-8";
+body {
+    position: relative;
+    background-position: center; 
+    width: 100%;
+    height: 106vh; 
+    margin: 0; 
+    overflow: hidden;
+}
+
+.login-container {
+    position: absolute;
+    max-width: 400px;
+    width: 100%;
+    height: 100%; 
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px; 
+    width: 75px;
+    height: auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 107%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.main-container {
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    background-image: url("https://ptithcm.edu.vn/wp-content/uploads/2021/08/1.jpg");
+    background-size: cover; 
+    background-position: center; 
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.4); 
+}
+
+.main-container h1 {
+    position: absolute;
+    top: 100px;
+    left: 540px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin: 0;
+    z-index: 1; 
+    font-size: 44px;
+    color: white;
+}
+
+.main-container span {
+position: absolute;
+    z-index: 1; 
+    color: white;
+    font-size: 18px;
+    top: 10px;
+    left: 10px;
+}

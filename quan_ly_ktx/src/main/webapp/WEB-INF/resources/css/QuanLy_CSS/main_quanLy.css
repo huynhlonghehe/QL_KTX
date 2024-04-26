@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+	background-color: #f0f0f0;
+}
+
+
+
+/* Main_content */
+
+.main_content{
+	position: relative;
+	top: 40px;
+    left: 200px;
+}
+
+
+
+
+
+
+
+

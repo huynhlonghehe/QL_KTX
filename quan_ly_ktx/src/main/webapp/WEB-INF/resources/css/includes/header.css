@@ -1,0 +1,66 @@
+@charset "UTF-8";
+#header {
+	height: 46px;
+	background-color: #009CFF;
+	position: fixed;
+	width: 100%;
+    right: 0px;
+    top: 0px;
+    z-index: 100;
+}
+
+#nav, .subnav{
+	list-style-type: none;
+}
+
+#nav > li{
+	display: inline-block;
+}
+#nav li{
+	position: relative;
+}
+
+#nav > li > a {
+	color: #fff;
+}
+
+#nav li a{
+	
+	text-decoration: none;
+	line-height: 46px;
+	padding: 0 24px;
+	display: block;
+}
+
+#nav .func:hover,#nav .user:hover , #nav .subnav li:hover a{
+	color: black;
+	background-color: #cccc;	
+}
+
+#nav .subnav{
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	width: 100%;
+}
+#nav li:hover .subnav{
+	display: block;
+}
+#nav .subnav a{
+	color: #000;
+	padding: 0 16px;
+	line-height: 38px;
+}
+
+#nav .user{
+	float: right;
+}
+
+#nav .func{
+	left: 38px
+}
+
+#nav li .ptit:hover{
+	cursor: pointer;
+}
