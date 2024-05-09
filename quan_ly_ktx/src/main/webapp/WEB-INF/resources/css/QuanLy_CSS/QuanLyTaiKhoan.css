@@ -58,7 +58,7 @@ thead, th {
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #009CFF;
     color: white;
    
     z-index: 2; /* Đặt z-index lớn hơn các phần tử khác để hiển thị phía trên */

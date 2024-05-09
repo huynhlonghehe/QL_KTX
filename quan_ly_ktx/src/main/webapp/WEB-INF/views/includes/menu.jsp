@@ -49,11 +49,11 @@
 	    </ul>
 	  </li>
 	  <li>
-	    <div class="dropdownlink"><i class="fa fa-motorcycle" aria-hidden="true"></i> Action
+	    <div class="dropdownlink"><i class="fa fa-motorcycle" aria-hidden="true"></i> Quản lý phòng
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="#">Action book 1</a></li>
+	      <li><a href="http://localhost:8080/quan_ly_ktx/phong/list">Thông tin phòng</a></li>
 	      <li><a href="#">Action book 2</a></li>
 	      <li><a href="#">Action book 3</a></li>
 	    </ul>

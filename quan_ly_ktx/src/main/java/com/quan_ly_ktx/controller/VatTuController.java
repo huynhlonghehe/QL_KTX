@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.quan_ly_ktx.DAO.VT_PhongDAO;
-import com.quan_ly_ktx.Entity.VatTu;
+import com.quan_ly_ktx.Entity.VATTU.VatTu;
 import com.quan_ly_ktx.service.VatTuService;
 
 @Controller
@@ -21,20 +21,37 @@ public class VatTuController {
     @Autowired
     VatTuService vatTuService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showVatTuList(Model model) {
         List<VatTu> listVatTu = vatTuService.getAllVatTu();
+        System.out.println("Danh sách VatTu:");
+        for (VatTu vatTu : listVatTu) {
+            System.out.println(vatTu); // In ra thông tin của mỗi đối tượng VatTu trong danh sách
+        } 	
+        model.addAttribute("listVatTu", listVatTu);
+        return "VatTu/QuanLyVatTu"; 
+    }*/
+    
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String showVatTuList(Model model) {
+    	
+        List<VatTu> listVatTu = vatTuService.getAllVatTu();
+        for (VatTu vatTu : listVatTu) {
+            List<String> quanLy = vatTuService.getQLVTLIST();
+            vatTu.setDuocQuanLyBoi(quanLy);
+            System.out.println(vatTu.getDuocQuanLyBoi());
+        }
         model.addAttribute("listVatTu", listVatTu);
         return "VatTu/QuanLyVatTu"; 
     }
 
-    @RequestMapping(value = "/edit-vat-tu/{maVT}", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/edit-vat-tu/{maVT}", method = RequestMethod.GET)
     public String showEditVatTuForm(@PathVariable("maVT") String maVT, Model model) {
         VatTu vatTu = vatTuService.getVatTuById(maVT);
         model.addAttribute("vatTu", vatTu);
         return "VatTu/editVatTu";
     }
-
+*/
     @RequestMapping(value = "/update-vat-tu", method = RequestMethod.POST)
     public String updateVatTu(@ModelAttribute("vatTu") VatTu vatTu) {
         vatTuService.updateVatTu(vatTu);
@@ -46,16 +63,7 @@ public class VatTuController {
         vatTuService.deleteVatTu(maVT);
         return "redirect:/vattu/list";
     }
-    
-    /*@RequestMapping(value = "/invalidInput/{maVT}", method = RequestMethod.GET)
-    public String checkExistMATV(@PathVariable("maVT") String maVT, Model model) {
-        if(vatTuService.existsByMaVT(maVT)) {
-        	return "ERROR";
-        }
-        else
-        	return "OK";
-    }*/
-    
+     
     @ResponseBody
     @RequestMapping(value = "/invalidInput/{maVT}", method = RequestMethod.GET)
     public String checkExistMATV(@PathVariable("maVT") String maVT, Model model) {
@@ -68,7 +76,7 @@ public class VatTuController {
     
     //@ResponseBody
     @RequestMapping(value = "/add-vat-tu", method = RequestMethod.POST)
-    public String addVatTu(@ModelAttribute("vatTu") VatTu vatTu, Model model) {
+    public String addVatTu(@ModelAttribute("vatTu") VatTu vatTu) {
             String maVT = vatTu.getMaKhu() + vatTu.getMaSo();
             vatTu.setMaVT(maVT);
             vatTuService.addVatTu(vatTu);

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.quan_ly_ktx.DAO.VatTuDAO;
-import com.quan_ly_ktx.Entity.VatTu;
+import com.quan_ly_ktx.Entity.VATTU.VatTu;
 
 @Service
 public class VatTuServiceImpl implements VatTuService {
@@ -51,5 +51,13 @@ public class VatTuServiceImpl implements VatTuService {
     public List<VatTu> sortVatTuByColumn(String column, String sortDirection) {
 		return vatTuDAO.sortVatTuByColumn(column, sortDirection);
 	}
+    @Override
+    public List<String> getDuocQuanLyBoi(String maVT) {
+        return vatTuDAO.getDuocQuanLyBoi(maVT);
+    }
+    @Override
+    public List<String> getQLVTLIST() {
+        return vatTuDAO.getQLVTLIST();
+    }
 }
 

@@ -53,8 +53,11 @@ public class LoginController {
 	        if(values.get(1).equals("ADMIN")) {
 	            mv = new ModelAndView("redirect:../quan_ly_ktx/quanly/");
 	        }
+	        else if(values.get(1).equals("Quản lý vật tư")){
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/vattu/list/");
+	        }
 	        else {
-	            mv = new ModelAndView("SinhVien/SinhVien_main");
+	        	 mv = new ModelAndView("redirect:../quan_ly_ktx/phong/list/");
 	        }
 	        // Đặt biến username vào model
 	        mv.addObject("username", username);
