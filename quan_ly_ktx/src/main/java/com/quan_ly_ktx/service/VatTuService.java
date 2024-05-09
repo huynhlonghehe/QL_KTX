@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.quan_ly_ktx.Entity.VatTu;
+import com.quan_ly_ktx.Entity.VATTU.VatTu;
 
 @Service
 public interface VatTuService {
@@ -15,4 +15,6 @@ public interface VatTuService {
     void addVatTu(VatTu vatTu);
     public boolean existsByMaVT(String maVT);
     List<VatTu> sortVatTuByColumn(String column, String sortDirection);
+    public List<String> getDuocQuanLyBoi(String maVT);
+    public List<String> getQLVTLIST();
 }

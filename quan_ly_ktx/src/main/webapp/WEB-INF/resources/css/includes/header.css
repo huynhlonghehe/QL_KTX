@@ -1,12 +1,14 @@
 @charset "UTF-8";
 #header {
 	height: 46px;
-	background-color: #009CFF;
+	background-color: #007ccc;
 	position: fixed;
 	width: 100%;
     right: 0px;
     top: 0px;
     z-index: 100;
+    border: 10px  blue; /* Viền đứt màu xanh */
+    border-top-radius: 5px; /* Bo tròn viền với bán kính là 10px */
 }
 
 #nav, .subnav{

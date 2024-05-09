@@ -65,11 +65,13 @@ th {
 }
 tr:hover {background-color: #f5f5f5;}
 
+
+
 /* Add button styling */
 .button_action {
     display: inline-block;
     padding: 8px 16px;
-    background-color: ##3da9fc;
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
@@ -95,7 +97,7 @@ tr:hover {background-color: #f5f5f5;}
 }
 /* CSS cho nút "Thêm Vật Tư" */
 .btn-primary {
-    background-color: #3da9fc;
+    background-color: #007bff;
     border-color: #007bff;
     color: #fff;
     padding: 10px 20px;
@@ -141,121 +143,152 @@ tr:hover {background-color: #f5f5f5;}
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
     outline: 0;
 }
+
+/* CSS cho form tìm kiếm */
+/* CSS để đặt form tìm kiếm ngang hàng với các nút reload và thêm */
+.search-and-buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Để tạo khoảng cách giữa form và bảng */
+}
+
+/* Đặt form tìm kiếm ngang hàng */
+#searchForm {
+    margin-right: 20px; /* Khoảng cách giữa form và nút reload */
+}
+
+/* Đặt nút reload và thêm */
+.button_reload,
+.button_createTK {
+    margin-right: 10px; /* Khoảng cách giữa các nút */
+}
 /* CSS cho form tạo vật tư */
-#createVatTuForm {
-	max-width: 600px !important;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    z-index: 100;
-    position: inherit;
-    top: -30px;
-    left: 800px;
-    transform: translate(-50%, -50%);
-    margin-top: 300px;
-   	animation: animatetop 0.5s ease forwards; /* Áp dụng hiệu ứng với thời gian 0.5s và forwards để giữ lại trạng thái cuối cùng */
-}
-
-#createVatTuForm h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#createVatTuForm .form-group {
-    margin-bottom: 20px;
-}
-
-#createVatTuForm .form-group label {
-    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-    font-weight: bold;
-}
-
-#createVatTuForm .form-group input {
-	margin-bottom: 20px;
-	display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#createVatTuForm .form-group select {
-	margin-bottom: 20px;
-	display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#createVatTuForm .form-group button {
+	#createPhongForm {
+		max-width: 600px !important;
+	    background-color: #f9f9f9;
+	    border-radius: 8px;
+	    padding: 50px;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	    z-index: 100;
+	    position: sticky;
+	    top: -30px;
+	    left: 800px;
+	    transform: translate(-50%, -50%);
+	    margin-top: 300px;
+	   	animation: animatetop 0.5s ease forwards; /* Áp dụng hiệu ứng với thời gian 0.5s và forwards để giữ lại trạng thái cuối cùng */
+	}
 	
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #009CFF;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-#createVatTuForm .form-group button:hover {
-    background-color: #45a049;
-}
-
-#editVatTuForm {
-    max-width: 600px !important;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    z-index: 100;
-    position: inherit;
-    top: -30px;
-    left: 800px;
-    transform: translate(-50%, -50%);
-    margin-top: 300px;
-    animation: animatetop 0.5s ease forwards; /* Áp dụng hiệu ứng với thời gian 0.5s và forwards để giữ lại trạng thái cuối cùng */
-}
-
-#editVatTuForm h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#editVatTuForm .form-group {
-    margin-bottom: 20px;
-}
-
-#editVatTuForm .form-group label {
-    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-    font-weight: bold;
-}
-
-#editVatTuForm .form-group input,
-#editVatTuForm .form-group select {
-    margin-bottom: 20px;
-    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#editVatTuForm .form-group button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #009CFF;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-#editVatTuForm .form-group button:hover {
-    background-color: #45a049;
-}
+	#createPhongForm h2 {
+	    text-align: center;
+	    margin-bottom: 20px;
+	}
+	
+	#createPhongForm .form-group {
+	    margin-bottom: 20px;
+	}
+	
+	#createPhongForm .form-group label {
+	    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+	    font-weight: bold;
+	}
+	
+	#createPhongForm .form-group input {
+		margin-bottom: 20px;
+		display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+	    width: 100%;
+	    padding: 8px;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	}
+	
+/* 	#createPhongForm .form-group label {
+	    display: inline-block; Hiển thị label trên cùng một hàng với input
+	    width: 100px; Điều chỉnh chiều rộng của label nếu cần
+	}
+	
+	#createPhongForm .form-group span,
+	#createPhongForm .form-group input {
+	    display: inline-block; Hiển thị input và span trên cùng một hàng
+	    width: calc(30% - 120px); Điều chỉnh chiều rộng của input và span
+	    margin-left: 20px; Tạo khoảng cách giữa label và input/span
+	} */
+	
+	#createPhongForm .form-group select {
+		margin-bottom: 20px;
+		display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+	    width: 100%;
+	    padding: 8px;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	}
+	
+	#createPhongForm .form-group button {
+		
+	    width: 100%;
+	    padding: 10px;
+	    border: none;
+	    background-color: #009CFF;
+	    color: #fff;
+	    cursor: pointer;
+	    border-radius: 4px;
+	}
+	
+	#createPhongForm .form-group button:hover {
+	    background-color: #45a049;
+	}
+	
+	#editPhongForm {
+	    max-width: 600px !important;
+	    background-color: #f9f9f9;
+	    border-radius: 8px;
+	    padding: 50px;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	    z-index: 100;
+	    position: sticky;
+	    top: -30px;
+	    left: 800px;
+	    transform: translate(-50%, -50%);
+	    margin-top: 300px;
+	    animation: animatetop 0.5s ease forwards; /* Áp dụng hiệu ứng với thời gian 0.5s và forwards để giữ lại trạng thái cuối cùng */
+	}
+	
+	#editPhongForm h2 {
+	    text-align: center;
+	    margin-bottom: 20px;
+	}
+	
+	#editPhongForm .form-group {
+	    margin-bottom: 20px;
+	}
+	
+	#editPhongForm .form-group label {
+	    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+	    font-weight: bold;
+	}
+	
+	#editPhongForm .form-group input,
+	#editPhongForm .form-group select {
+	    margin-bottom: 20px;
+	    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
+	    width: 100%;
+	    padding: 8px;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	}
+	
+	#editPhongForm .form-group button {
+	    width: 100%;
+	    padding: 10px;
+	    border: none;
+	    background-color: #009CFF;
+	    color: #fff;
+	    cursor: pointer;
+	    border-radius: 4px;
+	}
+	
+	#editPhongForm .form-group button:hover {
+	    background-color: #45a049;
+	}
 
 /* CSS cho modal */
 .modal {

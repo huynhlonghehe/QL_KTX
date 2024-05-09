@@ -14,10 +14,19 @@ public class VT_PhongDAO {
     public boolean existsReferencesToVatTu(String maVT) {
         String sql = "SELECT COUNT(*) FROM VT_PHONG WHERE MAVT = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, maVT);
-        System.out.println("Kiem tra ton tai VTPHONG: "+count);
+        System.out.println("Kiem tra ton tai VATTU VTPHONG: "+count);
         return count != null && count > 0;
         
     }
+    
+    public boolean existsReferencesToPhong(String maPhong) {
+        String sql = "SELECT COUNT(*) FROM VT_PHONG WHERE MAPHONG = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, maPhong);
+        System.out.println("Kiem tra ton tai PHONG VTPHONG: "+count);
+        return count != null && count > 0;
+        
+    }
+
 
     // Các phương thức khác cho tương tác với bảng VT_PHONG
 
