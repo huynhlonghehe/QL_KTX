@@ -69,18 +69,17 @@
                 <form id="searchForm" >
                 	
                     <label for="tenBangDuocChon">Chọn bảng:</label>
-                    <select id="tenBangDuocChon" name="tenBangDuocChon">
-                        <option value="MAPHONG">Mã phòng</option>
-                        <option value="TINHTRANG">Tình trạng</option>
-                        <option value="SUCCHUA">Sức chứa</option>
-                        <option value="KHUKTX">Khu KTX</option>
-                        <option value="SOLUONG">Số lượng sinh viên đang cư trú</option>
-                        <option value="MALOAIPHONG">Loại phòng</option>
-                        <!-- Thêm các tùy chọn khác tại đây nếu cần -->
-                    </select>
+					<select id="tenBangDuocChon" name="tenBangDuocChon">
+					    <c:forEach items="${danhSachCacLuaChon}" var="option">
+					        <option value="${option.value}" ${option.value == tenBangDuocChon ? 'selected' : ''}>${option.label}</option>
+<%-- 					        ${option.value == tenBangDuocChon ? 'selected' : ''}: Điều này kiểm tra xem giá trị của option có trùng khớp với 
+					        tenBangDuocChon hay không. Nếu có, thuộc tính selected sẽ được thêm vào để chọn tùy chọn này mặc định.
+					         Nếu không, không có gì được thêm vào. --%>
+					    </c:forEach>
+					</select>
                     <label for="giaTriTimKiem">Nhập giá trị cần tìm:</label>
-                    <input type="text" id="giaTriTimKiem" name="giaTriTimKiem" placeholder="Nhập giá trị">
-                    <button type="button" class="btn btn-primary" onclick="submitSearchForm()">Tìm kiếm</button>
+					<input type="text" id="giaTriTimKiem" name="giaTriTimKiem" placeholder="Nhập giá trị" value="${giaTriTimKiem}">
+                    <button type="button" class="btn btn-find" onclick="submitSearchForm()">Tìm kiếm</button>
                 </form>
 
                 <!-- Các nút reload và thêm -->
