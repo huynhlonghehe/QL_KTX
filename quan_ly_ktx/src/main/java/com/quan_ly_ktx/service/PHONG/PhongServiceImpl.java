@@ -47,7 +47,7 @@ public class PhongServiceImpl implements PhongService {
     }
     
     
-    public List<Phong> timKiemTheoBang(String column, String searchValue){
-    	return phongDAO.timKiemTheoBang(column, searchValue);
+    public List<Phong> timKiemTheoBang(String maPhong, String tinhTrang, String sucChua, String khuKTX, String soLuong, String maLoaiPhong){
+    	return phongDAO.timKiemPhong(maPhong, tinhTrang, sucChua, khuKTX, soLuong, maLoaiPhong);
     }
 }

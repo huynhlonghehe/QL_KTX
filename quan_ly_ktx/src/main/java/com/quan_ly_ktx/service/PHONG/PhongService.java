@@ -12,5 +12,5 @@ public interface PhongService {
     boolean existsByMaPhong(String maPhong);
     void addPhong(Phong phong);
     public List<Phong> sortPhongByColumn(String column, String sortDirection);
-    public List<Phong> timKiemTheoBang(String column, String searchValue);
+    List<Phong> timKiemTheoBang(String maPhong, String tinhTrang, String sucChua, String khuKTX, String soLuong, String maLoaiPhong);
 }

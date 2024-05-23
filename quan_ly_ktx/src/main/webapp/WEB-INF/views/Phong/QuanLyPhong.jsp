@@ -13,7 +13,8 @@
             <%@include file="/WEB-INF/resources/css/Phong_CSS/QuanLyPhong.css" %>
         </style>
         <script src="https://kit.fontawesome.com/e70d1e2fed.js"></script>
-
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     </head>
 
@@ -21,6 +22,7 @@
         <%@include file="/WEB-INF/views/includes/header.jsp"%>
         <%@include file="/WEB-INF/views/includes/menu.jsp"%>
         <div class="main_content">
+        <h1 class="title">Quản Lý phòng</h1>
             <table>
                 <thead>
                     <tr>
@@ -64,28 +66,48 @@
             <div class="search-and-buttons">
                 <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreatePhongForm()">Thêm Phòng</button>
                 <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='http://localhost:8080/quan_ly_ktx/phong/list'">Reload</button>
-            
-                <!-- Form tìm kiếm -->
-                <form id="searchForm" >
+            </div>
+			
+			<div class="search">
+ 				<!-- Form tìm kiếm -->
+                <form action="${pageContext.request.contextPath}/phong/find" method="GET" id="searchForm" >
                 	
-                    <label for="tenBangDuocChon">Chọn bảng:</label>
+<%--                     <label for="tenBangDuocChon">Chọn bảng:</label>
 					<select id="tenBangDuocChon" name="tenBangDuocChon">
 					    <c:forEach items="${danhSachCacLuaChon}" var="option">
 					        <option value="${option.value}" ${option.value == tenBangDuocChon ? 'selected' : ''}>${option.label}</option>
-<%-- 					        ${option.value == tenBangDuocChon ? 'selected' : ''}: Điều này kiểm tra xem giá trị của option có trùng khớp với 
+					        ${option.value == tenBangDuocChon ? 'selected' : ''}: Điều này kiểm tra xem giá trị của option có trùng khớp với 
 					        tenBangDuocChon hay không. Nếu có, thuộc tính selected sẽ được thêm vào để chọn tùy chọn này mặc định.
-					         Nếu không, không có gì được thêm vào. --%>
+					         Nếu không, không có gì được thêm vào.
 					    </c:forEach>
-					</select>
-                    <label for="giaTriTimKiem">Nhập giá trị cần tìm:</label>
-					<input type="text" id="giaTriTimKiem" name="giaTriTimKiem" placeholder="Nhập giá trị" value="${giaTriTimKiem}">
-                    <button type="button" class="btn btn-find" onclick="submitSearchForm()">Tìm kiếm</button>
+					</select> --%>
+					<%--  <label for="giaTriTimKiem">Nhập giá trị cần tìm:</label>
+					<input type="text" id="giaTriTimKiem" name="giaTriTimKiem" placeholder="Nhập giá trị" value="${giaTriTimKiem}"> --%>
+		        <label for="maPhong">Mã phòng:</label>
+		        <input type="text" id="maPhong" name="maPhong" value="${maPhong}">
+		
+		        <label for="tinhTrang">Tình trạng:</label>
+		        <input type="text" id="tinhTrang" name="tinhTrang" value="${tinhTrang}">
+		
+		        <label for="sucChua">Sức chứa:</label>
+		        <input type="text" id="sucChua" name="sucChua" value="${sucChua}">
+		
+		        <label for="khuKTX">Khu KTX:</label>
+		        <input type="text" id="khuKTX" name="khuKTX" value="${khuKTX}">
+		
+		        <label for="soLuong">Số lượng sinh viên:</label>
+		        <input type="text" id="soLuong" name="soLuong" value="${soLuong}">
+		
+		        <label for="maLoaiPhong">Mã loại phòng:</label>
+		        <input type="text" id="maLoaiPhong" name="maLoaiPhong" value="${maLoaiPhong}">
+		        
+		        <button type="submit" class="btn btn-find">Tìm kiếm</button>
                 </form>
 
                 <!-- Các nút reload và thêm -->
 
             </div>
-
+			
             <!-- Form thêm phòng -->
             <div id="createPhongForm" style="display: none">
                 <span class="close" onclick="closeForm('createPhongForm')">&times;</span>
@@ -280,33 +302,6 @@
             });
         });
 
-     // Hàm xử lý submit cho form tìm kiếm
-		function submitSearchForm() {
-		    var selectedColumn = document.getElementById("tenBangDuocChon").value;
-		    var searchValue = document.getElementById("giaTriTimKiem").value;
-		
-		    // Kiểm tra nếu input rỗng
-		    if (searchValue.trim() === "") {
-		        // Hiển thị modal thông báo lỗi
-		        showErrorModal("Vui lòng nhập giá trị cần tìm kiếm.");
-		        return; // Dừng việc gửi form nếu input rỗng
-		    }
-		
-		    // Tạo URL tìm kiếm
-		    var url = "${pageContext.request.contextPath}/phong/list/" + encodeURIComponent(selectedColumn) + "/find/" + encodeURIComponent(searchValue);
-		
-		    // Cập nhật action của form
-		    document.getElementById("searchForm").action = url;
-		
-		    // Submit form
-		    document.getElementById("searchForm").submit();
-		}
-
-
-
-
-
-        
         //tạo maPhong từ maKhu và maSo
         function generateMaPhong() {
             var maKhu = document.getElementById("maKhu").value;
@@ -405,13 +400,34 @@
 
 
         // Kiểm tra nếu có errorMessage thì hiển thị modal
-
+/* 
         function showErrorModal(errorMessage) {
             var modal = document.getElementById("errorModal");
             var modalContent = modal.querySelector("#errorMessage");
             modalContent.innerText = errorMessage;
             modal.style.display = "block";
-        }
+        } */
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            var notiMessage = "${notiMessage}";
+            var successMessage = "${successMessage}";
+
+            if (notiMessage) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: notiMessage,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else if (successMessage) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: successMessage,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
         //Hiển thị confirmModal và kiểm tra lựa chọn 
         function showConfirmModal(message, callback) {
             var modal = document.getElementById("confirmModal");

@@ -27,10 +27,10 @@ table {
     border-collapse: collapse;
     border: 1px solid #333; 
     position: absolute;
-    top: 60px;
+    top: 250px;
     left: 22px;
     display: block; /* Biến table thành block để có thể áp dụng overflow */
-    max-height: 1204%; /* Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng */
+    max-height: 714%; /* Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng */
     overflow-y: auto; /* Thêm thanh trượt dọc nếu nội dung bảng vượt quá chiều cao tối đa */
     border-radius: 5px;
     border: 4px solid #ccc;
@@ -155,17 +155,20 @@ tr:hover {background-color: #f5f5f5;}
     align-items: center;
     margin-bottom: 20px; /* Để tạo khoảng cách giữa form và bảng */
 }
-
-/* Đặt form tìm kiếm ngang hàng */
-#searchForm {
-    margin-right: 20px; /* Khoảng cách giữa form và nút reload */
-}
-
 /* Đặt nút reload và thêm */
 .button_reload,
 .button_createTK {
+	display: block;
     margin-right: 10px; /* Khoảng cách giữa các nút */
 }
+
+.search {
+    display: block;
+    width:100%;
+    
+    
+}
+
 /* CSS cho form tạo vật tư */
 	#createPhongForm {
 		max-width: 600px !important;
@@ -297,8 +300,9 @@ tr:hover {background-color: #f5f5f5;}
 	
 	#searchForm {
 	margin-top:10px;
-	margin-left:19%;
+	margin-left:1%;
 	margin-botton: 5px;
+	width:85%;
     padding: 5px;
     background-color: #ffffff;
     border-radius: 5px;
@@ -311,7 +315,7 @@ tr:hover {background-color: #f5f5f5;}
 
 #searchForm select,
 #searchForm input[type="text"] {
-    width: 200px;
+    width: 123px;
     padding: 5px;
     border-radius: 3px;
     border: 1px solid #ccc;

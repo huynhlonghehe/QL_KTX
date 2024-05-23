@@ -21,6 +21,7 @@
     <%@include file="/WEB-INF/views/includes/header.jsp"%>
     <%@include file="/WEB-INF/views/includes/menu.jsp"%>
     <div class="main_content">
+    <!-- <h1 class="title">Quản Lý vật tư</h1> -->
       <table>
         <thead>
           <tr>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.quan_ly_ktx.DAO.VT_PhongDAO;
 import com.quan_ly_ktx.Entity.PHONG.Phong;
@@ -45,11 +46,13 @@ public class PhongController {
     }
     
     @RequestMapping(value = "/add-phong", method = RequestMethod.POST)
-    public String addVatTu(@ModelAttribute("phong") Phong phong) {
+    public String addVatTu(@ModelAttribute("phong") Phong phong, RedirectAttributes redirectAttributes) {
             String maPhong = phong.getMaKhu() + phong.getMaSo();
             phong.setMaPhong(maPhong);
             System.out.println("Ma phong la: " + maPhong);
+            
             phongService.addPhong(phong);
+            redirectAttributes.addFlashAttribute("notiMessage","Thêm thành công");
         // Trả về trang hiện tại (trang quản lý vật tư)
         return "redirect:/phong/list";
     }
@@ -105,22 +108,30 @@ public class PhongController {
 	    return danhSachCacLuaChon;
 	}
 
-	@RequestMapping(value = "/list/{column}/find/{searchValue}", method = RequestMethod.GET)
-	public String timKiemTheoBang(Model model, @PathVariable("column") String column, @PathVariable("searchValue") String searchValue, HttpSession session) {
+	@RequestMapping(value = "/find", method = RequestMethod.GET)
+	public String timKiemTheoBang(Model model, 
+	                              @RequestParam(name = "maPhong", required = false) String maPhong,
+	                              @RequestParam(name = "tinhTrang", required = false) String tinhTrang,
+	                              @RequestParam(name = "sucChua", required = false) String sucChua,
+	                              @RequestParam(name = "khuKTX", required = false) String khuKTX,
+	                              @RequestParam(name = "soLuong", required = false) String soLuong,
+	                              @RequestParam(name = "maLoaiPhong", required = false) String maLoaiPhong) {
 	    List<OptionSelect> danhSachCacLuaChon = taoDanhSachCacLuaChon();
-	    // Lưu biến vào session
 	    model.addAttribute("danhSachCacLuaChon", danhSachCacLuaChon);
-	    model.addAttribute("tenBangDuocChon", column); // Lưu giá trị của dropdown
-	    model.addAttribute("giaTriTimKiem", searchValue);
 
-	    // Lưu giá trị của dropdown vào session
-	    session.setAttribute("tenBangDuocChon", column);
-	    session.setAttribute("giaTriTimKiem", searchValue);
-	    List<Phong> searchedPhong = phongService.timKiemTheoBang(column, searchValue);
-	    //System.out.println("Danh sách sau khi sort: " +searchedPhong);   
+	    model.addAttribute("maPhong", maPhong);
+	    model.addAttribute("tinhTrang", tinhTrang);
+	    model.addAttribute("sucChua", sucChua);
+	    model.addAttribute("khuKTX", khuKTX);
+	    model.addAttribute("soLuong", soLuong);
+	    model.addAttribute("maLoaiPhong", maLoaiPhong);
+
+	    List<Phong> searchedPhong = phongService.timKiemTheoBang(maPhong, tinhTrang, sucChua, khuKTX, soLuong, maLoaiPhong);
 	    model.addAttribute("listPhong", searchedPhong);
 	    return "Phong/QuanLyPhong";
 	}
+
+
 
 
 }
