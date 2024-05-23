@@ -35,7 +35,6 @@
                         <th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                         <th scope="col">Ngày sửa đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                         <th scope="col">Người sửa đổi <a href="#" data-column="NGUOISUADOICUOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Được quản lý bởi</th>
                         <th scope="col">Hành động</th>
 
                     </tr>
@@ -52,16 +51,15 @@
                             <td>${phong.ngayTao != null ? phong.ngayTao : 'N/A'}</td>
                             <td>${phong.ngaySuaDoi != null ? phong.ngaySuaDoi : 'N/A'}</td>
                             <td>${phong.nguoiSuaDoiCuoi != null ? phong.nguoiSuaDoiCuoi : 'N/A'}</td>
-                            <td></td>
                             <td>
-                                <a href="javascript:void(0);" class="button_action button_edit" onclick="toggleEditPhongForm('${phong.maPhong}', '${phong.tinhTrang}', '${phong.sucChua}','${phong.maLoaiPhong}', '${username}')">Sửa</a>
-                                <a href="#" class="button_action button_delete" onclick="deletePhong('${phong.maPhong}')">Xoá</a>
+                                <a href="javascript:void(0);" class="button_action button_edit" onclick="toggleEditPhongForm('${phong.maPhong}', '${phong.tinhTrang}', '${phong.sucChua}', '${phong.maLoaiPhong}', '${sessionScope.USERNAME}')">Sửa</a>
+								<a href="${pageContext.request.contextPath}/phong/delete-phong/${phong.maPhong}" class="button_action button_delete" onclick="showConfirm('${pageContext.request.contextPath}/phong/delete-phong/${phong.maPhong}'); return false;">Xoá</a>
+
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-
 
             <div class="search-and-buttons">
                 <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreatePhongForm()">Thêm Phòng</button>
@@ -115,7 +113,7 @@
                 <form action="${pageContext.request.contextPath}/phong/add-phong" method="POST">
                     <div class="form-group">
                         <label for="maKhu" class="form-label">Khu:</label>
-                        <select id="maKhu" name="maKhu" class="form-select">
+                        <select id="add_maKhu" name="maKhu" class="form-select">
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
@@ -126,11 +124,11 @@
                     </div>
                     <div class="form-group">
                         <label for="maPhong" class="form-label">Mã Phòng:</label>
-                        <input type="text" class="form-control" id="maSo" name="maSo" placeholder="Nhập mã phòng">
+                        <input type="text" class="form-control" id="add_maSo" name="maSo" placeholder="Nhập mã phòng">
                     </div>
                     <div class="form-group">
                         <label for="tinhTrang" class="form-label">Tình Trạng:</label>
-                        <select id="tinhTrang" name="tinhTrang" class="form-select">
+                        <select id="add_tinhTrang" name="tinhTrang" class="form-select">
                             <option value="Tốt">Tốt</option>
                             <option value="Khá">Khá</option>
                             <option value="Trung Bình">Trung bình</option>
@@ -138,11 +136,11 @@
                     </div>
                     <div class="form-group">
                         <label for="sucChua" class="form-label">Sức chứa:</label>
-                        <input type="number" class="form-control" id="sucChua" name="sucChua" placeholder="Nhập sức chứa">
+                        <input type="number" class="form-control" id="add_sucChua" name="sucChua" placeholder="Nhập sức chứa">
                     </div>
                     <div class="form-group">
                         <label for="maLoaiPhong" class="form-label">Mã loại phòng:</label>
-                        <select id="maLoaiPhong" name="maLoaiPhong" class="form-select">
+                        <select id="add_maLoaiPhong" name="maLoaiPhong" class="form-select">
                             <option value="LP001">Dịch vụ</option>
                             <option value="LP002">Tốt</option>
                             <option value="LP003">Thường</option>
@@ -233,6 +231,34 @@
 
     </body>
     <script>
+    	
+    
+	    function showConfirm(href) {
+	        Swal.fire({
+	            title: 'Bạn có chắc chắn muốn xoá?',
+	            text: "Bạn sẽ không thể hoàn tác điều này!",
+	            icon: 'warning',
+	            showCancelButton: true,
+	            confirmButtonColor: '#3085d6',
+	            cancelButtonColor: '#d33',
+	            confirmButtonText: 'Xoá',
+	            cancelButtonText: 'Huỷ'
+	        }).then((result) => {
+	            if (result.isConfirmed) {
+	                window.location.href = href;
+	            }
+	        });
+	    }
+    
+	    function showAlert(title, message, icon) {
+	        Swal.fire({
+	            title: title,
+	            text: message,
+	            icon: icon,
+	            confirmButtonText: 'OK'
+	        });
+	    }
+	    
         //tải lại trang
         function reloadPage() {
             // Lấy URL gốc của trang (không có tham số sort)
@@ -304,71 +330,55 @@
 
         //tạo maPhong từ maKhu và maSo
         function generateMaPhong() {
-            var maKhu = document.getElementById("maKhu").value;
-            var maSo = document.getElementById("maSo").value;
+            var maKhu = document.getElementById("add_maKhu").value;
+            var maSo = document.getElementById("add_maSo").value;
+            console.log(maKhu);
+            console.log(maSo);
             var maPhong = maKhu + maSo;
+            console.log(maPhong);
             return maPhong;
         }
 
         //Hàm xử lý submit cho cả hai form
-        function submitForm(formType) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của sự kiện submit
-
-            // Lấy dữ liệu từ form
-            var maPhong, tinhTrang, sucChua, maLoaiPhong;
-            if (formType === 'create') {
-                maPhong = generateMaPhong();
-                tinhTrang = document.getElementById("tinhTrang").value;
-                sucChua = document.getElementById("sucChua").value;
-                maLoaiPhong = document.getElementById("maLoaiPhong").value;
-            } else if (formType === 'edit') {
-                maPhong = document.getElementById("edit_maPhong").value;
-                tinhTrang = document.getElementById("edit_tinhTrang").value;
-                sucChua = document.getElementById("edit_sucChua").value;
-                maLoaiPhong = document.getElementById("edit_maLoaiPhong").value;
-            }
-
-            // Kiểm tra dữ liệu
-            if (maPhong === '' || tinhTrang === '' || sucChua === '' || maLoaiPhong === '') {
-                showErrorModal("Vui lòng điền đầy đủ thông tin.");
-                return false;
-            }
-
-            // Xử lý submit tùy thuộc vào loại form
-            if (formType === 'create') {
-                // Thêm phòng mới
-            	document.querySelector("#createPhongForm form").submit();
-            } else if (formType === 'edit') {
-                // Sửa thông tin phòng
-            	document.querySelector("#editPhongForm form").submit();
-            }
-        }
-
-        // Hàm xử lý submit cho form thêm phòng
-        function submitCreateForm(maPhong, tinhTrang, sucChua, maLoaiPhong) {
-            // Kiểm tra mã phòng có tồn tại không
-            $.ajax({
-                type: "GET",
-                url: "${pageContext.request.contextPath}/phong/invalidInput/" + maPhong,
-                success: function(response) {
-                    if (response === "OK") {
-                        // Mã phòng hợp lệ, gửi biểu mẫu
-                        document.querySelector("#createPhongForm form").submit();
-                    } else {
-                        showErrorModal("Mã phòng đã tồn tại, vui lòng chọn mã khác.");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    showErrorModal("Đã xảy ra lỗi khi kiểm tra mã phòng.");
-                }
-            });
-        }
-
-        // Hàm xử lý submit cho form sửa thông tin phòng
-        function submitEditForm(maPhong, tinhTrang, sucChua, maLoaiPhong) {
-            // Gửi biểu mẫu sửa thông tin phòng
-            document.querySelector("#editPhongForm form").submit();
-        }
+		function submitForm(formType) {
+		    event.preventDefault(); // Ngăn chặn hành động mặc định của sự kiện submit
+		
+		    // Lấy dữ liệu từ form
+		    var maPhong, tinhTrang, sucChua, maLoaiPhong;
+		    if (formType === 'create') {
+		        maPhong = generateMaPhong();
+		        console.log(maPhong);
+		        tinhTrang = document.getElementById("add_tinhTrang").value;
+		        sucChua = document.getElementById("add_sucChua").value;
+		        maLoaiPhong = document.getElementById("add_maLoaiPhong").value;
+		    } else if (formType === 'edit') {
+		        maPhong = document.getElementById("edit_maPhong").value;
+		        tinhTrang = document.getElementById("edit_tinhTrang").value;
+		        sucChua = document.getElementById("edit_sucChua").value;
+		        maLoaiPhong = document.getElementById("edit_maLoaiPhong").value;
+		    }
+		
+		    // Kiểm tra dữ liệu
+		    if (maPhong === '' || tinhTrang === '' || sucChua === '' || maLoaiPhong === '') {
+		        showAlert('Error!', 'Vui lòng điền đầy đủ thông tin.', 'error');
+		        return false;
+		    }
+		
+		    // Kiểm tra giá trị của sức chứa
+		    if (sucChua < 2 || sucChua > 12) {
+		        showAlert('Error!', 'Sức chứa phải nằm trong khoảng từ 2 đến 12.', 'error');
+		        return false; // Ngăn chặn việc gửi biểu mẫu nếu giá trị không hợp lệ
+		    }
+		
+		    // Xử lý submit tùy thuộc vào loại form
+		    if (formType === 'create') {
+		        // Thêm phòng mới
+		        document.querySelector("#createPhongForm form").submit();
+		    } else if (formType === 'edit') {
+		        // Sửa thông tin phòng
+		        document.querySelector("#editPhongForm form").submit();
+		    }
+		}
 
         //kiểm tra các liên kết của phòng đang muốn xóa
         function deletePhong(maPhong) {
@@ -397,37 +407,19 @@
                 }
             });
         }
-
-
-        // Kiểm tra nếu có errorMessage thì hiển thị modal
-/* 
-        function showErrorModal(errorMessage) {
-            var modal = document.getElementById("errorModal");
-            var modalContent = modal.querySelector("#errorMessage");
-            modalContent.innerText = errorMessage;
-            modal.style.display = "block";
-        } */
         
         document.addEventListener('DOMContentLoaded', function() {
-            var notiMessage = "${notiMessage}";
+            var errorMessage = "${errorMessage}";
             var successMessage = "${successMessage}";
 
-            if (notiMessage) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: notiMessage,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
+            if (errorMessage) {
+                showAlert('Error!', errorMessage, 'error');
             } else if (successMessage) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: successMessage,
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
+                showAlert('Success!', successMessage, 'success');
             }
         });
+        
+        
         //Hiển thị confirmModal và kiểm tra lựa chọn 
         function showConfirmModal(message, callback) {
             var modal = document.getElementById("confirmModal");

@@ -41,15 +41,25 @@ public class LoginController {
 	    // Gọi phương thức xác thực từ TaiKhoanDAO
 	    String logResult = loginDAO.loginMethod(username, password);
 	    List<String> values = Arrays.asList(logResult.split("%"));
-	    if(values.get(0).equals("Success")) {
-	    	request.getSession().setAttribute("USERNAME", username);
-	    	if(values.get(1).equals("ADMIN")) {
-	    		mv = new ModelAndView("redirect:../quan_ly_ktx/quanly/");
-	    	}
-	    	else {
-	    		mv = new ModelAndView("SinhVien/SinhVien_main");
-	    	}
+	    if (values.get(0).equals("Success")) {
+	        request.getSession().setAttribute("USERNAME", username);
+	        if (values.get(1).equals("ADMIN")) {
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/quanly/");
+	        } else if (values.get(1).equals("Quản lý phòng")) {
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/phong/list");
+	        } else if (values.get(1).equals("Quản lý tài khoản")) {
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/quanly/QLTaiKhoan");
+	        } else if (values.get(1).equals("Quản lý sinh viên")) {
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/quanly/QLSinhVien");
+	        } else if (values.get(1).equals("Quản lý hợp đồng")) {
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/quanly/QLHopDong");
+	        } else if (values.get(1).equals("Quản lý vật tư")) {
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/vattu/list");
+	        } else if (values.get(1).equals("Quản lý hoá đơn điện")) {
+	            mv = new ModelAndView("redirect:../quan_ly_ktx/quanly/QLTaiKhoan");
+	        }
 	    }
+
 	    return mv; 
 	}
 }

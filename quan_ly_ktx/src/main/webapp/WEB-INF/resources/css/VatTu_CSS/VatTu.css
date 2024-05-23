@@ -27,8 +27,8 @@ table {
     border-collapse: collapse;
     border: 1px solid #333; 
     position: absolute;
-    top: 60px;
-    left: 28px;
+    top: 180px;
+    left: 1%;
     display: block; /* Biến table thành block để có thể áp dụng overflow */
     max-height: 715px; /* Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng */
     overflow-y: auto; /* Thêm thanh trượt dọc nếu nội dung bảng vượt quá chiều cao tối đa */
@@ -103,7 +103,7 @@ tr:hover {background-color: #f5f5f5;}
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
-    margin-left: 28px;
+    margin-left: 1%;
     margin-top: 15px;
 
 }
@@ -140,6 +140,62 @@ tr:hover {background-color: #f5f5f5;}
 .btn-Them:focus {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
     outline: 0;
+}
+
+.search-and-buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Để tạo khoảng cách giữa form và bảng */
+}
+/* Đặt nút reload và thêm */
+.button_reload,
+.button_createTK {
+	display: block;
+    margin-right: 10px; /* Khoảng cách giữa các nút */
+}
+
+/* CSS cho form search */
+.search {
+    display: block;
+    width:100%;
+    
+    
+}
+	#searchForm {
+	margin-top:10px;
+	margin-left:1%;
+	margin-botton: 5px;
+	width:85%;
+    padding: 5px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#searchForm label {
+    margin-bottom: 5px;
+}
+
+#searchForm select,
+#searchForm input[type="text"] {
+    width: 123px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#searchForm button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#searchForm button:hover {
+    background-color: #0056b3;
 }
 /* CSS cho form tạo vật tư */
 #createVatTuForm {
