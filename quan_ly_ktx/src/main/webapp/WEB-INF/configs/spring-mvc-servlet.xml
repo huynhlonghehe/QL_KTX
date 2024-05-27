@@ -29,4 +29,8 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+
+	<!-- Cấu hình để phục vụ tài nguyên tĩnh -->
+    	<mvc:resources mapping="/assets/**" location="/assets/" />
+    	<mvc:annotation-driven/>
 </beans>
