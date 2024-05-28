@@ -50,11 +50,17 @@ public class PhongController {
             String maPhong = phong.getMaKhu() + phong.getMaSo();
             phong.setMaPhong(maPhong);
             System.out.println("Ma phong la: " + maPhong);
-            
-            phongService.addPhong(phong);
-            redirectAttributes.addFlashAttribute("notiMessage","Thêm thành công");
+            if (phongService.existsByMaPhong(maPhong)) {
+            	redirectAttributes.addFlashAttribute("errorMessage","Mã phòng đã tồn tại !");
+            	return "redirect:/phong/list";
+            }
+            else {
+            	phongService.addPhong(phong);
+                redirectAttributes.addFlashAttribute("successMessage","Thêm thành công");
+                return "redirect:/phong/list";
+            }
         // Trả về trang hiện tại (trang quản lý vật tư)
-        return "redirect:/phong/list";
+        
     }
     
     @Autowired
@@ -72,10 +78,16 @@ public class PhongController {
     }
     
     @RequestMapping(value = "/delete-phong/{maPhong}", method = RequestMethod.GET)
-    public String deletePhong(@PathVariable("maPhong") String maPhong) {
-        phongService.deletePhong(maPhong);
-        return "redirect:/phong/list";
+    public String deletePhong(@PathVariable("maPhong") String maPhong, RedirectAttributes redirectAttributes) {
+        if (vtPhongDAO.existsReferencesToPhong(maPhong)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Phòng đang được sử dụng");
+            return "redirect:/phong/list";
+        } else {
+            phongService.deletePhong(maPhong);
+            return "redirect:/phong/list";
+        }
     }
+
 
 
     @RequestMapping(value = "/invalidInput/{maPhong}", method = RequestMethod.GET)
