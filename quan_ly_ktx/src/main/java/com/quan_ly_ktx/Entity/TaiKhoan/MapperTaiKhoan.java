@@ -1,7 +1,8 @@
 package com.quan_ly_ktx.Entity.TaiKhoan;
 
+
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 

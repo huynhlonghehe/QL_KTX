@@ -21,19 +21,19 @@
 	<h1 class="title">Quản Lý Sinh Viên</h1>
 	<div class="searchContainer">
 		<form method="GET" action="/quan_ly_ktx/quanly/QLSinhVien/searchSinhVien" class="searchSinhVien" id="searchForm">
-			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" id="nameInput"/>
-			<input type="text" name="ho" placeholder="Họ" class="inputSearch" id="nameInput"/>
-			<input type="text" name="ten" placeholder="Tên" class="inputSearch" id="nameInput"/>
-			<!-- <input type="text" name="gioiTinh" placeholder="Giới tính" class="inputSearch" id="nameInput"/> -->
-			<select class="inputSearch"  id="nameInput" name="gioiTinh">
-				<option>Giới tính</option>
-               	<option value="Nam" >Nam</option>
-               	<option value="Nữ" >Nữ</option>
-            </select>
-			<input type="date" name="ngaySinh" placeholder="Ngày sinh" class="inputSearch" id="nameInput"/>
-			<input type="text" name="diaChi" placeholder="Địa chỉ" class="inputSearch" id="nameInput"/>
-			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" id="nameInput"/>
+			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" value="${maSV}" id="maSV"/>
+			<input type="text" name="ho" placeholder="Họ" class="inputSearch" value="${ho}" id="ho"/>
+			<input type="text" name="ten" placeholder="Tên" class="inputSearch" value="${ten}" id="ten"/>
+			<select class="inputSearch" id="gioiTinh" name="gioiTinh">
+				<option value="">Giới tính</option>
+				<option value="Nam" ${'Nam'.equals(gioiTinh) ? 'selected' : ''}>Nam</option>
+				<option value="Nữ" ${'Nữ'.equals(gioiTinh) ? 'selected' : ''}>Nữ</option>
+			</select>
+			<input type="date" name="ngaySinh" placeholder="Ngày sinh" class="inputSearch" value="${ngaySinh}" id="ngaySinh"/>
+			<input type="text" name="diaChi" placeholder="Địa chỉ" class="inputSearch" value="${diaChi}" id="diaChi"/>
+			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" value="${lop}" id="lop"/>
 			<button type="submit" value="Search" class="buttonSearch"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+			<button type="button" value="Refresh" class="buttonRefresh" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate" ></i></button>
 		</form>
 	</div>
 	
@@ -48,7 +48,6 @@
                 <th scope="col">Lớp</th>
                 <th scope="col">Địa chỉ</th>
                 <th scope="col">SDT</th>
-                <th scope="col">Người sửa cuối</th>
                 <th scope="col">Xét điều kiện ở</th>
                 <th scope="col"></th>
             </tr>
@@ -66,7 +65,6 @@
 		                    <td>${sinhVien.getLop()}</td>
 		                    <td>${sinhVien.getDiaChi()}</td>
 		                    <td>${sinhVien.getSdt()}</td>
-		                    <td>${sinhVien.getNguoiSuaDoiCuoi()}</td>
 		                    <td style="text-align: center">
 					            <c:set var="viPhamMucDo1" value="0"/>
 					            <c:set var="viPhamMucDo2" value="0"/>
@@ -87,7 +85,6 @@
 					                        </c:when>
 					                    </c:choose>
 					                </c:if>
-					               
 					            </c:forEach>
 					            <!-- Ở vi phạm mức độ 3 nhân với 4 vì nếu vi phạm mức độ 3 1 lần là out lun -->
 					             <c:if test = "${(viPhamMucDo1*1) + (viPhamMucDo2)*2 + (viPhamMucDo3)*4 > 3}">
@@ -290,6 +287,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	    });
 	});
 /* Kết thúc */
+ 
+/* Làm mới trang khi ấn vào nút refresh */
+function refreshPage() {
+	 window.location.href = '/quan_ly_ktx/quanly/QLSinhVien';
+}
+/* Kết thúc */
+
 
 </script>
  

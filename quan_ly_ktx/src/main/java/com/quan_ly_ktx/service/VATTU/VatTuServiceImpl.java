@@ -1,4 +1,4 @@
-package com.quan_ly_ktx.service;
+package com.quan_ly_ktx.service.VATTU;
 
 import java.util.List;
 

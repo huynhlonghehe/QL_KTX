@@ -27,7 +27,7 @@ table {
     border-collapse: collapse;
     border: 1px solid #333; 
     position: absolute;
-    top: 250px;
+    top: 180px;
     left: 22px;
     display: block; /* Biến table thành block để có thể áp dụng overflow */
     max-height: 714%; /* Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng */

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Repository;
 import com.quan_ly_ktx.Entity.PHONG.Phong;
 
@@ -37,7 +38,11 @@ public class PhongDAO{
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Phong.class));
     }
 
-
+    public List<String> getAllMaPhong() {
+        String sql = "SELECT MAPHONG FROM PHONG";
+        return jdbcTemplate.query(sql, new SingleColumnRowMapper<>(String.class));
+    }
+    
     public Phong getPhongById(String maPhong) {
         String sql = "SELECT * FROM PHONG WHERE maPhong = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{maPhong}, new BeanPropertyRowMapper<>(Phong.class));

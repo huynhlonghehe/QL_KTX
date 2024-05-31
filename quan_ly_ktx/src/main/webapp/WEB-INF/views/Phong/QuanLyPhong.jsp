@@ -67,44 +67,33 @@
             </div>
 			
 			<div class="search">
- 				<!-- Form tìm kiếm -->
-                <form action="${pageContext.request.contextPath}/phong/find" method="GET" id="searchForm" >
-                	
-<%--                     <label for="tenBangDuocChon">Chọn bảng:</label>
-					<select id="tenBangDuocChon" name="tenBangDuocChon">
-					    <c:forEach items="${danhSachCacLuaChon}" var="option">
-					        <option value="${option.value}" ${option.value == tenBangDuocChon ? 'selected' : ''}>${option.label}</option>
-					        ${option.value == tenBangDuocChon ? 'selected' : ''}: Điều này kiểm tra xem giá trị của option có trùng khớp với 
-					        tenBangDuocChon hay không. Nếu có, thuộc tính selected sẽ được thêm vào để chọn tùy chọn này mặc định.
-					         Nếu không, không có gì được thêm vào.
-					    </c:forEach>
-					</select> --%>
-					<%--  <label for="giaTriTimKiem">Nhập giá trị cần tìm:</label>
-					<input type="text" id="giaTriTimKiem" name="giaTriTimKiem" placeholder="Nhập giá trị" value="${giaTriTimKiem}"> --%>
-		        <label for="maPhong">Mã phòng:</label>
-		        <input type="text" id="maPhong" name="maPhong" value="${maPhong}">
-		
-		        <label for="tinhTrang">Tình trạng:</label>
-		        <input type="text" id="tinhTrang" name="tinhTrang" value="${tinhTrang}">
-		
-		        <label for="sucChua">Sức chứa:</label>
-		        <input type="text" id="sucChua" name="sucChua" value="${sucChua}">
-		
-		        <label for="khuKTX">Khu KTX:</label>
-		        <input type="text" id="khuKTX" name="khuKTX" value="${khuKTX}">
-		
-		        <label for="soLuong">Số lượng sinh viên:</label>
-		        <input type="text" id="soLuong" name="soLuong" value="${soLuong}">
-		
-		        <label for="maLoaiPhong">Mã loại phòng:</label>
-		        <input type="text" id="maLoaiPhong" name="maLoaiPhong" value="${maLoaiPhong}">
-		        
-		        <button type="submit" class="btn btn-find">Tìm kiếm</button>
-                </form>
+			    <!-- Form tìm kiếm -->
+			    <form action="${pageContext.request.contextPath}/phong/find" method="GET" id="searchForm">
+			        <label for="maPhong">Mã phòng:</label>
+			        <input type="text" id="maPhong" name="maPhong" value="${maPhong}" placeholder="Nhập mã phòng">
+			        
+			        <label for="tinhTrang">Tình trạng:</label>
+			        <input type="text" id="tinhTrang" name="tinhTrang" value="${tinhTrang}" placeholder="Nhập tình trạng">
+			        
+			        <label for="sucChua">Sức chứa:</label>
+			        <input type="text" id="sucChua" name="sucChua" value="${sucChua}" placeholder="Nhập sức chứa">
+			        
+			        <label for="khuKTX">Khu KTX:</label>
+			        <input type="text" id="khuKTX" name="khuKTX" value="${khuKTX}" placeholder="Nhập khu KTX">
+			        
+			        <label for="soLuong">Số lượng sinh viên:</label>
+			        <input type="text" id="soLuong" name="soLuong" value="${soLuong}" placeholder="Nhập số lượng sinh viên">
+			        
+			        <label for="maLoaiPhong">Mã loại phòng:</label>
+			        <input type="text" id="maLoaiPhong" name="maLoaiPhong" value="${maLoaiPhong}" placeholder="Nhập mã loại phòng">
+			        
+			        <button type="submit" class="btn btn-find">Tìm kiếm</button>
+			    </form>
+			
+			    <!-- Các nút reload và thêm -->
+			
+			</div>
 
-                <!-- Các nút reload và thêm -->
-
-            </div>
 			
             <!-- Form thêm phòng -->
             <div id="createPhongForm" style="display: none">
@@ -196,37 +185,6 @@
 
 
         </div>
-
-        <div id="errorModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div class="modal-header">
-                    <h2>Xuất hiện lỗi !!!</h2>
-                </div>
-                <div class="modal-body">
-                    <p id="errorMessage"></p>
-                </div>
-            </div>
-        </div>
-
-        <div id="confirmModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close" onclick="closeForm('confirmModal')">&times;</span>
-                <div class="modal-header">
-                    <h2>Thông báo</h2>
-                </div>
-                <div class="modal-body">
-                    <p id="message"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="closeConfirmModalButton">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="saveChangesConfirmModalButton">Lưu thay đổi</button>
-                </div>
-            </div>
-        </div>
-
 
 
     </body>

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.quan_ly_ktx.DAO.VT_PhongDAO;
 import com.quan_ly_ktx.Entity.VATTU.VatTu;
-import com.quan_ly_ktx.service.VatTuService;
+import com.quan_ly_ktx.service.VATTU.VatTuService;
 
 @Controller
 @RequestMapping("/vattu")

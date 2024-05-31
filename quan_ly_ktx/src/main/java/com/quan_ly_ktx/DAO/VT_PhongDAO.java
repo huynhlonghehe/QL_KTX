@@ -1,9 +1,13 @@
 package com.quan_ly_ktx.DAO;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+import com.quan_ly_ktx.Entity.VATTU.VT_PHONG;
 
 @Repository
 public class VT_PhongDAO {
@@ -26,6 +30,12 @@ public class VT_PhongDAO {
         return count != null && count > 0;
         
     }
+    
+	public List<VT_PHONG> getAllVTPHONG(){
+		String sql="SELECT * FROM VT_PHONG";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VT_PHONG.class));
+				
+	}
 
 
     // Các phương thức khác cho tương tác với bảng VT_PHONG

@@ -6,6 +6,7 @@ import com.quan_ly_ktx.Entity.PHONG.Phong;
 
 public interface PhongService {
     List<Phong> getAllPhongs();
+    List<String> getAllMaPhong();
     Phong getPhongById(String maPhong);
     void updatePhong(Phong phong);
     void deletePhong(String maPhong);

@@ -25,12 +25,16 @@ public class HopDong {
 	private String maPhong;
 	@Column(name = "MASV")
 	private String maSV;
+	@Column(name = "NGAYSUADOI")
+	private String ngaySuaDoi;
+	@Column(name = "NGUOISUADOICUOI")
+	private String nguoiSuaDoiCuoi;
 	
 	public HopDong() {
 		super();
 	}
 	
-	public HopDong(String maHD, String ngayTao, String ngayHetHan , long soTien, String namHoc, String hocKy, long tienNo, String maPhong, String maSV){
+	public HopDong(String maHD, String ngayTao, String ngayHetHan , long soTien, String namHoc, String hocKy, long tienNo, String maPhong, String maSV, String ngaySuaDoi, String nguoiSuaDoiCuoi){
 		this.maHD = maHD;
 		this.ngayTao = ngayTao;
 		this.ngayHetHan = ngayHetHan;
@@ -39,6 +43,8 @@ public class HopDong {
 		this.hocKy = hocKy;
 		this.maPhong = maPhong;
 		this.maSV = maSV;
+		this.ngaySuaDoi = ngaySuaDoi;
+		this.nguoiSuaDoiCuoi = nguoiSuaDoiCuoi;
 	}
 
 	public String getMaHD() {
@@ -104,7 +110,22 @@ public class HopDong {
 	public void setMaSV(String maSV) {
 		this.maSV = maSV;
 	}
+	public String getNgaySuaDoi() {
+		return ngaySuaDoi;
+	}
 
+	public void setNgaySuaDoi(String ngaySuaDoi) {
+		this.ngaySuaDoi = ngaySuaDoi;
+	}
+
+	public String getNguoiSuaDoiCuoi() {
+		return nguoiSuaDoiCuoi;
+	}
+
+	public void setNguoiSuaDoiCuoi(String nguoiSuaDoiCuoi) {
+		this.nguoiSuaDoiCuoi = nguoiSuaDoiCuoi;
+	}
+	
 	
 	@Override
 	public String toString() {

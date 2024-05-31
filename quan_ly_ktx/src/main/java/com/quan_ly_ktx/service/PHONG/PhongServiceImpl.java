@@ -16,7 +16,13 @@ public class PhongServiceImpl implements PhongService {
     public List<Phong> getAllPhongs() {
         return phongDAO.getAllPhongs();
     }
-
+    
+    
+    @Override
+    public List<String> getAllMaPhong() {
+        return phongDAO.getAllMaPhong();
+    }
+    
     @Override
     public Phong getPhongById(String maPhong) {
         return phongDAO.getPhongById(maPhong);

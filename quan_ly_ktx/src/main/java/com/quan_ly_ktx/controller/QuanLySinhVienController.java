@@ -4,21 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import com.quan_ly_ktx.DAO.SinhVienDAO;
 import com.quan_ly_ktx.DAO.TaiKhoanDAO;
 import com.quan_ly_ktx.Entity.SinhVien.SinhVien;
-import com.quan_ly_ktx.dto.SinhVienDetailsDTO;
+
+import com.quan_ly_ktx.DTO.SinhVienDetailsDTO;
+
 
 @Controller
 @RequestMapping("/quanly")
@@ -74,8 +73,8 @@ public class QuanLySinhVienController {
 			redirectAttributes.addFlashAttribute("errorMessage", "Sinh viên này đã tồn tại!");
 			return "redirect:/quanly/QLSinhVien";
 		}else {
-			redirectAttributes.addFlashAttribute("successMessage", "Đã thêm sinh viên " + newSinhVien.getMaSV() + " thành công!");
 			sinhVienDAO.createSinhVien(newSinhVien);
+			redirectAttributes.addFlashAttribute("successMessage", "Đã thêm sinh viên " + newSinhVien.getMaSV() + " thành công!");
 		}
 		return "redirect:/quanly/QLSinhVien";
 	}
@@ -103,7 +102,6 @@ public class QuanLySinhVienController {
             @RequestParam(required = false) String direction,
             ModelMap modelMap) {
 		if(maSV.equals("") && ho.equals("") && ten.equals("") && gioiTinh.equals("Giới tính") && ngaySinh.equals("")&& diaChi.equals("") && lop.equals("")) {
-			System.out.println("hello");
 			return "redirect:/quanly/QLSinhVien";
 		}else {
 				List<SinhVien> resultList  = sinhVienDAO.searchSinhVien(maSV, ho, ten, gioiTinh, ngaySinh, diaChi, lop, sort, direction);
@@ -113,6 +111,13 @@ public class QuanLySinhVienController {
 				modelMap.addAttribute("ListQuanLySinhVien", listQuanLySinhVienList);
 				List<SinhVienDetailsDTO> resultSinhVienCoViPham = sinhVienDAO.GetDataSinhVienCoViPham();
 				modelMap.addAttribute("ListSV_CoViPham", resultSinhVienCoViPham);
+				modelMap.addAttribute("maSV", maSV);
+				modelMap.addAttribute("ho", ho);
+				modelMap.addAttribute("ten", ten);
+				modelMap.addAttribute("gioiTinh", gioiTinh);
+				modelMap.addAttribute("ngaySinh", ngaySinh);
+				modelMap.addAttribute("diaChi", diaChi);
+				modelMap.addAttribute("lop", lop);
 			
 		}
 		

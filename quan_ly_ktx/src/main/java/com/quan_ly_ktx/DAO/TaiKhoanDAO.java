@@ -23,9 +23,8 @@ public class TaiKhoanDAO {
 	public JdbcTemplate _jdbcTemplate;
 	public List<TaiKhoan> GetDataTaiKhoan(){
 		List<TaiKhoan> list = new ArrayList<TaiKhoan>();
-		String quyen = "Sinh viên";
-		String sql = "SELECT * FROM TAIKHOAN WHERE QUYEN = ?";
-		list = _jdbcTemplate.query(sql, new Object[] {quyen}, new MapperTaiKhoan());
+		String sql = "SELECT * FROM TAIKHOAN";
+		list = _jdbcTemplate.query(sql, new MapperTaiKhoan());
 		return list;
 	}
 	

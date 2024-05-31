@@ -1,16 +1,20 @@
 package com.quan_ly_ktx.DAO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import org.springframework.stereotype.Repository;
 
 import com.quan_ly_ktx.Entity.HopDong.HopDong;
 import com.quan_ly_ktx.Entity.HopDong.MapperHopDong;
+
 
 @Repository
 public class HopDongDAO {
@@ -56,7 +60,7 @@ public class HopDongDAO {
 	}
 	
 	public void createHD(HopDong hopDong) {
-		String sql_createHD = "INSERT INTO HOPDONG VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_createHD = "INSERT INTO HOPDONG(MAHD, NGAYTAO, NGAYHETHAN, SOTIEN, NAMHOC, HOCKY, MAPHONG, MASV) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		String maHD = hopDong.getMaHD();
 		String ngayTao = hopDong.getNgayTao();
 		String ngayHetHan = hopDong.getNgayHetHan();
@@ -71,4 +75,37 @@ public class HopDongDAO {
  	        e.printStackTrace();
  	    }
 	}
+	
+	public void updateHopDong(HopDong hopDong, String CurMaHD) {
+		String sql= "UPDATE HOPDONG SET MAHD = ?, NGAYTAO = ?, NGAYHETHAN = ?, SOTIEN = ?, NAMHOC = ?, HOCKY = ?, MAPHONG = ?, MASV = ?, NGAYSUADOI = ?, NGUOISUADOICUOI = ? WHERE MAHD = ?";
+		String maHD = hopDong.getMaHD();
+		String ngayTao = hopDong.getNgayTao();
+		String ngayHetHan = hopDong.getNgayHetHan();
+		long soTien = hopDong.getSoTien();
+		String namHoc = hopDong.getNamHoc();
+		String hocKy = hopDong.getHocKy();
+		String maPhong = hopDong.getMaPhong();
+		String maSV = hopDong.getMaSV();
+		LocalDateTime now = LocalDateTime.now();
+		 // Định dạng ngày giờ nếu cần (ví dụ: yyyy-MM-dd HH:mm:ss)
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String ngaySuaDoi = now.format(formatter);
+		String nguoiSuaDoiCuoiString = hopDong.getNguoiSuaDoiCuoi();
+		try {
+			_jdbcTemplate.update(sql, maHD, ngayTao, ngayHetHan, soTien, namHoc, hocKy, maPhong, maSV, ngaySuaDoi, nguoiSuaDoiCuoiString, CurMaHD);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteHopDong(String maHD) {
+		String sql = "DELETE HOPDONG WHERE MAHD = ?";
+		try {
+			_jdbcTemplate.update(sql, maHD);
+		}catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

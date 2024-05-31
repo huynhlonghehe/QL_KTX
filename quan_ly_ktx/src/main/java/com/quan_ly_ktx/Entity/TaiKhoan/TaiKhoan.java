@@ -1,5 +1,8 @@
 package com.quan_ly_ktx.Entity.TaiKhoan;
 
+
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

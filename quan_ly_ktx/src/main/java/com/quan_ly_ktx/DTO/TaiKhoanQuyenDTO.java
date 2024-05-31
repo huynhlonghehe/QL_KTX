@@ -1,4 +1,4 @@
-package com.quan_ly_ktx.dto;
+package com.quan_ly_ktx.DTO;
 
 public class TaiKhoanQuyenDTO {
     private String tenDangNhap;

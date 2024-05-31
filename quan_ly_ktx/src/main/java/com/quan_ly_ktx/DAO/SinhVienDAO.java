@@ -21,8 +21,8 @@ import com.quan_ly_ktx.Entity.SinhVien.QuanLy_SinhVien;
 import com.quan_ly_ktx.Entity.SinhVien.SinhVien;
 import com.quan_ly_ktx.Entity.TaiKhoan.MapperTaiKhoan;
 import com.quan_ly_ktx.Entity.TaiKhoan.TaiKhoan;
-import com.quan_ly_ktx.dto.SinhVienDetailsDTO;
-import com.quan_ly_ktx.dto.MapperSinhVienDetailsDTO;
+import com.quan_ly_ktx.DTO.SinhVienDetailsDTO;
+import com.quan_ly_ktx.DTO.MapperSinhVienDetailsDTO;
 @Repository
 public class SinhVienDAO {
 	@Autowired
@@ -100,7 +100,7 @@ public class SinhVienDAO {
 	}
 	
 	public void createSinhVien(SinhVien newSinhVien) {
-		String sql = "INSERT INTO SINHVIEN(MASV, HO, TEN, NGAYSINH, DIACHI, SDT, GIOITINH, LOP, NGAYTAO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql_createSV = "INSERT INTO SINHVIEN(MASV, HO, TEN, NGAYSINH, DIACHI, SDT, GIOITINH, LOP, NGAYTAO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String maSV = newSinhVien.getMaSV();
 		String ho = newSinhVien.getHo();
 		String ten = newSinhVien.getTen();
@@ -111,14 +111,13 @@ public class SinhVienDAO {
 		String lop= newSinhVien.getLop();
 		 // Lấy ngày hiện tại
 		LocalDateTime now = LocalDateTime.now();
-		
-		System.out.print("TOi dc day");
 
 		// Định dạng ngày giờ nếu cần (ví dụ: yyyy-MM-dd HH:mm:ss)
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String ngayTao = now.format(formatter);
+		
 	    try {
-	    	_jdbcTemplate.update(sql, maSV, ho, ten, ngaySinh, diaChi, sdt, gioiTinh, lop, ngayTao);
+	    	_jdbcTemplate.update(sql_createSV, maSV, ho, ten, ngaySinh, diaChi, sdt, gioiTinh, lop, ngayTao);
 	    } catch (DataAccessException e) {
 			e.printStackTrace();
 		}
@@ -180,6 +179,23 @@ public class SinhVienDAO {
             }
         }, new MapperSinhVien());
     }
+	
+	
+	/* Lấy danh sách các sinh viên chưa có hợp đồng */
+	public List<SinhVien> getSVChuaCoHD() {
+		 String sql = "SELECT SINHVIEN.* " +
+                "FROM SINHVIEN " +
+                "LEFT JOIN HOPDONG ON SINHVIEN.MASV = HOPDONG.MASV " +
+                "WHERE HOPDONG.MASV IS NULL";
+		 List<SinhVien> sinhVienChuaCoHDList = new ArrayList<SinhVien>();
+		 try {
+			 sinhVienChuaCoHDList =  _jdbcTemplate.query(sql, new MapperSinhVien());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		 return sinhVienChuaCoHDList;
+	}
+	
 	
 	/* Lấy danh sách các sinh viên có vi phạm */
 public List<SinhVienDetailsDTO> GetDataSinhVienCoViPham(){
