@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import com.quan_ly_ktx.DAO.SinhVienDAO;
 import com.quan_ly_ktx.DAO.TaiKhoanDAO;
 import com.quan_ly_ktx.Entity.SinhVien.SinhVien;
-import com.quan_ly_ktx.Entity.TaiKhoan.TaiKhoan;
-import com.quan_ly_ktx.DTO.SinhVienDetailsDTO;
-import com.quan_ly_ktx.DTO.MapperSinhVienDetailsDTO;
+import com.quan_ly_ktx.dto.SinhVienDetailsDTO;
 
 @Controller
 @RequestMapping("/quanly")

@@ -21,8 +21,8 @@ import com.quan_ly_ktx.Entity.SinhVien.QuanLy_SinhVien;
 import com.quan_ly_ktx.Entity.SinhVien.SinhVien;
 import com.quan_ly_ktx.Entity.TaiKhoan.MapperTaiKhoan;
 import com.quan_ly_ktx.Entity.TaiKhoan.TaiKhoan;
-import com.quan_ly_ktx.DTO.SinhVienDetailsDTO;
-import com.quan_ly_ktx.DTO.MapperSinhVienDetailsDTO;
+import com.quan_ly_ktx.dto.SinhVienDetailsDTO;
+import com.quan_ly_ktx.dto.MapperSinhVienDetailsDTO;
 @Repository
 public class SinhVienDAO {
 	@Autowired

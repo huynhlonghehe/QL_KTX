@@ -1,4 +1,4 @@
-package com.quan_ly_ktx.DTO;
+package com.quan_ly_ktx.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
