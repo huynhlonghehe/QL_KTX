@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/*import com.quan_ly_ktx.Entity.PHONG.Phong;*/
 import com.quan_ly_ktx.Entity.VATTU.VT_PHONG;
+/*import com.quan_ly_ktx.Entity.VATTU.VatTu;*/
 import com.quan_ly_ktx.service.VT_PHONG.VT_PHONGService;
+import com.quan_ly_ktx.service.PHONG.PhongService;
+import com.quan_ly_ktx.service.VATTU.VatTuService;
 
 @Controller
 @RequestMapping("/vtphong")
@@ -16,59 +21,119 @@ public class VT_PHONGController {
 
     @Autowired
     private VT_PHONGService vtPhongService;
+    
+    @Autowired
+    private PhongService phongService;
+
+    @Autowired
+    private VatTuService vatTuService;
 
     @ResponseBody
-    @RequestMapping(value = "/check-references/{maVT}", method = RequestMethod.GET)
+    @GetMapping("/check-references/{maVT}")
     public boolean checkReferencesToVatTu(@PathVariable("maVT") String maVT) {
         return vtPhongService.existsReferencesToVatTu(maVT);
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    @GetMapping("/check-references-phong/{maPhong}")
+    public boolean checkReferencesToPhong(@PathVariable("maPhong") String maPhong) {
+        return vtPhongService.existsReferencesToPhong(maPhong);
+    }
+
+    @GetMapping("/list")
     public String showVTPhongList(Model model) {
         List<VT_PHONG> listVTPhong = vtPhongService.getAllVTPHONG();
+        List<String> listPhong = phongService.getAllMaPhong();
+        List<String> listVatTu = vatTuService.getAllMaVT();
+/*        for (int i = 0; i < listPhong.size(); i++) {
+            System.out.println(listPhong.get(i));
+        }*/
         model.addAttribute("listVTPhong", listVTPhong);
-        return "VT_Phong/VT_PHONG"; // Ensure you have this view
+        model.addAttribute("listPhong", listPhong);
+        model.addAttribute("listVatTu", listVatTu);
+        return "VT_Phong/VT_PHONG";
     }
-//
-//    @RequestMapping(value = "/edit-vt-phong/{maVT}", method = RequestMethod.GET)
-//    public String showEditVTPhongForm(@PathVariable("maVT") String maVT, Model model) {
-//        VT_PHONG vtPhong = vtPhongService.getVTPhongById(maVT);
-//        model.addAttribute("vtPhong", vtPhong);
-//        return "VT_PHONG/editVTPhong"; // Ensure you have this view
-//    }
-//
-//    @RequestMapping(value = "/update-vt-phong", method = RequestMethod.POST)
-//    public String updateVTPhong(@ModelAttribute("vtPhong") VT_PHONG vtPhong) {
-//        vtPhongService.updateVTPhong(vtPhong);
-//        return "redirect:/vtphong/list";
-//    }
-//
-//    @RequestMapping(value = "/delete-vt-phong/{maVT}", method = RequestMethod.GET)
-//    public String deleteVTPhong(@PathVariable("maVT") String maVT) {
-//        vtPhongService.deleteVTPhong(maVT);
-//        return "redirect:/vtphong/list";
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/invalidInput/{maVT}", method = RequestMethod.GET)
-//    public String checkExistMATV(@PathVariable("maVT") String maVT) {
-//        if(vtPhongService.existsByMaVT(maVT)) {
-//            return "ERROR";
-//        } else {
-//            return "OK";
-//        }
-//    }
-//
-//    @RequestMapping(value = "/add-vt-phong", method = RequestMethod.POST)
-//    public String addVTPhong(@ModelAttribute("vtPhong") VT_PHONG vtPhong) {
-//        vtPhongService.addVTPhong(vtPhong);
-//        return "redirect:/vtphong/list";
-//    }
-//
-//    @RequestMapping(value = "/list/{column}/sort/{mode}", method = RequestMethod.GET)
-//    public String sortVTPhong(Model model, @PathVariable("column") String column, @PathVariable("mode") String mode) {
-//        List<VT_PHONG> sortedVTPhong = vtPhongService.sortVTPhongByColumn(column, mode);
-//        model.addAttribute("listVTPhong", sortedVTPhong);
-//        return "VT_PHONG/QuanLyVTPhong"; // Ensure you have this view
-//    }
+
+/*    @GetMapping("/edit-vt-phong/{maVTPhong}")
+    public String showEditVTPhongForm(@PathVariable("maVTPhong") String maVTPhong) {
+        VT_PHONG vtPhong = vtPhongService.getVTPhongById(maVTPhong);
+        model.addAttribute("vtPhong", vtPhong);
+        return "VT_Phong/editVTPhong";
+    }*/
+
+    @PostMapping("/update-vt-phong")
+    public String updateVTPhong(@ModelAttribute("vtPhong") VT_PHONG vtPhong, RedirectAttributes redirectAttributes) {
+    	redirectAttributes.addFlashAttribute("successMessage", "Sửa thành công !");
+        vtPhongService.updateVTPhong(vtPhong);
+        return "redirect:/vtphong/list";
+    }
+
+    @GetMapping("/delete-vt-phong/{maVTPhong}")
+    public String deleteVTPhong(@PathVariable("maVTPhong") String maVTPhong) {
+        vtPhongService.deleteVTPhong(maVTPhong);
+        return "redirect:/vtphong/list";
+    }
+
+    @ResponseBody
+    @GetMapping("/invalidInput/{maVTPhong}")
+    public String checkExistMATV(@PathVariable("maVTPhong") String maVTPhong) {
+        return vtPhongService.existsByMaVTPhong(maVTPhong) ? "ERROR" : "OK";
+    }
+
+    @PostMapping("/add-vt-phong")
+    public String addVTPhong(@ModelAttribute("vtPhong") VT_PHONG vtPhong,RedirectAttributes redirectAttributes) {
+    	redirectAttributes.addFlashAttribute("successMessage", "Thêm thành công !");
+        vtPhongService.addVTPhong(vtPhong);
+        return "redirect:/vtphong/list";
+    }
+
+    @GetMapping("/list/{column}/sort/{mode}")
+    public String sortVTPhong(Model model, @PathVariable("column") String column, @PathVariable("mode") String mode) {
+        List<VT_PHONG> sortedVTPhong = vtPhongService.sortVTPhongByColumn(column, mode);
+        model.addAttribute("listVTPhong", sortedVTPhong);
+        return "VT_Phong/VT_PHONG";
+    }
+
+
+    @GetMapping("/find")
+    public String timKiemTheoBang(Model model, 
+                                  @RequestParam(name = "maVTPhong", required = false) String maVTPhong,
+                                  @RequestParam(name = "maVT", required = false) String maVT,
+                                  @RequestParam(name = "maPhong", required = false) String maPhong,
+                                  @RequestParam(name = "soLuong", required = false) String soLuong,
+                                  @RequestParam(name = "ngayCap", required = false) String ngayCap,
+                                  @RequestParam(name = "ngaySuaDoi", required = false) String ngaySuaDoi,
+                                  @RequestParam(name = "tinhTrang", required = false) String tinhTrang) {
+
+        model.addAttribute("maVTPhong", maVTPhong);
+        model.addAttribute("maVT", maVT);
+        model.addAttribute("maPhong", maPhong);
+        model.addAttribute("soLuong", soLuong);
+        model.addAttribute("ngayCap", ngayCap);
+        model.addAttribute("ngaySuaDoi", ngaySuaDoi);
+        model.addAttribute("tinhTrang", tinhTrang);
+
+        List<VT_PHONG> searchedVTPhong = vtPhongService.timKiemTheoBang(maPhong, maVT, ngayCap, ngaySuaDoi, soLuong, tinhTrang);
+        for (int i = 0; i < searchedVTPhong.size(); i++) {
+            System.out.println(searchedVTPhong.get(i));
+        }
+        model.addAttribute("listVTPhong", searchedVTPhong);
+        return "VT_Phong/VT_PHONG";
+    }
+    @PostMapping("/Search-delete")	
+    public String xoaTheoBang(Model model, 
+                              @RequestParam(name = "maVTPhong", required = false) String maVTPhong,
+                              @RequestParam(name = "maVT", required = false) String maVT,
+                              @RequestParam(name = "maPhong", required = false) String maPhong,
+                              @RequestParam(name = "soLuong", required = false) String soLuong,
+                              @RequestParam(name = "ngayCap", required = false) String ngayCap,
+                              @RequestParam(name = "ngaySuaDoi", required = false) String ngaySuaDoi,
+                              @RequestParam(name = "tinhTrang", required = false) String tinhTrang) {
+
+        vtPhongService.xoaTheoBang(maPhong, maVT, ngayCap, ngaySuaDoi, soLuong, tinhTrang);
+
+        // Sau khi xóa, có thể trả về trang kết quả tìm kiếm rỗng hoặc thông báo đã xóa
+        return "redirect:/vtphong/list";
+    }
+
 }

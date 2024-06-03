@@ -5,43 +5,44 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Quản lý Phòng</title>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <style>
-            <%@include file="/WEB-INF/resources/css/Phong_CSS/QuanLyPhong.css" %>
-        </style>
-        <script src="https://kit.fontawesome.com/e70d1e2fed.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Phòng</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        <%@include file="/WEB-INF/resources/css/Phong_CSS/QuanLyPhong.css" %>
+    </style>
+    <script src="https://kit.fontawesome.com/e70d1e2fed.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
 
-    </head>
-
-    <body>
-        <%@include file="/WEB-INF/views/includes/header.jsp"%>
-        <%@include file="/WEB-INF/views/includes/menu.jsp"%>
-        <div class="main_content">
+<body>
+    <%@include file="/WEB-INF/views/includes/header.jsp"%>
+    <%@include file="/WEB-INF/views/includes/menu.jsp"%>
+    <div class="main_content">
         <h1 class="title">Quản Lý phòng</h1>
+        <form id="deleteSelectedForm" action="${pageContext.request.contextPath}/vtphong/delete-selected" method="POST">
             <table>
                 <thead>
                     <tr>
-                        <th scope="col">Mã phòng <a href="#" data-column="MAPHONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Tình trạng <a href="#" data-column="TINHTRANG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Sức chứa <a href="#" data-column="SUCCHUA" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col" class="checkbox-column"><input type="checkbox" id="selectAll"></th>
+                        <th scope="col">Mã Phòng <a href="#" data-column="MAPHONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col">Tình Trạng <a href="#" data-column="TINHTRANG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col">Sức Chứa <a href="#" data-column="SUCCHUA" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                         <th scope="col">Khu KTX <a href="#" data-column="KHUKTX" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Số lượng SV đang có <a href="#" data-column="SOLUONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Mã loại phòng <a href="#" data-column="MALOAIPHONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Ngày sửa đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Người sửa đổi <a href="#" data-column="NGUOISUADOICUOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Hành động</th>
-
+                        <th scope="col">Số Lượng SV Đang Có <a href="#" data-column="SOLUONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col">Mã Loại Phòng <a href="#" data-column="MALOAIPHONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col">Ngày Tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col">Ngày Sửa Đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col">Người Sửa Đổi <a href="#" data-column="NGUOISUADOICUOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                        <th scope="col">Hành Động</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="phong" items="${listPhong}">
                         <tr>
+                            <td class="checkbox-column"><input type="checkbox" class="select-item" name="selectedItems" value="${phong.maPhong}"></td>
                             <td>${phong.maPhong}</td>
                             <td>${phong.tinhTrang}</td>
                             <td>${phong.sucChua}</td>
@@ -52,50 +53,51 @@
                             <td>${phong.ngaySuaDoi != null ? phong.ngaySuaDoi : 'N/A'}</td>
                             <td>${phong.nguoiSuaDoiCuoi != null ? phong.nguoiSuaDoiCuoi : 'N/A'}</td>
                             <td>
-                                <a href="javascript:void(0);" class="button_action button_edit" onclick="toggleEditPhongForm('${phong.maPhong}', '${phong.tinhTrang}', '${phong.sucChua}', '${phong.maLoaiPhong}', '${sessionScope.USERNAME}')">Sửa</a>
-								<a href="${pageContext.request.contextPath}/phong/delete-phong/${phong.maPhong}" class="button_action button_delete" onclick="showConfirm('${pageContext.request.contextPath}/phong/delete-phong/${phong.maPhong}'); return false;">Xoá</a>
+                                <!-- Sửa button with tooltip and new style -->
+                                <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditPhongForm('${phong.maPhong}', '${phong.tinhTrang}', '${phong.sucChua}', '${phong.maLoaiPhong}','${phong.khuKTX}','${sessionScope.USERNAME}' )"></a>
 
+                                <!-- Xoá button with tooltip and new style -->
+                                <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/phong/delete-phong/${phong.maPhong}'); return false;"></a>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            </form>
 
-            <div class="search-and-buttons">
-                <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreatePhongForm()">Thêm Phòng</button>
-                <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='http://localhost:8080/quan_ly_ktx/phong/list'">Reload</button>
-            </div>
-			
-			<div class="search">
-			    <!-- Form tìm kiếm -->
-			    <form action="${pageContext.request.contextPath}/phong/find" method="GET" id="searchForm">
-			        <label for="maPhong">Mã phòng:</label>
-			        <input type="text" id="maPhong" name="maPhong" value="${maPhong}" placeholder="Nhập mã phòng">
-			        
-			        <label for="tinhTrang">Tình trạng:</label>
-			        <input type="text" id="tinhTrang" name="tinhTrang" value="${tinhTrang}" placeholder="Nhập tình trạng">
-			        
-			        <label for="sucChua">Sức chứa:</label>
-			        <input type="text" id="sucChua" name="sucChua" value="${sucChua}" placeholder="Nhập sức chứa">
-			        
-			        <label for="khuKTX">Khu KTX:</label>
-			        <input type="text" id="khuKTX" name="khuKTX" value="${khuKTX}" placeholder="Nhập khu KTX">
-			        
-			        <label for="soLuong">Số lượng sinh viên:</label>
-			        <input type="text" id="soLuong" name="soLuong" value="${soLuong}" placeholder="Nhập số lượng sinh viên">
-			        
-			        <label for="maLoaiPhong">Mã loại phòng:</label>
-			        <input type="text" id="maLoaiPhong" name="maLoaiPhong" value="${maLoaiPhong}" placeholder="Nhập mã loại phòng">
-			        
-			        <button type="submit" class="btn btn-find">Tìm kiếm</button>
-			    </form>
-			
-			    <!-- Các nút reload và thêm -->
-			
-			</div>
 
-			
-            <!-- Form thêm phòng -->
+        <div class="search-and-buttons">
+            <button type="button" class="btn btn-primary b	utton_createTK" onclick="toggleCreatePhongForm()">Thêm Phòng</button>
+            <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='http://localhost:8080/quan_ly_ktx/phong/list'">Reload</button>
+			<button type="button" class="btn btn-primary button-createTK" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()">Xóa các vật tư phòng đã lựa chọn</button>        
+        </div>
+
+        <div class="search">
+            <!-- Form tìm kiếm -->
+            <form action="${pageContext.request.contextPath}/phong/find" method="GET" id="searchForm">
+                <label for="maPhong">Mã phòng:</label>
+                <input type="text" id="maPhong" name="maPhong" value="${maPhong}" placeholder="Nhập mã phòng">
+
+                <label for="tinhTrang">Tình trạng:</label>
+                <input type="text" id="tinhTrang" name="tinhTrang" value="${tinhTrang}" placeholder="Nhập tình trạng">
+
+                <label for="sucChua">Sức chứa:</label>
+                <input type="text" id="sucChua" name="sucChua" value="${sucChua}" placeholder="Nhập sức chứa">
+
+                <label for="khuKTX">Khu KTX:</label>
+                <input type="text" title = "nhập vào khu KTX" id="khuKTX" name="khuKTX" value="${khuKTX}" placeholder="Nhập khu KTX">
+
+                <label for="soLuong">Số lượng sinh viên:</label>
+                <input type="text" id="soLuong" name="soLuong" value="${soLuong}" placeholder="Nhập số lượng sinh viên">
+
+                <label for="maLoaiPhong">Mã loại phòng:</label>
+                <input type="text" id="maLoaiPhong" name="maLoaiPhong" value="${maLoaiPhong}" placeholder="Nhập mã loại phòng">
+
+                <button type="submit" class="btn btn-find">Tìm kiếm</button>
+            </form>
+        </div>
+
+               <!-- Form thêm phòng -->
             <div id="createPhongForm" style="display: none">
                 <span class="close" onclick="closeForm('createPhongForm')">&times;</span>
                 <h2>Thêm phòng</h2>
@@ -178,6 +180,9 @@
                         <input type="hidden" class="form-control" id="edit_nguoiSuaDoiCuoi" name="nguoiSuaDoiCuoi">
                     </div>
                     <div class="form-group">
+                        <input type="hidden" class="form-control" id="edit_khuKTX" name="KhuKTX">
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-them" onclick="submitForm('edit')">Lưu</button>
                     </div>
                 </form>
@@ -187,26 +192,7 @@
         </div>
 
 
-    </body>
     <script>
-    	
-    
-	    function showConfirm(href) {
-	        Swal.fire({
-	            title: 'Bạn có chắc chắn muốn xoá?',
-	            text: "Bạn sẽ không thể hoàn tác điều này!",
-	            icon: 'warning',
-	            showCancelButton: true,
-	            confirmButtonColor: '#3085d6',
-	            cancelButtonColor: '#d33',
-	            confirmButtonText: 'Xoá',
-	            cancelButtonText: 'Huỷ'
-	        }).then((result) => {
-	            if (result.isConfirmed) {
-	                window.location.href = href;
-	            }
-	        });
-	    }
     
 	    function showAlert(title, message, icon) {
 	        Swal.fire({
@@ -216,76 +202,39 @@
 	            confirmButtonText: 'OK'
 	        });
 	    }
-	    
-        //tải lại trang
-        function reloadPage() {
-            // Lấy URL gốc của trang (không có tham số sort)
-            var originalURL = window.location.origin + window.location.pathname;
-            // Thực hiện reload về URL gốc
-            window.location.href = originalURL;
-        }
+	
+	    /* Thông báo lỗi và kết quả*/
+	    document.addEventListener('DOMContentLoaded', function() {
+	        var errorMessage = "${errorMessage}";
+	        var successMessage = "${successMessage}";
+	
+	        if (errorMessage) {
+	            showAlert("Lỗi", errorMessage, 'error')
+	        } else if (successMessage) {
+	            showAlert("Thành công", successMessage, 'success')
+	        }
+	    });
 
-        //mở form thêm vật tư
-        function toggleCreatePhongForm() {
-            var form = document.getElementById('createPhongForm');
-            if (form.style.display === 'none' || form.style.display === '') {
-                form.style.display = 'block';
-            } else {
-                form.style.display = 'none';
-            }
-        }
+    
+        $(document).ready(function() {
+            $('#selectAll').on('change', function() {
+                $('.select-item').prop('checked', this.checked);
+                toggleDeleteSelectedButton();
+            });
 
-
-        //mở form sửa vật tư
-        function toggleEditPhongForm(maPhong, tinhTrang, sucChua, maLoaiPhong, nguoiSuaDoiCuoi) {
-            // Điền thông tin vật tư vào form sửa
-            document.getElementById("edit_maPhong").value = maPhong;
-            document.getElementById("edit_maKhu").value = maPhong.substring(0, 1);
-            document.getElementById("edit_tinhTrang").value = tinhTrang;
-            document.getElementById("edit_sucChua").value = sucChua;
-            document.getElementById("edit_maLoaiPhong").value = maLoaiPhong;
-            document.getElementById("edit_nguoiSuaDoiCuoi").value = nguoiSuaDoiCuoi;
-
-            // Hiển thị form sửa
-            var form = document.getElementById('editPhongForm');
-
-            if (form.style.display === 'none' || form.style.display === '') {
-                form.style.display = 'block';
-            } else {
-                form.style.display = 'none';
-            }
-        }
-        //sort list bằng DAO
-        document.addEventListener("DOMContentLoaded", function() {
-            var sortIcons = document.querySelectorAll(".fa-sort");
-            sortIcons.forEach(function(icon) {
-                var link = icon.closest('a');
-                var column = link.getAttribute('data-column');
-
-                // Tải trạng thái sắp xếp đã lưu từ localStorage
-                var savedMode = localStorage.getItem('sortMode-' + column);
-                if (savedMode) {
-                    link.setAttribute('data-mode', savedMode);
-                    link.setAttribute('href', "http://localhost:8080/quan_ly_ktx/phong/list/" + column + "/sort/" + savedMode);
-                }
-
-                icon.addEventListener("click", function(event) {
-                    var currentMode = link.getAttribute('data-mode');
-                    var newMode = currentMode === 'asc' ? 'desc' : 'asc';
-
-                    // Cập nhật data-mode và href trên thẻ a
-                    link.setAttribute('data-mode', newMode);
-                    var newHref = "http://localhost:8080/quan_ly_ktx/phong/list/" + column + "/sort/" + newMode;
-                    link.setAttribute('href', newHref);
-
-                    // Lưu trạng thái mới vào localStorage
-                    localStorage.setItem('sortMode-' + column, newMode);
-
-                    window.location.href = newHref; // Chuyển hướng người dùng
-                });
+            $('.select-item').on('change', function() {
+                toggleDeleteSelectedButton();
             });
         });
 
+        function toggleDeleteSelectedButton() {
+            if ($('.select-item:checked').length > 0) {
+                $('#deleteSelectedButton').show();
+            } else {
+                $('#deleteSelectedButton').hide();
+            }
+        }
+        
         //tạo maPhong từ maKhu và maSo
         function generateMaPhong() {
             var maKhu = document.getElementById("add_maKhu").value;
@@ -297,162 +246,101 @@
             return maPhong;
         }
 
+		
         //Hàm xử lý submit cho cả hai form
-		function submitForm(formType) {
-		    event.preventDefault(); // Ngăn chặn hành động mặc định của sự kiện submit
-		
-		    // Lấy dữ liệu từ form
-		    var maPhong, tinhTrang, sucChua, maLoaiPhong;
-		    if (formType === 'create') {
-		        maPhong = generateMaPhong();
-		        console.log(maPhong);
-		        tinhTrang = document.getElementById("add_tinhTrang").value;
-		        sucChua = document.getElementById("add_sucChua").value;
-		        maLoaiPhong = document.getElementById("add_maLoaiPhong").value;
-		    } else if (formType === 'edit') {
-		        maPhong = document.getElementById("edit_maPhong").value;
-		        tinhTrang = document.getElementById("edit_tinhTrang").value;
-		        sucChua = document.getElementById("edit_sucChua").value;
-		        maLoaiPhong = document.getElementById("edit_maLoaiPhong").value;
-		    }
-		
-		    // Kiểm tra dữ liệu
-		    if (maPhong === '' || tinhTrang === '' || sucChua === '' || maLoaiPhong === '') {
-		        showAlert('Error!', 'Vui lòng điền đầy đủ thông tin.', 'error');
-		        return false;
-		    }
-		
-		    // Kiểm tra giá trị của sức chứa
-		    if (sucChua < 2 || sucChua > 12) {
-		        showAlert('Error!', 'Sức chứa phải nằm trong khoảng từ 2 đến 12.', 'error');
-		        return false; // Ngăn chặn việc gửi biểu mẫu nếu giá trị không hợp lệ
-		    }
-		
-		    // Xử lý submit tùy thuộc vào loại form
-		    if (formType === 'create') {
-		        // Thêm phòng mới
-		        document.querySelector("#createPhongForm form").submit();
-		    } else if (formType === 'edit') {
-		        // Sửa thông tin phòng
-		        document.querySelector("#editPhongForm form").submit();
-		    }
-		}
+        function submitForm(formType) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của sự kiện submit
 
-        //kiểm tra các liên kết của phòng đang muốn xóa
-        function deletePhong(maPhong) {
-            // Sử dụng Ajax để kiểm tra ràng buộc khóa ngoại trước khi xóa bản ghi
-            $.ajax({
-                type: "GET",
-                url: "${pageContext.request.contextPath}/phong/check-foreign-key/" + maPhong,
-                success: function(response) {
-                    console.log("Response từ server:", response); // In ra giá trị response để kiểm tra
-                    if (response === "OK") {
-                        // Hiển thị modal xác nhận
-                        showConfirmModal("Bạn có chắc chắn muốn xóa bản ghi này không?", function(confirmed) {
-                            console.log("confirm từ server:", confirmed);
-                            if (confirmed) {
-                                // Nếu người dùng đã xác nhận, thực hiện chuyển hướng đến URL xóa bản ghi
-                                window.location.href = "${pageContext.request.contextPath}/phong/delete-phong/" + maPhong;
-                            }
-                        });
-                    } else {
-                        // Nếu có tham chiếu, hiển thị modal báo lỗi
-                        showErrorModal("Không thể xóa phòng này vì vẫn còn vật tư đang được sử dụng trong phòng.");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    showErrorModal("Đã xảy ra lỗi khi kiểm tra ràng buộc khóa ngoại.");
-                }
-            });
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            var errorMessage = "${errorMessage}";
-            var successMessage = "${successMessage}";
-
-            if (errorMessage) {
-                showAlert('Error!', errorMessage, 'error');
-            } else if (successMessage) {
-                showAlert('Success!', successMessage, 'success');
+            // Lấy dữ liệu từ form
+            var maPhong, tinhTrang, sucChua, maLoaiPhong, khuKTX;
+            if (formType === 'create') {
+                maPhong = generateMaPhong();
+                console.log(maPhong);
+                tinhTrang = document.getElementById("add_tinhTrang").value;
+                sucChua = document.getElementById("add_sucChua").value;
+                maLoaiPhong = document.getElementById("add_maLoaiPhong").value;
+                khuKTX = document.getElementById("add_maKhu").value;
+            } else if (formType === 'edit') {
+                maPhong = document.getElementById("edit_maPhong").value;
+                tinhTrang = document.getElementById("edit_tinhTrang").value;
+                sucChua = document.getElementById("edit_sucChua").value;
+                maLoaiPhong = document.getElementById("edit_maLoaiPhong").value;
+                nguoiSuaDoi = document.getElementById("edit_nguoiSuaDoiCuoi").value;
+                khuKTX = document.getElementById('edit_khuKTX').value;
             }
-        });
-        
-        
-        //Hiển thị confirmModal và kiểm tra lựa chọn 
-        function showConfirmModal(message, callback) {
-            var modal = document.getElementById("confirmModal");
-            var modalContent = modal.querySelector("#message");
-            modalContent.innerText = message;
-            modal.style.display = "block";
 
-            // Lấy phần tử nút "Save changes" trong modal content
-            var saveChangesButton = document.getElementById("saveChangesConfirmModalButton");
-            // Lắng nghe sự kiện click cho nút "Save changes"
-            var closeModalButton = document.getElementById("closeModalButton");
-            saveChangesButton.addEventListener("click", function() {
-                modal.style.display = "none"; // Ẩn modal
-                if (callback) {
-                    callback(true); // Gọi callback với giá trị true (đã xác nhận)
-                }
-            });
+            // Kiểm tra dữ liệu
+            if (maPhong === '' || tinhTrang === '' || sucChua === '' || maLoaiPhong === '') {
+                showAlert('Error!', 'Vui lòng điền đầy đủ thông tin.', 'error');
+                return false;
+            }
 
-            // Lấy phần tử nút "Close" trong modal content
-            var closeModalButton = document.getElementById("closeConfirmModalButton");
-            // Lắng nghe sự kiện click cho nút "Close"
-            closeModalButton.addEventListener("click", function() {
-                modal.style.display = "none"; // Ẩn modal
-                if (callback) {
-                    callback(false); // Gọi callback với giá trị false (đã từ chối)
-                }
-            });
-        }
+            // Kiểm tra giá trị của sức chứa
+            if (sucChua < 2 || sucChua > 12) {
+                showAlert('Error!', 'Sức chứa phải nằm trong khoảng từ 2 đến 12.', 'error');
+                return false; // Ngăn chặn việc gửi biểu mẫu nếu giá trị không hợp lệ
+            }
 
-
-        //Ẩn cửa sổ modal khi người dùng nhấp vào nút đóng
-        document.getElementById("errorModal").querySelector(".close").onclick = function() {
-            var modal = document.getElementById("errorModal");
-            modal.style.animation = "disappearModal 0.5s ease forwards"; // Áp dụng hiệu ứng biến mất
-            // Ẩn modal sau khi hoàn thành hiệu ứng
-            setTimeout(function() {
-                modal.style.display = "none";
-                // Thiết lập lại trạng thái của modal
-                modal.style.animation = ""; // Xóa hiệu ứng animation
-                document.getElementById("errorMessage").innerText = ""; // Xóa thông báo lỗi
-            }, 500); // Thời gian của keyframes disappearModal
-        }
-
-        // Đóng cửa sổ modal khi người dùng nhấp vào bất kỳ đâu ngoài cửa sổ modal
-        window.onclick = function(event) {
-            var modal = document.getElementById("errorModal");
-            if (event.target == modal) {
-                modal.style.animation = "disappearModal 0.5s ease forwards"; // Áp dụng hiệu ứng biến mất
-                // Ẩn modal sau khi hoàn thành hiệu ứng
-                setTimeout(function() {
-                    modal.style.display = "none";
-                    // Thiết lập lại trạng thái của modal
-                    modal.style.animation = ""; // Xóa hiệu ứng animation
-                    document.getElementById("errorMessage").innerText = ""; // Xóa thông báo lỗi
-                }, 500); // Thời gian của keyframes disappearModal
+            // Xử lý submit tùy thuộc vào loại form
+            if (formType === 'create') {
+                // Thêm phòng mới
+                document.querySelector("#createPhongForm form").submit();
+            } else if (formType === 'edit') {
+                // Sửa thông tin phòng
+                document.querySelector("#editPhongForm form").submit();
             }
         }
-        //đóng các modal
+        
+        function confirmDeleteSelected() {
+            var form = document.getElementById('deleteSelectedForm');
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: 'Bạn có chắc chắn muốn xóa các vật tư phòng đã chọn?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+
+        function toggleCreatePhongForm() {
+            document.getElementById('createPhongForm').style.display = 'block';
+        }
+
         function closeForm(formId) {
-            var form = document.getElementById(formId);
-            form.style.animation = "disappearModal 0,1s";
-            setTimeout(function() {
-                form.style.display = "none";
-            }, 100);
+            document.getElementById(formId).style.display = 'none';
         }
-        //Lấy phần tử nút đóng modal
-        var closeModalButton = document.getElementById("closeModalButton");
 
-        // Thêm sự kiện lắng nghe cho nút đóng modal
-        closeModalButton.addEventListener("click", function() {
-            // Lấy phần tử modal
-            var modal = document.getElementById("confirmModal");
-            // Ẩn modal
-            modal.style.display = "none";
-        });
+        function toggleEditPhongForm(maPhong, tinhTrang, sucChua, maLoaiPhong, khuKTX,nguoiSuaDoiCuoi) {
+            document.getElementById('editPhongForm').style.display = 'block';
+            document.getElementById('edit_maPhong').value = maPhong;
+            document.getElementById('edit_tinhTrang').value = tinhTrang;
+            document.getElementById('edit_sucChua').value = sucChua;
+            document.getElementById('edit_maLoaiPhong').value = maLoaiPhong;
+            document.getElementById('edit_khuKTX').value = khuKTX;
+            document.getElementById('edit_nguoiSuaDoiCuoi').value = nguoiSuaDoiCuoi;
+            
+        }
+
+        function showConfirm(url) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: 'Bạn có chắc chắn muốn xóa?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
     </script>
+</body>
 
 </html>

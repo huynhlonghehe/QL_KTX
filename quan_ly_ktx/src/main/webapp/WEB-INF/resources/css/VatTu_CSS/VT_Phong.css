@@ -1,0 +1,403 @@
+@charset "UTF-8";
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    overflow-x: hidden; 
+    background-color: #eee9e9;
+}
+
+.main_content{
+    position: relative;
+    top: 40px;
+    left: 200px;
+}
+
+.main_content .title{
+    margin: 16px 540px;
+    
+}
+
+table {
+    width: 86%;
+    background-color: #e0f2f1;
+    border-collapse: collapse;
+    border: 1px solid #333; 
+    position: absolute;
+    top: 180px;
+    left: 1%;
+    display: block;
+    max-height: 715px;
+    overflow-y: auto;
+}
+
+
+.checkbox-column {
+    width: 50px; /* Điều chỉnh kích thước theo ý bạn */
+    text-align: center; /* Căn giữa checkbox */
+}
+
+/* Điều chỉnh kích thước checkbox nếu cần */
+.checkbox-column input[type="checkbox"] {
+    transform: scale(1.2); /* Tăng kích thước checkbox */
+}
+
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+
+thead, th {
+    position: sticky;
+    top: 0;
+}
+
+th {
+    background-color: #009CFF;
+    color: white;
+    z-index: 2;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.button_action {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #3da9fc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.button_action:hover {
+    background-color: #45a049;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 1%;
+    margin-top: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    outline: 0;
+}
+
+/* CSS for positioning the delete button
+.button-delete-selected {
+    position: absolute; or fixed, depending on your requirements
+    top: 25%;          Adjust this value to position the button from the top
+    right: 62%;        Adjust this value to position the button from the right
+    z-index: 10;        Ensure it is above other elements if necessary
+    padding: 10px 20px; Adjust padding for better button size
+    background-color: #007bff; Button background color
+    color: white;       Button text color
+    border: none;       Remove border
+    border-radius: 5px; Rounded corners
+    cursor: pointer;    Pointer cursor on hover
+}
+
+.button-delete-selected:hover {
+    background-color: #0056b3; Change color on hover
+} */
+
+.search-and-buttons {
+    display: flex;
+    align-items: center;
+    margin-top:10px;
+    margin-bottom: 20px;
+}
+
+.button_reload,
+.button_create {
+    display: block;
+    margin-right: 10px;
+}
+
+.search {
+    display: block;
+    width: 100%;
+}
+
+/* CSS cho form search */
+.search {
+    display: block;
+    width: 100%;
+}
+
+#searchForm {
+    margin-top: 10px;
+/*     margin-left: auto; Căn giữa form
+    margin-right: auto; Căn giữa form */
+    margin-bottom: 5px;
+    width: 85%;
+    padding: 5px;
+/*     background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #ccc; */
+    display: flex; /* Sử dụng flexbox để căn giữa các phần tử */
+    flex-wrap: wrap; /* Để các phần tử xuống dòng nếu không đủ chỗ */
+    justify-content: center; /* Căn giữa các phần tử theo chiều ngang */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+}
+
+#searchForm label {
+    margin-bottom: 5px;
+}
+
+#searchForm select,
+#searchForm input[type="text"],
+#searchForm input[type="number"],
+#searchForm input[type="date"] {
+    width: 123px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin: 5px; /* Thêm margin để tạo khoảng cách giữa các phần tử */
+}
+
+#searchForm button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px; /* Thêm margin để tạo khoảng cách giữa các phần tử */
+}
+
+#searchForm button:hover {
+    background-color: #0056b3;
+}
+
+#createVTPhongForm, #editVTPhongForm {
+    max-width: 443px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    width:200%;
+
+}
+
+#createVTPhongForm h2, #editVTPhongForm h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#createVTPhongForm .form-group, #editVTPhongForm .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#createVTPhongForm .form-group label, #editVTPhongForm .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+#createVTPhongForm .form-group.full, #editVTPhongForm .form-group.full {
+    flex-direction: column;
+}
+
+#createVTPhongForm .half, #editVTPhongForm .half {
+    flex: 1;
+    min-width: 200px;
+    margin-right: 4px;
+}
+
+#createVTPhongForm .edit_input, #editVTPhongForm .edit_input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createVTPhongForm .edit_input:focus, #editVTPhongForm .edit_input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76,175,80,.6);
+}
+
+#createVTPhongForm button, #editVTPhongForm button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#createVTPhongForm button:hover, #editVTPhongForm button:hover {
+    background-color: #45a049;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-group input, .form-group select {
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #009CFF;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.form-group button:hover {
+    background-color: #45a049;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    overflow: auto;
+    z-index: 101;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 8px;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {
+    padding: 2px 16px;
+    margin-top: 20px;
+    margin-bottom: 31%;
+}
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    margin: auto;
+    padding: 2px;
+    border: 5px solid #000000;
+    width: 30%;
+    height: 35%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    border-radius: 8px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: right;
+    padding: 10px 16px;
+    background-color: #fefefe;
+    border-radius: 0 0 8px 8px;
+}
+
+.modal-footer button {
+    margin-right: 3px;
+}
+
+.close {
+    color: red;
+    float: right;
+    padding: 2px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #888;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes animatetop {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+@keyframes disappearModal {
+    from {opacity: 1;}
+    to {opacity: 0; display: none;}
+}

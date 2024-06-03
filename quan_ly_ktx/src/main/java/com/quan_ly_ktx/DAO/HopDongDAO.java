@@ -39,6 +39,13 @@ public class HopDongDAO {
 	    }
 	}
 	
+	public int countNumHopDongMaPhong(String maPhong)
+	{
+		String sql = "SELECT COUNT(*) AS count FROM HOPDONG WHERE MAPHONG = ?";
+		return _jdbcTemplate.queryForObject(sql, Integer.class, maPhong);
+		
+	}
+	
 	/* kiểm tra sinh viên đã có hợp đồng chưa, không tính hợp đồng đã hết hạn */
 	public boolean checkSVDangConHopDong(String maSV) {
 		String sql_checkSV = "SELECT * FROM HOPDONG \r\n"

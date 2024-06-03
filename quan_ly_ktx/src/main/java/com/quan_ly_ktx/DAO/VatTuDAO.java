@@ -17,11 +17,9 @@ public class VatTuDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private List<String> qlvtList;
 
     public void addVatTu(VatTu vatTu) {
-        // Lấy danh sách quản lý vật tư
-        List<String> maQLList = getQLVTLIST();
+
 
         // Lấy ngày giờ hiện tại
         Timestamp ngayTao = new Timestamp(System.currentTimeMillis());
@@ -31,40 +29,16 @@ public class VatTuDAO {
 
         // Thêm vào bảng QUANLY_VATTU
         String sqlQLVT = "INSERT INTO QUANLY_VATTU (MAQL, MAVT) VALUES (?, ?)";
-        for (String maQL : maQLList) {
-            jdbcTemplate.update(sqlQLVT, maQL, vatTu.getMaVT());
-        }
     }
 
-    // LẤY MÃ QUẢN LÝ CHO VẬT TƯ
-    public List<String> getDuocQuanLyBoi(String maVT) {
-        String sql = "SELECT MAQL FROM QUANLY_VATTU WHERE MAVT = ?";
-        return jdbcTemplate.queryForList(sql, new Object[]{maVT}, String.class);
-    }
-
-    // LẤY DANH SÁCH MÃ QUẢN LÝ VẬT TƯ
-    public List<String> getQLVTLIST() {
-        String sql = "SELECT USERNAME FROM TAIKHOAN WHERE QUYEN = ?";
-        qlvtList = jdbcTemplate.queryForList(sql, new Object[]{"Quản lý vật tư"}, String.class);
-        return qlvtList;
-    }
 
     // CẬP NHẬT DANH SÁCH QUẢN LÝ VẬT TƯ
     public void updateQuanLyVatTu() {
-        // Lấy danh sách mã quản lý vật tư từ cơ sở dữ liệu
-        List<String> qlvtList = getQLVTLIST();
 
         // Xóa toàn bộ dữ liệu cũ trong bảng QUANLY_VATTU
         String sqlDeleteAll = "DELETE FROM QUANLY_VATTU";
         jdbcTemplate.update(sqlDeleteAll);
 
-        // Thêm lại dữ liệu mới từ danh sách quản lý vật tư vào bảng QUANLY_VATTU
-        String sqlInsert = "INSERT INTO QUANLY_VATTU (MAQL, MAVT) VALUES (?, ?)";
-        for (String maQL : qlvtList) {
-            for (String maVT : getAllMaVT()) {
-                jdbcTemplate.update(sqlInsert, maQL, maVT);
-            }
-        }
     }
 
     // LẤY DANH SÁCH TẤT CẢ VẬT TƯ
@@ -113,7 +87,7 @@ public class VatTuDAO {
     // SẮP XẾP VẬT TƯ THEO CỘT
     public List<VatTu> sortVatTuByColumn(String column, String sortDirection) {
         // Xác định danh sách các cột và hướng sắp xếp hợp lệ
-        List<String> validColumns = Arrays.asList("MAVT", "TENVT", "GIATIEN");
+        List<String> validColumns = Arrays.asList("MAVT", "TENVT", "GIATIEN","NGAYCAP");
         List<String> validDirections = Arrays.asList("asc", "desc");
 
         // Kiểm tra tính hợp lệ của đầu vào

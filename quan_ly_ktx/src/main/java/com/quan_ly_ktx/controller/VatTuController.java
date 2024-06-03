@@ -36,11 +36,6 @@ public class VatTuController {
     public String showVatTuList(Model model) {
     	
         List<VatTu> listVatTu = vatTuService.getAllVatTu();
-        for (VatTu vatTu : listVatTu) {
-            List<String> quanLy = vatTuService.getQLVTLIST();
-            vatTu.setDuocQuanLyBoi(quanLy);
-            System.out.println(vatTu.getDuocQuanLyBoi());
-        }
         model.addAttribute("listVatTu", listVatTu);
         return "VatTu/QuanLyVatTu"; 
     }

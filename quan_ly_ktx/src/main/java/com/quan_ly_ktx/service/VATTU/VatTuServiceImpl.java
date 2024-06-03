@@ -28,6 +28,11 @@ public class VatTuServiceImpl implements VatTuService {
     public List<VatTu> getAllVatTu() {
         return vatTuDAO.getAllVatTu();
     }
+    
+    @Override
+    public List<String> getAllMaVT() {
+        return vatTuDAO.getAllMaVT();
+    }
 
     @Override
     public VatTu getVatTuById(String maVT) {
@@ -51,13 +56,7 @@ public class VatTuServiceImpl implements VatTuService {
     public List<VatTu> sortVatTuByColumn(String column, String sortDirection) {
 		return vatTuDAO.sortVatTuByColumn(column, sortDirection);
 	}
-    @Override
-    public List<String> getDuocQuanLyBoi(String maVT) {
-        return vatTuDAO.getDuocQuanLyBoi(maVT);
-    }
-    @Override
-    public List<String> getQLVTLIST() {
-        return vatTuDAO.getQLVTLIST();
-    }
+    
+    
 }
 

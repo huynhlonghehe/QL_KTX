@@ -31,7 +31,6 @@
                         <th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                         <th scope="col">Ngày sửa đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                         <th scope="col">Người sửa đổi</th>
-                        <th scope="col">Được quản lý bởi</th>
                         <th scope="col">Hành động</th>
 
                     </tr>
@@ -46,13 +45,11 @@
                             <td>${vattu.ngaySuaDoi != null ? vattu.ngaySuaDoi : 'N/A'}</td>
                             <td>${vattu.nguoiSuaDoiCuoi != null ? vattu.nguoiSuaDoiCuoi : 'N/A'}</td>
                             <td>
-                                <c:forEach items="${vattu.duocQuanLyBoi}" var="quanly">
-                                    ${quanly}<br>
-                                </c:forEach>
-                            </td>
-                            <td>
-                                <a href="javascript:void(0);" class="button_action button_edit" onclick="toggleEditVatTuForm('${vattu.maVT}', '${vattu.tenVT}', '${vattu.giaTien}', '${username}')">Sửa</a>
-                                <a href="#" class="button_action button_delete" onclick="deleteVatTu('${vattu.maVT}')">Xoá</a>
+                                <!-- Sửa button with tooltip and new style -->
+                                <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditVatTuForm('${vattu.maVT}', '${vattu.tenVT}', '${vattu.giaTien}', '${username}')"></a>
+
+                                <!-- Xoá button with tooltip and new style -->
+                                <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="deleteVatTu('${vattu.maVT}')"></a>
                             </td>
                         </tr>
                     </c:forEach>

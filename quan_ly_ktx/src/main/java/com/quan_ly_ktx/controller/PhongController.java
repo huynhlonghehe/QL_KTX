@@ -1,17 +1,13 @@
 package com.quan_ly_ktx.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.quan_ly_ktx.DAO.VT_PhongDAO;
 import com.quan_ly_ktx.Entity.PHONG.Phong;
-import com.quan_ly_ktx.Entity.PHONG.OptionSelect;
 import com.quan_ly_ktx.service.PHONG.PhongService;
 
 @Controller
@@ -23,9 +19,11 @@ public class PhongController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showPhongList(Model model) {
-	    List<OptionSelect> danhSachCacLuaChon = taoDanhSachCacLuaChon();
         List<Phong> listPhong = phongService.getAllPhongs();
-	    model.addAttribute("danhSachCacLuaChon", danhSachCacLuaChon);
+        for (Phong phong : listPhong) {
+            int soLuongHopDong = phongService.countHDByMaPhong(phong.getMaPhong());
+            phong.setSoLuong(soLuongHopDong);
+        }
         model.addAttribute("listPhong", listPhong);
         return "Phong/QuanLyPhong"; // Thay đổi tên view tương ứng
     }
@@ -81,6 +79,7 @@ public class PhongController {
             redirectAttributes.addFlashAttribute("errorMessage", "Phòng đang được sử dụng");
             return "redirect:/phong/list";
         } else {
+        	redirectAttributes.addFlashAttribute("successMessage", "xóa thành công");
             phongService.deletePhong(maPhong);
             return "redirect:/phong/list";
         }
@@ -105,18 +104,6 @@ public class PhongController {
 	    model.addAttribute("listPhong", sortedPhong);
 	    return "Phong/QuanLyPhong";
 	}
-	
-	public List<OptionSelect> taoDanhSachCacLuaChon() {
-	    List<OptionSelect> danhSachCacLuaChon = new ArrayList<>();
-	    danhSachCacLuaChon.add(new OptionSelect("MAPHONG", "Mã phòng"));
-	    danhSachCacLuaChon.add(new OptionSelect("TINHTRANG", "Tình trạng"));
-	    danhSachCacLuaChon.add(new OptionSelect("SUCCHUA", "Sức chứa"));
-	    danhSachCacLuaChon.add(new OptionSelect("KHUKTX", "Khu KTX"));
-	    danhSachCacLuaChon.add(new OptionSelect("SOLUONG", "Số lượng sinh viên đang cư trú"));
-	    danhSachCacLuaChon.add(new OptionSelect("MALOAIPHONG", "Mã loại phòng"));
-	    // Thêm các giá trị cho danh sách các lựa chọn
-	    return danhSachCacLuaChon;
-	}
 
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String timKiemTheoBang(Model model, 
@@ -126,8 +113,6 @@ public class PhongController {
 	                              @RequestParam(name = "khuKTX", required = false) String khuKTX,
 	                              @RequestParam(name = "soLuong", required = false) String soLuong,
 	                              @RequestParam(name = "maLoaiPhong", required = false) String maLoaiPhong) {
-	    List<OptionSelect> danhSachCacLuaChon = taoDanhSachCacLuaChon();
-	    model.addAttribute("danhSachCacLuaChon", danhSachCacLuaChon);
 
 	    model.addAttribute("maPhong", maPhong);
 	    model.addAttribute("tinhTrang", tinhTrang);

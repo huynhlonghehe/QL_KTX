@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Repository;
 import com.quan_ly_ktx.Entity.PHONG.Phong;
+import com.quan_ly_ktx.Entity.HopDong.HopDong;;
 
 @Repository
 public class PhongDAO{
@@ -47,12 +48,19 @@ public class PhongDAO{
         String sql = "SELECT * FROM PHONG WHERE maPhong = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{maPhong}, new BeanPropertyRowMapper<>(Phong.class));
     }
-
+    
+    
+    public int countHDbyMaPhong(String maPhong) {
+        String sql = "SELECT COUNT(*) FROM HOPDONG WHERE MAPHONG = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, maPhong);
+        return count != null ? count : 0;
+    }
+    
 
     public void updatePhong(Phong phong) {
         String sql = "UPDATE PHONG SET TINHTRANG = ?, SUCCHUA = ?, KHUKTX = ?, MALOAIPHONG = ?, NGAYSUADOI=?, NGUOISUADOICUOI=? WHERE MAPHONG = ?";
         Timestamp ngayTao = new Timestamp(System.currentTimeMillis());
-        jdbcTemplate.update(sql, phong.getTinhTrang(), phong.getSucChua(), phong.getMaKhu(), phong.getMaLoaiPhong(),ngayTao, phong.getNguoiSuaDoiCuoi(), phong.getMaPhong());
+        jdbcTemplate.update(sql, phong.getTinhTrang(), phong.getSucChua(), phong.getKhuKTX(), phong.getMaLoaiPhong(),ngayTao, phong.getNguoiSuaDoiCuoi(), phong.getMaPhong());
     }
 
 

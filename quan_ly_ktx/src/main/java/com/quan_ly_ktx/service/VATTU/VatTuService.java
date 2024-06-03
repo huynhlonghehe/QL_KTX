@@ -15,6 +15,6 @@ public interface VatTuService {
     void addVatTu(VatTu vatTu);
     public boolean existsByMaVT(String maVT);
     List<VatTu> sortVatTuByColumn(String column, String sortDirection);
-    public List<String> getDuocQuanLyBoi(String maVT);
-    public List<String> getQLVTLIST();
+    List<String> getAllMaVT();
+
 }
