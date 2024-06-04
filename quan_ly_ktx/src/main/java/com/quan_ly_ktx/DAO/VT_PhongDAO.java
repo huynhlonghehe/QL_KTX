@@ -31,7 +31,13 @@ public class VT_PhongDAO {
         System.out.println("Kiem tra ton tai PHONG VTPHONG: " + count);
         return count != null && count > 0;
     }
-
+    
+    public boolean existsByMaPhongAndMaVT(String maPhong, String maVT) {
+        String sql = "SELECT COUNT(*) FROM VT_PHONG WHERE maPhong = ? AND maVT = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{maPhong, maVT}, Integer.class);
+        return count != null && count > 0;
+    }
+    
     public List<VT_PHONG> getAllVTPHONG() {
         String sql = "SELECT * FROM VT_PHONG ORDER BY MAPHONG ASC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VT_PHONG.class));

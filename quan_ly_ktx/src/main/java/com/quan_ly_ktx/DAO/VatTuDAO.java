@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.quan_ly_ktx.Entity.PHONG.Phong;
 import com.quan_ly_ktx.Entity.VATTU.VatTu;
 import com.quan_ly_ktx.Entity.VATTU.VatTuMapper;
 
@@ -40,7 +41,7 @@ public class VatTuDAO {
         jdbcTemplate.update(sqlDeleteAll);
 
     }
-
+    
     // LẤY DANH SÁCH TẤT CẢ VẬT TƯ
     public List<VatTu> getAllVatTu() {
         String sql = "SELECT * FROM VATTU";
@@ -83,7 +84,7 @@ public class VatTuDAO {
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, maVT);
         return count != null && count > 0;
     }
-
+    
     // SẮP XẾP VẬT TƯ THEO CỘT
     public List<VatTu> sortVatTuByColumn(String column, String sortDirection) {
         // Xác định danh sách các cột và hướng sắp xếp hợp lệ
@@ -98,4 +99,34 @@ public class VatTuDAO {
         String sql = "SELECT * FROM VATTU ORDER BY " + column + " " + sortDirection;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VatTu.class));
     }
+    
+    private void appendConditions(StringBuilder sql, String attribute, String value) {
+        if (value != null && !value.isEmpty()) {
+            sql.append(" AND (");
+            String[] valuesArr = value.split(",");
+            for (int i = 0; i < valuesArr.length; i++) {
+                sql.append(attribute).append(" LIKE '%").append(valuesArr[i].trim()).append("%'");
+                if (i < valuesArr.length - 1) {
+                    sql.append(" OR ");
+                }
+            }
+            sql.append(")");
+        }
+    }
+    
+    public List<VatTu> timKiemTheoBang(String maVT, String tenVT, String giaTien, String ngayTao, String ngaySuaDoi, String nguoiSuaDoi) {
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM VATTU WHERE 1=1");
+        appendConditions(sql, "maVT", maVT);
+        appendConditions(sql, "tenVT", tenVT);
+        appendConditions(sql, "giaTien", giaTien);
+        appendConditions(sql, "ngayTao", ngayTao);
+        appendConditions(sql, "ngaySuaDoi", ngaySuaDoi);
+        appendConditions(sql, "nguoiSuaDoi", nguoiSuaDoi);
+
+
+        return jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(VatTu.class));
+    }
+
+
 }

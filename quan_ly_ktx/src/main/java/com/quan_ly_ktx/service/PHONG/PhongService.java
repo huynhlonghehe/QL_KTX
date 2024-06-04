@@ -15,4 +15,6 @@ public interface PhongService {
     public List<Phong> sortPhongByColumn(String column, String sortDirection);
     List<Phong> timKiemTheoBang(String maPhong, String tinhTrang, String sucChua, String khuKTX, String soLuong, String maLoaiPhong);
     int countHDByMaPhong(String maPhong);
+    void deletePhongByIds(List<String> ids);
+
 }

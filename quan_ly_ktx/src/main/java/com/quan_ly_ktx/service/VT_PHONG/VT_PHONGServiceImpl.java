@@ -23,7 +23,12 @@ public class VT_PHONGServiceImpl implements VT_PHONGService {
     public boolean existsReferencesToPhong(String maPhong) {
         return vtPhongDAO.existsReferencesToPhong(maPhong);
     }
-
+    
+    @Override
+    public boolean existsByMaPhongAndMaVT(String maPhong, String maVT) {
+        return vtPhongDAO.existsByMaPhongAndMaVT(maPhong, maVT);
+    }
+    
     @Override
     public List<VT_PHONG> getAllVTPHONG() {
         return vtPhongDAO.getAllVTPHONG();
@@ -68,6 +73,13 @@ public class VT_PHONGServiceImpl implements VT_PHONGService {
     @Override
     public void xoaTheoBang(String maPhong, String maVT, String ngayCap, String ngaySuaDoi, String soLuong, String tinhTrang) {
     	vtPhongDAO.xoaTheoBang(maPhong, maVT, ngayCap, ngaySuaDoi, soLuong, tinhTrang);
+    }
+    
+    @Override
+    public void deletePhongByIds(List<String> ids) {
+        for (String id : ids) {
+            vtPhongDAO.deleteVTPhong(id);
+        }
     }
     
     

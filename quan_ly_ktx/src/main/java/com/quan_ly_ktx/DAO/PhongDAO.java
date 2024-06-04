@@ -95,29 +95,31 @@ public class PhongDAO{
     	
     }
     
-    public List<Phong> timKiemPhong(String maPhong, String tinhTrang, String sucChua, String khuKTX, String soLuong, String maLoaiPhong) {
-        // Xây dựng câu lệnh SQL động
+    private void appendConditions(StringBuilder sql, String attribute, String value) {
+        if (value != null && !value.isEmpty()) {
+            sql.append(" AND (");
+            String[] valuesArr = value.split(",");
+            for (int i = 0; i < valuesArr.length; i++) {
+                sql.append(attribute).append(" LIKE '%").append(valuesArr[i].trim()).append("%'");
+                if (i < valuesArr.length - 1) {
+                    sql.append(" OR ");
+                }
+            }
+            sql.append(")");
+        }
+    }
+
+    public List<Phong> timKiemTheoBang(String maPhong, String tinhTrang, String sucChua, String khuKTX, String soLuong, String maLoaiPhong) {
         StringBuilder sql = new StringBuilder("SELECT * FROM PHONG WHERE 1=1");
 
-        if (maPhong != null && !maPhong.isEmpty()) {
-            sql.append(" AND maPhong LIKE '%").append(maPhong).append("%'");
-        }
-        if (tinhTrang != null && !tinhTrang.isEmpty()) {
-            sql.append(" AND tinhTrang LIKE '%").append(tinhTrang).append("%'");
-        }
-        if (sucChua != null && !sucChua.isEmpty()) {
-            sql.append(" AND sucChua LIKE '%").append(sucChua).append("%'");
-        }
-        if (khuKTX != null && !khuKTX.isEmpty()) {
-            sql.append(" AND khuKTX LIKE '%").append(khuKTX).append("%'");
-        }
-        if (soLuong != null && !soLuong.isEmpty()) {
-            sql.append(" AND soLuong LIKE '%").append(soLuong).append("%'");
-        }
-        if (maLoaiPhong != null && !maLoaiPhong.isEmpty()) {
-            sql.append(" AND maLoaiPhong LIKE '%").append(maLoaiPhong).append("%'");
-        }
+        appendConditions(sql, "maPhong", maPhong);
+        appendConditions(sql, "tinhTrang", tinhTrang);
+        appendConditions(sql, "sucChua", sucChua);
+        appendConditions(sql, "khuKTX", khuKTX);
+        appendConditions(sql, "soLuong", soLuong);
+        appendConditions(sql, "maLoaiPhong", maLoaiPhong);
 
         return jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(Phong.class));
     }
+
 }

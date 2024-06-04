@@ -56,6 +56,17 @@ public class VatTuServiceImpl implements VatTuService {
     public List<VatTu> sortVatTuByColumn(String column, String sortDirection) {
 		return vatTuDAO.sortVatTuByColumn(column, sortDirection);
 	}
+    @Override
+    public List<VatTu> timKiemTheoBang(String maVT, String tenVT, String giaTien, String ngayTao, String ngaySuaDoi, String nguoiSuaDoi){
+    	return vatTuDAO.timKiemTheoBang(maVT, tenVT, giaTien, ngayTao, ngaySuaDoi, nguoiSuaDoi);
+    }
+    
+    @Override
+    public void deleteVatTuByIds(List<String> ids) {
+        for (String id : ids) {
+            vatTuDAO.deleteVatTu(id);
+        }
+    }
     
     
 }

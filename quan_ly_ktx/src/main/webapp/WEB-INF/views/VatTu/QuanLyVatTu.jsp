@@ -13,7 +13,7 @@
             <%@include file="/WEB-INF/resources/css/VatTu_CSS/VatTu.css" %>
         </style>
         <script src="https://kit.fontawesome.com/e70d1e2fed.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     </head>
 
@@ -21,46 +21,55 @@
         <%@include file="/WEB-INF/views/includes/header.jsp"%>
         <%@include file="/WEB-INF/views/includes/menu.jsp"%>
         <div class="main_content">
-            <h1 class="title">Quản Lý vật tư</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">Mã vật tư <a href="#" data-column="MAVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Tên vật tư <a href="#" data-column="TENVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Giá tiền <a href="#" data-column="GIATIEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Ngày sửa đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                        <th scope="col">Người sửa đổi</th>
-                        <th scope="col">Hành động</th>
+            <h1 class="title">QUẢN LÝ VẬT TƯ</h1>
+			<form id="deleteSelectedForm" action="${pageContext.request.contextPath}/vattu/delete-selected" method="POST">
+			  <table>
+			    <thead>
+			      <tr>
+			        <th scope="col" class="checkbox-column"><input type="checkbox" id="selectAll"></th>
+			        <th scope="col">Mã vật tư <a href="#" data-column="MAVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+			        <th scope="col">Tên vật tư <a href="#" data-column="TENVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+			        <th scope="col">Giá tiền <a href="#" data-column="GIATIEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+			        <th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+			        <th scope="col">Ngày sửa đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+			        <th scope="col">Người sửa đổi</th>
+			        <th scope="col">Hành động</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <c:forEach var="vattu" items="${listVatTu}">
+			        <tr>
+			          <td class="checkbox-column"><input type="checkbox" class="select-item" name="selectedItems" value="${vattu.maVT}"></td>
+			          <td>${vattu.maVT}</td>
+			          <td>${vattu.tenVT}</td>
+			          <td>${vattu.giaTien}</td>
+			          <td>${vattu.ngayTao != null ? vattu.ngayTao : 'N/A'}</td>
+			          <td>${vattu.ngaySuaDoi != null ? vattu.ngaySuaDoi : 'N/A'}</td>
+			          <td>${vattu.nguoiSuaDoiCuoi != null ? vattu.nguoiSuaDoiCuoi : 'N/A'}</td>
+			          <td>
+			            <!-- Sửa button with tooltip and new style -->
+			            <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditVatTuForm('${vattu.maVT}', '${vattu.tenVT}', '${vattu.giaTien}', '${sessionScope.USERNAME}')"></a>
+			            <!-- Xoá button with tooltip and new style -->
+			            <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/vattu/delete-vat-tu/${vattu.maVT}'); return false;"></a>
+			          </td>
+			        </tr>
+			      </c:forEach>
+			    </tbody>
+			  </table>
+			</form>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="vattu" items="${listVatTu}">
-                        <tr>
-                            <td>${vattu.maVT}</td>
-                            <td>${vattu.tenVT}</td>
-                            <td>${vattu.giaTien}</td>
-                            <td>${vattu.ngayTao != null ? vattu.ngayTao : 'N/A'}</td>
-                            <td>${vattu.ngaySuaDoi != null ? vattu.ngaySuaDoi : 'N/A'}</td>
-                            <td>${vattu.nguoiSuaDoiCuoi != null ? vattu.nguoiSuaDoiCuoi : 'N/A'}</td>
-                            <td>
-                                <!-- Sửa button with tooltip and new style -->
-                                <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditVatTuForm('${vattu.maVT}', '${vattu.tenVT}', '${vattu.giaTien}', '${username}')"></a>
+			<div class="search-and-buttons">
+			  <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreateVatTuForm()">
+			    <i class="fa-solid fa-building"></i> Thêm Vật Tư
+			  </button>
+			  <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='${pageContext.request.contextPath}/vattu/list'">
+			    <i class="fa-solid fa-redo"></i> Reload
+			  </button>
+			  <button type="button" class="btn btn-primary button-createTK" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()">
+			    <i class="fa-solid fa-trash-can"></i> Xóa các vật tư phòng đã lựa chọn
+			  </button>
+			</div>
 
-                                <!-- Xoá button with tooltip and new style -->
-                                <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="deleteVatTu('${vattu.maVT}')"></a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-
-
-            <div class="search-and-buttons">
-                <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreateVatTuForm()">Thêm Vật Tư</button>
-                <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='http://localhost:8080/quan_ly_ktx/vattu/list'">Reload</button>
-            </div>
 
             <div class="search">
                 <!-- Form tìm kiếm -->
@@ -84,7 +93,9 @@
                     <input type="text" id="nguoiSuaDoi" name="nguoiSuaDoi" placeholder="Nhập người sửa đổi">
 
                     <!-- Thêm nút tìm kiếm -->
-                    <button type="submit" class="btn btn-find">Tìm kiếm</button>
+                    <button type="submit" class="btn btn-find">
+                        <i class="fas fa-search"></i> Tìm kiếm
+                    </button>
                 </form>
             </div>
 
@@ -163,40 +174,48 @@
 
         </div>
 
-        <div id="errorModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div class="modal-header">
-                    <h2>Xuất hiện lỗi !!!</h2>
-                </div>
-                <div class="modal-body">
-                    <p id="errorMessage"></p>
-                </div>
-            </div>
-        </div>
-
-        <div id="confirmModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close" onclick="closeForm('confirmModal')">&times;</span>
-                <div class="modal-header">
-                    <h2>Thông báo</h2>
-                </div>
-                <div class="modal-body">
-                    <p id="message"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="closeConfirmModalButton">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveChangesConfirmModalButton">Save changes</button>
-                </div>
-            </div>
-        </div>
-
-
-
     </body>
     <script>
+        function showAlert(title, message, icon) {
+            Swal.fire({
+                title: title,
+                text: message,
+                icon: icon,
+                confirmButtonText: 'OK'
+            });
+        }
+
+        /* Thông báo lỗi và kết quả*/
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorMessage = "${errorMessage}";
+            var successMessage = "${successMessage}";
+
+            if (errorMessage) {
+                showAlert("Lỗi", errorMessage, 'error')
+            } else if (successMessage) {
+                showAlert("Thành công", successMessage, 'success')
+            }
+        });
+
+        function closeForm(formId) {
+            document.getElementById(formId).style.display = 'none';
+        }
+
+        function showConfirm(url) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: 'Bạn có chắc chắn muốn xóa?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+
         function toggleCreateVatTuForm() {
             var form = document.getElementById('createVatTuForm');
             if (form.style.display === 'none' || form.style.display === '') {
@@ -293,36 +312,6 @@
             }
         }
 
-
-
-        function deleteVatTu(maVT) {
-            // Sử dụng Ajax để kiểm tra ràng buộc khóa ngoại trước khi xóa bản ghi
-            $.ajax({
-                type: "GET",
-                url: "${pageContext.request.contextPath}/vattu/check-foreign-key/" + maVT,
-                success: function(response) {
-                    console.log("Response từ server:", response); // In ra giá trị response để kiểm tra
-                    if (response === "OK") {
-                        // Hiển thị modal xác nhận
-                        showConfirmModal("Bạn có chắc chắn muốn xóa bản ghi này không?", function(confirmed) {
-                            console.log("confirm từ server:", confirmed);
-                            if (confirmed) {
-                                // Nếu người dùng đã xác nhận, thực hiện chuyển hướng đến URL xóa bản ghi
-                                window.location.href = "${pageContext.request.contextPath}/vattu/delete-vat-tu/" + maVT;
-                            }
-                        });
-                    } else {
-                        // Nếu có tham chiếu, hiển thị modal báo lỗi
-                        showErrorModal("Không thể xóa vật tư này vì có ít nhất một phòng đang sử dụng.");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    showErrorModal("Đã xảy ra lỗi khi kiểm tra ràng buộc khóa ngoại.");
-                }
-            });
-        }
-
-
         // Kiểm tra nếu có errorMessage thì hiển thị modal
 
         function showErrorModal(errorMessage) {
@@ -331,81 +320,44 @@
             modalContent.innerText = errorMessage;
             modal.style.display = "block";
         }
-        //Hiển thị confirmModal và kiểm tra lựa chọn 
-        function showConfirmModal(message, callback) {
-            var modal = document.getElementById("confirmModal");
-            var modalContent = modal.querySelector("#message");
-            modalContent.innerText = message;
-            modal.style.display = "block";
+        
+        //================================================//
 
-            // Lấy phần tử nút "Save changes" trong modal content
-            var saveChangesButton = document.getElementById("saveChangesConfirmModalButton");
-            // Lắng nghe sự kiện click cho nút "Save changes"
-            var closeModalButton = document.getElementById("closeModalButton");
-            saveChangesButton.addEventListener("click", function() {
-                modal.style.display = "none"; // Ẩn modal
-                if (callback) {
-                    callback(true); // Gọi callback với giá trị true (đã xác nhận)
-                }
+        $(document).ready(function() {
+            $('#selectAll').on('change', function() {
+                $('.select-item').prop('checked', this.checked);
+                toggleDeleteSelectedButton();
             });
 
-            // Lấy phần tử nút "Close" trong modal content
-            var closeModalButton = document.getElementById("closeConfirmModalButton");
-            // Lắng nghe sự kiện click cho nút "Close"
-            closeModalButton.addEventListener("click", function() {
-                modal.style.display = "none"; // Ẩn modal
-                if (callback) {
-                    callback(false); // Gọi callback với giá trị false (đã từ chối)
-                }
+            $('.select-item').on('change', function() {
+                toggleDeleteSelectedButton();
             });
-        }
+        });
 
-
-        //Ẩn cửa sổ modal khi người dùng nhấp vào nút đóng
-        document.getElementById("errorModal").querySelector(".close").onclick = function() {
-            var modal = document.getElementById("errorModal");
-            modal.style.animation = "disappearModal 0.5s ease forwards"; // Áp dụng hiệu ứng biến mất
-            // Ẩn modal sau khi hoàn thành hiệu ứng
-            setTimeout(function() {
-                modal.style.display = "none";
-                // Thiết lập lại trạng thái của modal
-                modal.style.animation = ""; // Xóa hiệu ứng animation
-                document.getElementById("errorMessage").innerText = ""; // Xóa thông báo lỗi
-            }, 500); // Thời gian của keyframes disappearModal
-        }
-
-        // Đóng cửa sổ modal khi người dùng nhấp vào bất kỳ đâu ngoài cửa sổ modal
-        window.onclick = function(event) {
-            var modal = document.getElementById("errorModal");
-            if (event.target == modal) {
-                modal.style.animation = "disappearModal 0.5s ease forwards"; // Áp dụng hiệu ứng biến mất
-                // Ẩn modal sau khi hoàn thành hiệu ứng
-                setTimeout(function() {
-                    modal.style.display = "none";
-                    // Thiết lập lại trạng thái của modal
-                    modal.style.animation = ""; // Xóa hiệu ứng animation
-                    document.getElementById("errorMessage").innerText = ""; // Xóa thông báo lỗi
-                }, 500); // Thời gian của keyframes disappearModal
+        function toggleDeleteSelectedButton() {
+            if ($('.select-item:checked').length > 0) {
+                $('#deleteSelectedButton').show();
+            } else {
+                $('#deleteSelectedButton').hide();
             }
         }
-        //đóng các modal
-        function closeForm(formId) {
-            var form = document.getElementById(formId);
-            form.style.animation = "disappearModal 0,1s";
-            setTimeout(function() {
-                form.style.display = "none";
-            }, 100);
-        }
-        //Lấy phần tử nút đóng modal
-        var closeModalButton = document.getElementById("closeModalButton");
 
-        // Thêm sự kiện lắng nghe cho nút đóng modal
-        closeModalButton.addEventListener("click", function() {
-            // Lấy phần tử modal
-            var modal = document.getElementById("confirmModal");
-            // Ẩn modal
-            modal.style.display = "none";
-        });
+        function confirmDeleteSelected() {
+            var form = document.getElementById('deleteSelectedForm');
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: 'Bạn có chắc chắn muốn xóa các vật tư phòng đã chọn?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+        //=====================================================//
     </script>
 
 </html>

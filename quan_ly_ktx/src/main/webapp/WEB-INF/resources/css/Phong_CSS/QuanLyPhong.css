@@ -173,133 +173,91 @@ tr:hover {background-color: #f5f5f5;}
     
 }
 
-/* CSS cho form tạo vật tư */
-	#createPhongForm {
-		max-width: 600px !important;
-	    background-color: #f9f9f9;
-	    border-radius: 8px;
-	    padding: 50px;
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-	    z-index: 100;
-	    position: sticky;
-	    top: -30px;
-	    left: 800px;
-	    transform: translate(-50%, -50%);
-	    margin-top: 300px;
-	   	animation: animatetop 0.5s ease forwards; /* Áp dụng hiệu ứng với thời gian 0.5s và forwards để giữ lại trạng thái cuối cùng */
-	}
-	
-	#createPhongForm h2 {
-	    text-align: center;
-	    margin-bottom: 20px;
-	}
-	
-	#createPhongForm .form-group {
-	    margin-bottom: 20px;
-	}
-	
-	#createPhongForm .form-group label {
-	    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-	    font-weight: bold;
-	}
-	
-	#createPhongForm .form-group input {
-		margin-bottom: 20px;
-		display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-	    width: 100%;
-	    padding: 8px;
-	    border: 1px solid #ccc;
-	    border-radius: 4px;
-	}
-	
-/* 	#createPhongForm .form-group label {
-	    display: inline-block; Hiển thị label trên cùng một hàng với input
-	    width: 100px; Điều chỉnh chiều rộng của label nếu cần
-	}
-	
-	#createPhongForm .form-group span,
-	#createPhongForm .form-group input {
-	    display: inline-block; Hiển thị input và span trên cùng một hàng
-	    width: calc(30% - 120px); Điều chỉnh chiều rộng của input và span
-	    margin-left: 20px; Tạo khoảng cách giữa label và input/span
-	} */
-	
-	#createPhongForm .form-group select {
-		margin-bottom: 20px;
-		display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-	    width: 100%;
-	    padding: 8px;
-	    border: 1px solid #ccc;
-	    border-radius: 4px;
-	}
-	
-	#createPhongForm .form-group button {
-		
-	    width: 100%;
-	    padding: 10px;
-	    border: none;
-	    background-color: #009CFF;
-	    color: #fff;
-	    cursor: pointer;
-	    border-radius: 4px;
-	}
-	
-	#createPhongForm .form-group button:hover {
-	    background-color: #45a049;
-	}
-	
-	#editPhongForm {
-	    max-width: 600px !important;
-	    background-color: #f9f9f9;
-	    border-radius: 8px;
-	    padding: 50px;
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-	    z-index: 100;
-	    position: sticky;
-	    top: -30px;
-	    left: 800px;
-	    transform: translate(-50%, -50%);
-	    margin-top: 300px;
-	    animation: animatetop 0.5s ease forwards; /* Áp dụng hiệu ứng với thời gian 0.5s và forwards để giữ lại trạng thái cuối cùng */
-	}
-	
-	#editPhongForm h2 {
-	    text-align: center;
-	    margin-bottom: 20px;
-	}
-	
-	#editPhongForm .form-group {
-	    margin-bottom: 20px;
-	}
-	
-	#editPhongForm .form-group label {
-	    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-	    font-weight: bold;
-	}
-	
-	#editPhongForm .form-group input,
-	#editPhongForm .form-group select {
-	    margin-bottom: 20px;
-	    display: block; /* Hiển thị label ở dạng block để đẩy xuống dưới input */
-	    width: 100%;
-	    padding: 8px;
-	    border: 1px solid #ccc;
-	    border-radius: 4px;
-	}
-	
-	#editPhongForm .form-group button {
-	    width: 100%;
-	    padding: 10px;
-	    border: none;
-	    background-color: #009CFF;
-	    color: #fff;
-	    cursor: pointer;
-	    border-radius: 4px;
-	}
-	
-	#editPhongForm .form-group button:hover {
-	    background-color: #45a049;
-	}
+#createPhongForm, #editPhongForm {
+    max-width: 443px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    width: 200%;
+}
+
+#createPhongForm h2, #editPhongForm h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#createPhongForm .form-group, #editPhongForm .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#createPhongForm .form-group label, #editPhongForm .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+#createPhongForm .form-group.full, #editPhongForm .form-group.full {
+    flex-direction: column;
+}
+
+#createPhongForm .half, #editPhongForm .half {
+    flex: 1;
+    min-width: 200px;
+    margin-right: 4px;
+}
+
+#createPhongForm .edit_input, #editPhongForm .edit_input,
+#createPhongForm .form-group select, #editPhongForm .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+#createPhongForm .edit_input:focus, #editPhongForm .edit_input:focus,
+#createPhongForm .form-group select:focus, #editPhongForm .form-group select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76,175,80, .6);
+}
+
+
+.form-group input, .form-group select {
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createPhongForm button, #editPhongForm button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#createPhongForm button:hover, #editPhongForm button:hover {
+    background-color: #45a049;
+}
+
 	
 	
 	#searchForm {
@@ -319,11 +277,12 @@ tr:hover {background-color: #f5f5f5;}
 
 #searchForm select,
 #searchForm input[type="text"] {
-    width: 123px;
-    padding: 5px;
+    width: 150px;
+    padding: 6px;
     border-radius: 3px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    margin-right: 12px;
 }
 
 #searchForm button {
@@ -338,67 +297,7 @@ tr:hover {background-color: #f5f5f5;}
 #searchForm button:hover {
     background-color: #0056b3;
 }
-/* CSS cho modal */
-.modal {
-  display: none; 
-  position: fixed; 
-  overflow: auto; /* Đảm bảo thanh trượt xuất hiện nếu nội dung dài hơn kích thước modal */
-  z-index: 101; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
-  border-radius: 8px;
-}
 
-.modal-header {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
-  
-}
-
-/* Modal Body */
-.modal-body {
-	padding: 2px 16px;
-	margin-top: 20px;
-    margin-bottom: 31%;
-}
-
-
-/* Modal Content */
-.modal-content {
-  position: fixed; /* Đảm bảo vị trí cố định trên trang */
-  top: 50%; /* Đưa modal lên phía trên 50% của trang */
-  left: 50%; /* Đưa modal sang phải 50% của trang */
-  transform: translate(-50%, -50%); /* Dịch chuyển nội dung modal điều chỉnh để căn giữa */
-  background-color: #fefefe;
-  margin: auto;
-  padding: 2px;
-  border: 5px solid #000000;
-  width: 30%;
-  height: 35%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  animation-name: animatetop;
-  animation-duration: 0.4s;
-  border-radius: 8px; 
-}
-
-.modal-footer {
-	display: flex;
-    justify-content: right;
-    padding: 10px 16px; /* Điều chỉnh padding cho phần footer */
-    background-color: #fefefe; /* Màu nền cho phần footer */
-    /* border-top: 1px solid #ddd; */ /* Đường viền trên cho phần footer */
-    border-radius: 0 0 8px 8px; /* Bo tròn góc phần footer */
-}
-
-.modal-footer button {
-    margin-right: 3px; /* Khoảng cách giữa các nút trong phần footer */
-}
 
 .close {
   color: red;

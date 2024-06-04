@@ -150,26 +150,15 @@ tr:hover {
     width: 100%;
 }
 
-/* CSS cho form search */
-.search {
-    display: block;
-    width: 100%;
-}
-
-#searchForm {
-    margin-top: 10px;
-/*     margin-left: auto; Căn giữa form
-    margin-right: auto; Căn giữa form */
-    margin-bottom: 5px;
-    width: 85%;
+	#searchForm {
+	margin-top:10px;
+	margin-left:1%;
+	margin-botton: 5px;
+	width:85%;
     padding: 5px;
-/*     background-color: #ffffff;
+    background-color: #ffffff;
     border-radius: 5px;
-    border: 1px solid #ccc; */
-    display: flex; /* Sử dụng flexbox để căn giữa các phần tử */
-    flex-wrap: wrap; /* Để các phần tử xuống dòng nếu không đủ chỗ */
-    justify-content: center; /* Căn giữa các phần tử theo chiều ngang */
-    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    border: 1px solid #ccc;
 }
 
 #searchForm label {
@@ -177,15 +166,12 @@ tr:hover {
 }
 
 #searchForm select,
-#searchForm input[type="text"],
-#searchForm input[type="number"],
-#searchForm input[type="date"] {
-    width: 123px;
+#searchForm input[type="text"] {
+    width: 130px;
     padding: 5px;
     border-radius: 3px;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    margin: 5px; /* Thêm margin để tạo khoảng cách giữa các phần tử */
 }
 
 #searchForm button {
@@ -195,7 +181,6 @@ tr:hover {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    margin: 5px; /* Thêm margin để tạo khoảng cách giữa các phần tử */
 }
 
 #searchForm button:hover {

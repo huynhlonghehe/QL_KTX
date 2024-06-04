@@ -23,12 +23,12 @@
 
     <!-- có thể cân nhắc làm thêm tính năng thùng rác  -->
     <div class="main_content">
-        <h1 class="title">Quản Lý Vật Tư Phòng</h1>
+        <h1 class="title">QUẢN LÝ VẬT TƯ - PHÒNG</h1>
         <div class="search-and-buttons">
-            <button type="button" class="btn btn-primary button_create" onclick="toggleCreateVTPhongForm()">Thêm Vật Tư Phòng</button>
-            <button type="button" class="btn btn-primary button_create" onclick="window.location.href='${pageContext.request.contextPath}/vtphong/list'">Reload</button>
-        	<button type="button" class="btn btn-primary button-create" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()">Xóa các vật tư phòng đã lựa chọn</button>
-        </div>
+            <button type="button" class="btn btn-primary button_create" onclick="toggleCreateVTPhongForm()"> <i class="fa-solid fa-plus"></i> Thêm Vật Tư Phòng</button>
+            <button type="button" class="btn btn-primary button_create"  onclick="window.location.href='${pageContext.request.contextPath}/vtphong/list'"> <i class="fa-solid fa-rotate-right"></i> Reload</button>
+        	<button type="button" class="btn btn-primary button-create" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()"> <i class="fa-solid fa-trash-can"></i> Xóa các vật tư phòng đã lựa chọn</button>
+		</div>
         <form id="deleteSelectedForm" action="${pageContext.request.contextPath}/vtphong/delete-selected" method="POST">
             <table>
                 <thead>
@@ -60,7 +60,7 @@
                                 <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditVTPhongForm(${vt.maVTPhong}, '${vt.maVT}', '${vt.maPhong}', '${vt.soLuong}', '${vt.ngayCap}', '${vt.tinhTrang}')"></a>
 
                                 <!-- Xoá button with tooltip -->
-                                <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/vtphong/delete-vt-phong/${vt.maVTPhong}'); return false;"></a>
+                                <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/vtphong/delete-vt-phong/${vt.maVTPhong}','Bạn có chắc chắn muốn xóa VT-Phòng này ?'); return false;"></a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -92,9 +92,10 @@
 
                 <label for="ngaySuaDoi">Ngày Sửa Đổi:</label>
                 <input type="text" id="ngaySuaDoi" name="ngaySuaDoi" value="${ngaySuaDoi}" placeholder="Nhập ngày sửa đổi">
+                <button type="submit" class="btn btn-find" onclick="submitSearchForm()">
+                        <i class="fas fa-search"></i> Tìm kiếm
+                </button>
 
-                <button type="button" class="btn btn-find" onclick="submitSearchForm()">Tìm kiếm</button>
-                <button type="button" class="btn btn-delete" title="Xóa theo những dữ liệu tìm kiếm" onclick="showDeleteConfirm(() => submitDeleteForm())">Xóa</button>
             </form>
         </div>
 
@@ -247,32 +248,14 @@
             return true;
         }
 
-        function showConfirm(deleteUrl) {
-            if (confirm("Bạn có chắc chắn muốn xóa vật tư phòng này?")) {
-                window.location.href = deleteUrl;
-            }
-        }
 
         function submitSearchForm() {
             document.getElementById('searchForm').submit();
         }
 
-        function showDeleteConfirm(callback) {
-            if (confirm("Bạn có chắc chắn muốn xóa các mục đã chọn?")) {
-                callback();
-            }
-        }
 
-        function submitDeleteForm() {
-            document.getElementById('deleteForm').submit();
-        }
-
-        function confirmDeleteSelected() {
-            if (confirm("Bạn có chắc chắn muốn xóa các vật tư phòng đã chọn?")) {
-                document.getElementById('deleteSelectedForm').submit();
-            }
-        }
-
+        //================================================//
+        
         $(document).ready(function() {
             $('#selectAll').on('change', function() {
                 $('.select-item').prop('checked', this.checked);
@@ -280,17 +263,80 @@
             });
 
             $('.select-item').on('change', function() {
-                $('#selectAll').prop('checked', $('.select-item:checked').length === $('.select-item').length);
                 toggleDeleteSelectedButton();
             });
+        });
 
-            function toggleDeleteSelectedButton() {
-                if ($('.select-item:checked').length > 0) {
-                    $('#deleteSelectedButton').show();
-                } else {
-                    $('#deleteSelectedButton').hide();
-                }
+        function toggleDeleteSelectedButton() {
+            if ($('.select-item:checked').length > 0) {
+                $('#deleteSelectedButton').show();
+            } else {
+                $('#deleteSelectedButton').hide();
             }
+        }
+		
+        function showConfirm(url,message) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+
+        
+        function confirmDeleteSelected() {
+            var form = document.getElementById('deleteSelectedForm');
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: 'Bạn có chắc chắn muốn xóa các vật tư phòng đã chọn?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+//=====================================================//
+        
+        //sort
+        document.addEventListener("DOMContentLoaded", function() {
+            var sortIcons = document.querySelectorAll(".fa-sort");
+            sortIcons.forEach(function(icon) {
+                var link = icon.closest('a');
+                var column = link.getAttribute('data-column');
+
+                // Tải trạng thái sắp xếp đã lưu từ localStorage
+                var savedMode = localStorage.getItem('sortMode-' + column);
+                if (savedMode) {
+                    link.setAttribute('data-mode', savedMode);
+                    link.setAttribute('href', "http://localhost:8080/quan_ly_ktx/vtphong/list/" + column + "/sort/" + savedMode);
+                }
+
+                icon.addEventListener("click", function(event) {
+                    var currentMode = link.getAttribute('data-mode');
+                    var newMode = currentMode === 'asc' ? 'desc' : 'asc';
+
+                    // Cập nhật data-mode và href trên thẻ a
+                    link.setAttribute('data-mode', newMode);
+                    var newHref = "http://localhost:8080/quan_ly_ktx/vtphong/list/" + column + "/sort/" + newMode;
+                    link.setAttribute('href', newHref);
+
+                    // Lưu trạng thái mới vào localStorage
+                    localStorage.setItem('sortMode-' + column, newMode);
+
+                    window.location.href = newHref; // Chuyển hướng người dùng
+                });
+            });
         });
     </script>
 </body>

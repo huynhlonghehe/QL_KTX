@@ -28,13 +28,6 @@ public class PhongController {
         return "Phong/QuanLyPhong"; // Thay đổi tên view tương ứng
     }
 
-/*    @RequestMapping(value = "/edit-phong/{maPhong}", method = RequestMethod.GET)
-    public String showEditPhongForm(@PathVariable("maPhong") String maPhong, Model model) {
-        Phong phong = phongService.getPhongById(maPhong);
-        model.addAttribute("phong", phong);
-        return "Phong/editPhong";
-    }
-*/
     @RequestMapping(value = "/update-phong", method = RequestMethod.POST)
     public String updatePhong(@ModelAttribute("phong") Phong phong) {
         phongService.updatePhong(phong);
@@ -84,19 +77,7 @@ public class PhongController {
             return "redirect:/phong/list";
         }
     }
-
-
-
-    @RequestMapping(value = "/invalidInput/{maPhong}", method = RequestMethod.GET)
-    @ResponseBody
-    public String checkExistMaPhong(@PathVariable("maPhong") String maPhong, Model model) {
-        if(phongService.existsByMaPhong(maPhong)) {
-            return "ERROR";
-        } else {
-            return "OK";
-        }
-    }
-    
+   
 	@RequestMapping(value = "/list/{column}/sort/{mode}", method = RequestMethod.GET)
 	public String sortPhong(Model model, @PathVariable("column") String column, @PathVariable("mode") String mode) {
 	    List<Phong> sortedPhong = phongService.sortPhongByColumn(column, mode);
@@ -104,7 +85,18 @@ public class PhongController {
 	    model.addAttribute("listPhong", sortedPhong);
 	    return "Phong/QuanLyPhong";
 	}
-
+	
+	@RequestMapping(value = "/delete-selected", method = RequestMethod.POST)
+    public String deleteSelected(@RequestParam("selectedItems") List<String> selectedItems, RedirectAttributes redirectAttributes) {
+        try {
+            phongService.deletePhongByIds(selectedItems);
+            redirectAttributes.addFlashAttribute("successMessage", "Xóa thành công các phòng đã lựa chọn.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Có lỗi xảy ra khi xóa các phòng(Phòng có thể đang được sử dụng).");
+        }
+        return "redirect:/phong/list";
+    }
+	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String timKiemTheoBang(Model model, 
 	                              @RequestParam(name = "maPhong", required = false) String maPhong,

@@ -69,7 +69,8 @@ public class VT_PHONGController {
     }
 
     @GetMapping("/delete-vt-phong/{maVTPhong}")
-    public String deleteVTPhong(@PathVariable("maVTPhong") String maVTPhong) {
+    public String deleteVTPhong(@PathVariable("maVTPhong") String maVTPhong, RedirectAttributes redirectAttributes) {
+    	redirectAttributes.addFlashAttribute("successMessage", "Sửa thành công !");
         vtPhongService.deleteVTPhong(maVTPhong);
         return "redirect:/vtphong/list";
     }
@@ -81,10 +82,15 @@ public class VT_PHONGController {
     }
 
     @PostMapping("/add-vt-phong")
-    public String addVTPhong(@ModelAttribute("vtPhong") VT_PHONG vtPhong,RedirectAttributes redirectAttributes) {
-    	redirectAttributes.addFlashAttribute("successMessage", "Thêm thành công !");
-        vtPhongService.addVTPhong(vtPhong);
-        return "redirect:/vtphong/list";
+    public String addVTPhong(@ModelAttribute("vtPhong") VT_PHONG vtPhong, RedirectAttributes redirectAttributes) {
+        if (vtPhongService.existsByMaPhongAndMaVT(vtPhong.getMaPhong(), vtPhong.getMaVT())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Cặp mã phòng và mã vật tư đã tồn tại!");
+            return "redirect:/vtphong/list";
+        } else {
+            vtPhongService.addVTPhong(vtPhong);
+            redirectAttributes.addFlashAttribute("successMessage", "Thêm thành công!");
+            return "redirect:/vtphong/list";
+        }
     }
 
     @GetMapping("/list/{column}/sort/{mode}")
@@ -93,8 +99,19 @@ public class VT_PHONGController {
         model.addAttribute("listVTPhong", sortedVTPhong);
         return "VT_Phong/VT_PHONG";
     }
-
-
+    
+    
+	@RequestMapping(value = "/delete-selected", method = RequestMethod.POST)
+    public String deleteSelected(@RequestParam("selectedItems") List<String> selectedItems, RedirectAttributes redirectAttributes) {
+        try {
+            vtPhongService.deletePhongByIds(selectedItems);
+            redirectAttributes.addFlashAttribute("successMessage", "Xóa thành công các phòng đã lựa chọn.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Có lỗi xảy ra khi xóa các phòng(Phòng có thể đang được sử dụng).");
+        }
+        return "redirect:/vtphong/list";
+    }
+    
     @GetMapping("/find")
     public String timKiemTheoBang(Model model, 
                                   @RequestParam(name = "maVTPhong", required = false) String maVTPhong,
@@ -119,21 +136,6 @@ public class VT_PHONGController {
         }
         model.addAttribute("listVTPhong", searchedVTPhong);
         return "VT_Phong/VT_PHONG";
-    }
-    @PostMapping("/Search-delete")	
-    public String xoaTheoBang(Model model, 
-                              @RequestParam(name = "maVTPhong", required = false) String maVTPhong,
-                              @RequestParam(name = "maVT", required = false) String maVT,
-                              @RequestParam(name = "maPhong", required = false) String maPhong,
-                              @RequestParam(name = "soLuong", required = false) String soLuong,
-                              @RequestParam(name = "ngayCap", required = false) String ngayCap,
-                              @RequestParam(name = "ngaySuaDoi", required = false) String ngaySuaDoi,
-                              @RequestParam(name = "tinhTrang", required = false) String tinhTrang) {
-
-        vtPhongService.xoaTheoBang(maPhong, maVT, ngayCap, ngaySuaDoi, soLuong, tinhTrang);
-
-        // Sau khi xóa, có thể trả về trang kết quả tìm kiếm rỗng hoặc thông báo đã xóa
-        return "redirect:/vtphong/list";
     }
 
 }

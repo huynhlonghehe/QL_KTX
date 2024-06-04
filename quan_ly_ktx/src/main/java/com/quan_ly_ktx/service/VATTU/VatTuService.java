@@ -16,5 +16,6 @@ public interface VatTuService {
     public boolean existsByMaVT(String maVT);
     List<VatTu> sortVatTuByColumn(String column, String sortDirection);
     List<String> getAllMaVT();
-
+    List<VatTu> timKiemTheoBang(String maVT, String tenVT, String giaTien, String ngayTao, String ngaySuaDoi, String nguoiSuaDoi);
+    void deleteVatTuByIds(List<String> ids);
 }
