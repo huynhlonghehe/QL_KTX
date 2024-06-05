@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -74,17 +74,17 @@
 
 
 
-			<div class="search-and-buttons">
-			  <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreatePhongForm()">
-			    <i class="fa-solid fa-building"></i> Thêm Phòng
-			  </button>
-			  <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='http://localhost:8080/quan_ly_ktx/phong/list'">
-			    <i class="fa-solid fa-redo"></i> Reload
-			  </button>
-			  <button type="button" class="btn btn-primary button-createTK" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()">
-			    <i class="fa-solid fa-trash-can"></i> Xóa các vật tư phòng đã lựa chọn
-			  </button>
-			</div>
+            <div class="search-and-buttons">
+                <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreatePhongForm()">
+                    <i class="fa-solid fa-building"></i> Thêm Phòng
+                </button>
+                <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='http://localhost:8080/quan_ly_ktx/phong/list'">
+                    <i class="fa-solid fa-redo"></i> Reload
+                </button>
+                <button type="button" class="btn btn-primary button-createTK" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()">
+                    <i class="fa-solid fa-trash-can"></i> Xóa các vật tư phòng đã lựa chọn
+                </button>
+            </div>
 
             <div class="search">
                 <!-- Form tìm kiếm -->
@@ -118,10 +118,11 @@
             <div id="createPhongForm" style="display: none">
                 <span class="close" onclick="closeForm('createPhongForm')">&times;</span>
                 <h2>Thêm phòng</h2>
-                <form action="${pageContext.request.contextPath}/phong/add-phong" method="POST">
+                <form action="${pageContext.request.contextPath}/phong/add-phong" method="POST" onsubmit="return validateCreatePhongForm()">
                     <div class="form-group">
                         <label for="maKhu" class="form-label">Khu:</label>
-                        <select id="add_maKhu" name="maKhu" class="form-select">
+                        <select id="add_maKhu" name="maKhu" class="form-select" required oninvalid="this.setCustomValidity('Vui lòng chọn khu')" oninput="this.setCustomValidity('')">
+                            <option value="">Chọn khu</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
@@ -132,11 +133,12 @@
                     </div>
                     <div class="form-group">
                         <label for="maPhong" class="form-label">Mã Phòng:</label>
-                        <input type="text" class="form-control" id="add_maSo" name="maSo" placeholder="Nhập mã phòng">
+                        <input type="text" class="form-control" id="add_maPhong" name="maSo" placeholder="Nhập mã phòng" required oninvalid="this.setCustomValidity('Vui lòng nhập mã phòng')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="tinhTrang" class="form-label">Tình Trạng:</label>
-                        <select id="add_tinhTrang" name="tinhTrang" class="form-select">
+                        <select id="add_tinhTrang" name="tinhTrang" class="form-select" required oninvalid="this.setCustomValidity('Vui lòng chọn tình trạng')" oninput="this.setCustomValidity('')">
+                            <option value="">Chọn tình trạng</option>
                             <option value="Tốt">Tốt</option>
                             <option value="Khá">Khá</option>
                             <option value="Trung Bình">Trung bình</option>
@@ -144,38 +146,38 @@
                     </div>
                     <div class="form-group">
                         <label for="sucChua" class="form-label">Sức chứa:</label>
-                        <input type="number" class="form-control" id="add_sucChua" name="sucChua" placeholder="Nhập sức chứa">
+                        <input type="number" class="form-control" id="add_sucChua" name="sucChua" min="2" max="12" placeholder="Nhập sức chứa" required oninvalid="this.setCustomValidity('Vui lòng nhập sức chứa từ 2 đến 12')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
-                        <label for="maLoaiPhong" class="form-label">Mã loại phòng:</label>
-                        <select id="add_maLoaiPhong" name="maLoaiPhong" class="form-select">
-                            <option value="LP001">Dịch vụ</option>
-                            <option value="LP002">Tốt</option>
-                            <option value="LP003">Thường</option>
+                        <label for="maLoaiPhong" class="form-label">Loại phòng:</label>
+                        <select id="add_maLoaiPhong" name="maLoaiPhong" class="form-select" required oninvalid="this.setCustomValidity('Vui lòng chọn mã loại phòng')" oninput="this.setCustomValidity('')">
+                            <option value="">Chọn loại phòng</option>
+                            <option value="LP001">Tốt</option>
+                            <option value="LP002">Dịch vụ</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-them" onclick="submitForm('create')">Thêm</button>
+                        <button type="submit" class="btn btn-them">Thêm</button>
                     </div>
                 </form>
             </div>
+
 
             <!-- Form sửa thông tin phòng -->
             <div id="editPhongForm" style="display: none">
                 <span class="close" onclick="closeForm('editPhongForm')">&times;</span>
                 <h2>Sửa Thông Tin Phòng</h2>
-                <form action="${pageContext.request.contextPath}/phong/update-phong/" method="POST">
+                <form action="${pageContext.request.contextPath}/phong/update-phong/" method="POST" onsubmit="return validateEditPhongForm()">
                     <div class="form-group">
                         <label for="edit_maPhong">Mã Phòng:</label>
-                        <!-- Input readonly để hiển thị giá trị edit_maVT -->
                         <input type="hidden" name="maKhu" id="edit_maKhu" readonly>
                         <input type="text" name="maPhong" id="edit_maPhong" readonly>
-                        <!-- Hiển thị giá trị edit_maVT -->
                         <span id="edit_maPhong_display" style="display: block;"></span>
                     </div>
                     <div class="form-group">
                         <label for="edit_tinhTrang" class="form-label">Tình Trạng:</label>
-                        <select id="edit_tinhTrang" name="tinhTrang" class="form-select">
+                        <select id="edit_tinhTrang" name="tinhTrang" class="form-select" required oninvalid="this.setCustomValidity('Vui lòng chọn tình trạng')" oninput="this.setCustomValidity('')">
+                            <option value="">Chọn tình trạng</option>
                             <option value="Tốt">Tốt</option>
                             <option value="Khá">Khá</option>
                             <option value="Trung Bình">Trung bình</option>
@@ -183,14 +185,14 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_sucChua" class="form-label">Sức chứa:</label>
-                        <input type="number" class="form-control" id="edit_sucChua" name="sucChua" placeholder="Nhập sức chứa">
+                        <input type="number" class="form-control" id="edit_sucChua" name="sucChua" min="2" max="12" placeholder="Nhập sức chứa" required oninvalid="this.setCustomValidity('Vui lòng nhập sức chứa từ 2 đến 12')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
-                        <label for="edit_maLoaiPhong" class="form-label">Mã loại phòng:</label>
-                        <select id="edit_maLoaiPhong" name="maLoaiPhong" class="form-select">
-                            <option value="LP001">Dịch vụ</option>
-                            <option value="LP002">Tốt</option>
-                            <option value="LP003">Thường</option>
+                        <label for="edit_maLoaiPhong" class="form-label">Loại phòng:</label>
+                        <select id="edit_maLoaiPhong" name="maLoaiPhong" class="form-select" required oninvalid="this.setCustomValidity('Vui lòng chọn mã loại phòng')" oninput="this.setCustomValidity('')">
+                            <option value="">Chọn loại phòng</option>
+                            <option value="LP001">Tốt</option>
+                            <option value="LP002">Dịch vụ</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -200,10 +202,11 @@
                         <input type="hidden" class="form-control" id="edit_khuKTX" name="KhuKTX">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-them" onclick="submitForm('edit')">Lưu</button>
+                        <button type="submit" class="btn btn-them">Lưu</button>
                     </div>
                 </form>
             </div>
+
 
 
         </div>

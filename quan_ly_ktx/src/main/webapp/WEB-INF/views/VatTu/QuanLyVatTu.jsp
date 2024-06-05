@@ -22,53 +22,53 @@
         <%@include file="/WEB-INF/views/includes/menu.jsp"%>
         <div class="main_content">
             <h1 class="title">QUẢN LÝ VẬT TƯ</h1>
-			<form id="deleteSelectedForm" action="${pageContext.request.contextPath}/vattu/delete-selected" method="POST">
-			  <table>
-			    <thead>
-			      <tr>
-			        <th scope="col" class="checkbox-column"><input type="checkbox" id="selectAll"></th>
-			        <th scope="col">Mã vật tư <a href="#" data-column="MAVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-			        <th scope="col">Tên vật tư <a href="#" data-column="TENVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-			        <th scope="col">Giá tiền <a href="#" data-column="GIATIEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-			        <th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-			        <th scope="col">Ngày sửa đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-			        <th scope="col">Người sửa đổi</th>
-			        <th scope="col">Hành động</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <c:forEach var="vattu" items="${listVatTu}">
-			        <tr>
-			          <td class="checkbox-column"><input type="checkbox" class="select-item" name="selectedItems" value="${vattu.maVT}"></td>
-			          <td>${vattu.maVT}</td>
-			          <td>${vattu.tenVT}</td>
-			          <td>${vattu.giaTien}</td>
-			          <td>${vattu.ngayTao != null ? vattu.ngayTao : 'N/A'}</td>
-			          <td>${vattu.ngaySuaDoi != null ? vattu.ngaySuaDoi : 'N/A'}</td>
-			          <td>${vattu.nguoiSuaDoiCuoi != null ? vattu.nguoiSuaDoiCuoi : 'N/A'}</td>
-			          <td>
-			            <!-- Sửa button with tooltip and new style -->
-			            <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditVatTuForm('${vattu.maVT}', '${vattu.tenVT}', '${vattu.giaTien}', '${sessionScope.USERNAME}')"></a>
-			            <!-- Xoá button with tooltip and new style -->
-			            <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/vattu/delete-vat-tu/${vattu.maVT}'); return false;"></a>
-			          </td>
-			        </tr>
-			      </c:forEach>
-			    </tbody>
-			  </table>
-			</form>
+            <form id="deleteSelectedForm" action="${pageContext.request.contextPath}/vattu/delete-selected" method="POST">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="checkbox-column"><input type="checkbox" id="selectAll"></th>
+                            <th scope="col">Mã vật tư <a href="#" data-column="MAVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                            <th scope="col">Tên vật tư <a href="#" data-column="TENVT" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                            <th scope="col">Giá tiền <a href="#" data-column="GIATIEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                            <th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                            <th scope="col">Ngày sửa đổi <a href="#" data-column="NGAYSUADOI" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                            <th scope="col">Người sửa đổi</th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="vattu" items="${listVatTu}">
+                            <tr>
+                                <td class="checkbox-column"><input type="checkbox" class="select-item" name="selectedItems" value="${vattu.maVT}"></td>
+                                <td>${vattu.maVT}</td>
+                                <td>${vattu.tenVT}</td>
+                                <td>${vattu.giaTien}</td>
+                                <td>${vattu.ngayTao != null ? vattu.ngayTao : 'N/A'}</td>
+                                <td>${vattu.ngaySuaDoi != null ? vattu.ngaySuaDoi : 'N/A'}</td>
+                                <td>${vattu.nguoiSuaDoiCuoi != null ? vattu.nguoiSuaDoiCuoi : 'N/A'}</td>
+                                <td>
+                                    <!-- Sửa button with tooltip and new style -->
+                                    <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditVatTuForm('${vattu.maVT}', '${vattu.tenVT}', '${vattu.giaTien}', '${sessionScope.USERNAME}')"></a>
+                                    <!-- Xoá button with tooltip and new style -->
+                                    <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/vattu/delete-vat-tu/${vattu.maVT}'); return false;"></a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </form>
 
-			<div class="search-and-buttons">
-			  <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreateVatTuForm()">
-			    <i class="fa-solid fa-building"></i> Thêm Vật Tư
-			  </button>
-			  <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='${pageContext.request.contextPath}/vattu/list'">
-			    <i class="fa-solid fa-redo"></i> Reload
-			  </button>
-			  <button type="button" class="btn btn-primary button-createTK" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()">
-			    <i class="fa-solid fa-trash-can"></i> Xóa các vật tư phòng đã lựa chọn
-			  </button>
-			</div>
+            <div class="search-and-buttons">
+                <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreateVatTuForm()">
+                    <i class="fa-solid fa-building"></i> Thêm Vật Tư
+                </button>
+                <button type="button" class="btn btn-primary button_createTK" onclick="window.location.href='${pageContext.request.contextPath}/vattu/list'">
+                    <i class="fa-solid fa-redo"></i> Reload
+                </button>
+                <button type="button" class="btn btn-primary button-createTK" id="deleteSelectedButton" style="display: none;" onclick="confirmDeleteSelected()">
+                    <i class="fa-solid fa-trash-can"></i> Xóa các vật tư phòng đã lựa chọn
+                </button>
+            </div>
 
 
             <div class="search">
@@ -104,10 +104,11 @@
             <div id="createVatTuForm" style="display: none">
                 <span class="close" onclick="closeForm('createVatTuForm')">&times;</span>
                 <h2>Thêm Vật Tư</h2>
-                <form action="${pageContext.request.contextPath}/vattu/add-vat-tu" method="POST">
+                <form action="${pageContext.request.contextPath}/vattu/add-vat-tu" method="POST" onsubmit="return validateCreateForm()">
                     <div class="form-group">
                         <label for="maKhu" class="form-label">Khu:</label>
-                        <select id="maKhu" name="maKhu" class="form-select">
+                        <select id="maKhu" name="maKhu" class="form-select" required oninvalid="this.setCustomValidity('Vui lòng chọn khu')" oninput="this.setCustomValidity('')">
+                            <option value="">Chọn khu</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
@@ -118,55 +119,51 @@
                     </div>
                     <div class="form-group">
                         <label for="maSo" class="form-label">Mã Vật Tư:</label>
-                        <input type="text" class="form-control" id="maSo" name="maSo" placeholder="Nhập mã vật tư">
+                        <input type="text" class="form-control" id="maSo" name="maSo" placeholder="Nhập mã vật tư" required oninvalid="this.setCustomValidity('Vui lòng nhập mã vật tư')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="tenVT" class="form-label">Tên Vật Tư:</label>
-                        <input type="text" class="form-control" id="tenVT" name="tenVT" placeholder="Nhập tên vật tư">
+                        <input type="text" class="form-control" id="tenVT" name="tenVT" placeholder="Nhập tên vật tư" required oninvalid="this.setCustomValidity('Vui lòng nhập tên vật tư')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="giaTien" class="form-label">Giá Tiền:</label>
-                        <input type="number" class="form-control" id="giaTien" name="giaTien" placeholder="Nhập giá tiền">
+                        <input type="number" class="form-control" id="giaTien" name="giaTien" placeholder="Nhập giá tiền" required oninvalid="this.setCustomValidity('Vui lòng nhập giá tiền')" oninput="this.setCustomValidity('')">
                     </div>
-                    <!-- Thêm vào trong form thêm vật tư -->
                     <div class="form-group">
-                        <button type="submit" class="btn btn-Them" onclick="validateAndSubmitForm(); ">Thêm</button>
+                        <button type="submit" class="btn btn-Them">Thêm</button>
                     </div>
                 </form>
             </div>
 
 
-            <!-- Sử dụng span để lưu mã vật tư, mặc định ẩn đi -->
+
+
             <div id="editVatTuForm" style="display: none">
                 <span class="close" onclick="closeForm('editVatTuForm')">&times;</span>
                 <h2>Sửa Thông Tin Vật Tư</h2>
-                <form action="${pageContext.request.contextPath}/vattu/update-vat-tu/" method="POST">
+                <form action="${pageContext.request.contextPath}/vattu/update-vat-tu/" method="POST" onsubmit="return validateEditForm()">
                     <div class="form-group">
                         <label for="edit_maVT">Mã vật tư:</label>
-                        <!-- Input readonly để hiển thị giá trị edit_maVT -->
                         <input type="text" name="maVT" id="edit_maVT" readonly>
-                        <!-- Hiển thị giá trị edit_maVT -->
                         <span id="edit_maVT_display" style="display: block;"></span>
-
                     </div>
                     <div class="form-group">
                         <label for="edit_tenVT">Tên vật tư:</label>
-                        <input type="text" class="form-control" name="tenVT" id="edit_tenVT" placeholder="Tên vật tư">
+                        <input type="text" class="form-control" name="tenVT" id="edit_tenVT" placeholder="Tên vật tư" required oninvalid="this.setCustomValidity('Vui lòng nhập tên vật tư')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="edit_giaTien">Giá tiền:</label>
-                        <input type="number" class="form-control" name="giaTien" id="edit_giaTien" placeholder="Giá tiền">
+                        <input type="number" class="form-control" name="giaTien" id="edit_giaTien" placeholder="Giá tiền" required oninvalid="this.setCustomValidity('Vui lòng nhập giá tiền')" oninput="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
-                        <!-- Input ẩn để truyền giá trị edit_maVT  <label for="edit_nguoiSuaDoiCuoi">Lần cuối sửa đổi bởi:</label>-->
                         <input type="hidden" name="nguoiSuaDoiCuoi" id="edit_nguoiSuaDoiCuoi" readonly>
-                        <!-- Hiển thị giá trị edit_maVT <span id="edit_nguoiSuaDoiCuoi_display" style="display: block;"></span> -->
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-them">Lưu</button>
                     </div>
                 </form>
             </div>
+
 
 
 
@@ -297,10 +294,11 @@
             }
 
             // Kiểm tra dữ liệu
-            if (maVT === '' || tenVT === '' || giaTien === '') {
-                showAlert('Error!', 'Vui lòng điền đầy đủ thông tin.', 'error');
-                return false;
-            }
+            /*             if (maVT === '' || tenVT === '' || giaTien === '') {
+                            showAlert('Error!', 'Vui lòng điền đầy đủ thông tin.', 'error');
+                            return false;
+                        } */
+
 
             // Xử lý submit tùy thuộc vào loại form
             if (formType === 'create') {
@@ -320,7 +318,7 @@
             modalContent.innerText = errorMessage;
             modal.style.display = "block";
         }
-        
+
         //================================================//
 
         $(document).ready(function() {
