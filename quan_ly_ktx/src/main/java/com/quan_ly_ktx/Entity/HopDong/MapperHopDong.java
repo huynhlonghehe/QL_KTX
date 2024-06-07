@@ -18,7 +18,12 @@ public class MapperHopDong implements RowMapper<HopDong>{
 		hopDong.setHocKy(rs.getString("HOCKY"));
 		hopDong.setMaPhong(rs.getString("MAPHONG"));
 		hopDong.setMaSV(rs.getString("MASV"));
+<<<<<<< HEAD
 		hopDong.setMaQL(rs.getString("MAQL"));
+=======
+		hopDong.setNgaySuaDoi(rs.getString("NGAYSUADOI"));
+		hopDong.setNguoiSuaDoiCuoi(rs.getString("NGUOISUADOICUOI"));
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
         return hopDong;
     }
 }

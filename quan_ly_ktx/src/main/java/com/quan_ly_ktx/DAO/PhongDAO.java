@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Repository;
 import com.quan_ly_ktx.Entity.PHONG.Phong;
+import com.quan_ly_ktx.Entity.HopDong.HopDong;;
 
 @Repository
 public class PhongDAO{
@@ -37,17 +39,28 @@ public class PhongDAO{
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Phong.class));
     }
 
-
+    public List<String> getAllMaPhong() {
+        String sql = "SELECT MAPHONG FROM PHONG";
+        return jdbcTemplate.query(sql, new SingleColumnRowMapper<>(String.class));
+    }
+    
     public Phong getPhongById(String maPhong) {
         String sql = "SELECT * FROM PHONG WHERE maPhong = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{maPhong}, new BeanPropertyRowMapper<>(Phong.class));
     }
-
+    
+    
+    public int countHDbyMaPhong(String maPhong) {
+        String sql = "SELECT COUNT(*) FROM HOPDONG WHERE MAPHONG = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, maPhong);
+        return count != null ? count : 0;
+    }
+    
 
     public void updatePhong(Phong phong) {
         String sql = "UPDATE PHONG SET TINHTRANG = ?, SUCCHUA = ?, KHUKTX = ?, MALOAIPHONG = ?, NGAYSUADOI=?, NGUOISUADOICUOI=? WHERE MAPHONG = ?";
         Timestamp ngayTao = new Timestamp(System.currentTimeMillis());
-        jdbcTemplate.update(sql, phong.getTinhTrang(), phong.getSucChua(), phong.getMaKhu(), phong.getMaLoaiPhong(),ngayTao, phong.getNguoiSuaDoiCuoi(), phong.getMaPhong());
+        jdbcTemplate.update(sql, phong.getTinhTrang(), phong.getSucChua(), phong.getKhuKTX(), phong.getMaLoaiPhong(),ngayTao, phong.getNguoiSuaDoiCuoi(), phong.getMaPhong());
     }
 
 
@@ -82,12 +95,31 @@ public class PhongDAO{
     	
     }
     
-    public List<Phong> timKiemTheoBang(String column, String searchValue) {
-		System.out.println("Tên cột: " + column);
-		System.out.println("Giá trị tìm kiếm " + searchValue);
-
-		String sql = "SELECT * FROM PHONG WHERE " + column + " LIKE '%" + searchValue + "%'";
-
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Phong.class));
+    private void appendConditions(StringBuilder sql, String attribute, String value) {
+        if (value != null && !value.isEmpty()) {
+            sql.append(" AND (");
+            String[] valuesArr = value.split(",");
+            for (int i = 0; i < valuesArr.length; i++) {
+                sql.append(attribute).append(" LIKE '%").append(valuesArr[i].trim()).append("%'");
+                if (i < valuesArr.length - 1) {
+                    sql.append(" OR ");
+                }
+            }
+            sql.append(")");
+        }
     }
+
+    public List<Phong> timKiemTheoBang(String maPhong, String tinhTrang, String sucChua, String khuKTX, String soLuong, String maLoaiPhong) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM PHONG WHERE 1=1");
+
+        appendConditions(sql, "maPhong", maPhong);
+        appendConditions(sql, "tinhTrang", tinhTrang);
+        appendConditions(sql, "sucChua", sucChua);
+        appendConditions(sql, "khuKTX", khuKTX);
+        appendConditions(sql, "soLuong", soLuong);
+        appendConditions(sql, "maLoaiPhong", maLoaiPhong);
+
+        return jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<>(Phong.class));
+    }
+
 }

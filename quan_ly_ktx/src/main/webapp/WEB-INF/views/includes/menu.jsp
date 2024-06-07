@@ -23,7 +23,7 @@
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="http://localhost:8080/quan_ly_ktx/quanly/QLTaiKhoan">Thông tin tài khoản</a></li>
+	      <li><a href="${pageContext.request.contextPath}/quanly/QLTaiKhoan">Thông tin tài khoản</a></li>
 	      <li><a href="#">History book 2</a></li>
 	      <li><a href="#">History book 3</a></li>
 	    </ul>
@@ -33,27 +33,47 @@
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="http://localhost:8080/quan_ly_ktx/quanly/QLSinhVien">Thông tin sinh viên</a></li>
-	      <li><a href="#">Fiction book 2</a></li>
-	      <li><a href="#">Fiction book 3</a></li>
+	      <li><a href="${pageContext.request.contextPath}/quanly/QLSinhVien">Thông tin sinh viên</a></li>
+	      <li><a href="${pageContext.request.contextPath}/quanly/QuanLySinhVien/SinhVienViPham">Sinh viên vi phạm</a></li>
+	      <li><a href="#">Thống kê sinh viên</a></li>
 	    </ul>
 	  </li>
 	  <li>
-	    <div class="dropdownlink"><i class="fa fa-quote-left" aria-hidden="true"></i> Quản lý vật tư
+	    <div class="dropdownlink"><i class="fa-solid fa-file-contract" aria-hidden="true"></i> Quản lý hợp đồng
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="http://localhost:8080/quan_ly_ktx/vattu/list">Thông tin vật tư</a></li>
+	      <li><a href="${pageContext.request.contextPath}/quanly/QLHopDong">Thông tin hợp đồng</a></li>
 	      <li><a href="#">Fantasy book 2</a></li>
 	      <li><a href="#">Fantasy book 3</a></li>
 	    </ul>
 	  </li>
 	  <li>
-	    <div class="dropdownlink"><i class="fa fa-motorcycle" aria-hidden="true"></i> Quản lý phòng
+	    <div class="dropdownlink"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Quản lý vật tư
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="http://localhost:8080/quan_ly_ktx/phong/list">Thông tin phòng</a></li>
+	      <li><a href="${pageContext.request.contextPath}/vattu/list">Thông tin vật tư</a></li>
+	      <li><a href="#">Fantasy book 2</a></li>
+	      <li><a href="#">Fantasy book 3</a></li>
+	    </ul>
+	  </li>
+	  <li>
+	    <div class="dropdownlink"><i class="fa-solid fa-house" aria-hidden="true"></i> Quản lý phòng
+	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+	    </div>
+	    <ul class="submenuItems">
+	      <li><a href="${pageContext.request.contextPath}/phong/list">Thông tin phòng</a></li>
+	      <li><a href="#">Action book 2</a></li>
+	      <li><a href="#">Action book 3</a></li>
+	    </ul>
+	  </li>
+	  	  <li>
+	    <div class="dropdownlink"><i class="fa-solid fa-business-time" aria-hidden="true"></i> Quản lý vật tư phòng
+	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+	    </div>
+	    <ul class="submenuItems">
+	      <li><a href="${pageContext.request.contextPath}/vtphong/list">Thông tin vật tư - phòng</a></li>
 	      <li><a href="#">Action book 2</a></li>
 	      <li><a href="#">Action book 3</a></li>
 	    </ul>

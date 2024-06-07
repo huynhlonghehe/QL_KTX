@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.quan_ly_ktx.Entity.*;
+import com.quan_ly_ktx.Entity.TaiKhoan.MapperTaiKhoan;
+import com.quan_ly_ktx.Entity.TaiKhoan.TaiKhoan;
 
 @Repository
 public class LoginDAO {

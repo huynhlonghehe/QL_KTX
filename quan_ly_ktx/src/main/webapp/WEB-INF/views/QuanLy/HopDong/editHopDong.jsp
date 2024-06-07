@@ -7,17 +7,35 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style><%@include file="/WEB-INF/resources/css/QuanLy_CSS/editHopDong.css"%></style>
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 </head>
 <body>
 <%@include file="/WEB-INF/views/includes/header.jsp"%>
 <%@include file="/WEB-INF/views/includes/menu.jsp"%>
 
+<<<<<<< HEAD
 <div class="main_content">
 	 <form:form action="../${hopDong.getMaHD()}/update" class="form">
         <h2>Sửa Thông Tin Hợp Đồng ${hopDong.getMaHD()}</h2>
         <div class="form-group full">
             <label for="maHD">Mã hợp đồng</label>
             <input class="edit_input" id="maHD" type="text" name="maHD" placeholder="Mã sinh viên" value="${hopDong.getMaHD()}" disabled="disabled"/>
+=======
+<div class="turnBack">
+		<a href="/quan_ly_ktx/quanly/QLHopDong"><i class="fa-solid fa-backward"></i></a>
+	</div>
+<div class="main_content">
+	
+	 <form:form action="../${hopDong.getMaHD()}/update" class="form" modelAttribute="hopDong">
+        <h2>Sửa Thông Tin Hợp Đồng ${hopDong.getMaHD()}</h2>
+        <div class="form-group full">
+            <label for="maHD">Mã hợp đồng</label>
+            <input class="edit_input" id="maHD" type="text" name="maHD" placeholder="Mã sinh viên" value="${hopDong.getMaHD()}"/>
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
         </div>
         <div class="form-group">
             <div class="half">
@@ -61,6 +79,7 @@
         <div class="form-group">
             <div class="half">
                 <label for="maSV">Mã sinh viên</label>
+<<<<<<< HEAD
                 <input class="edit_input" id="maSV" type="text" name="maSV" disabled="disabled" placeholder="Mã sinh viên" value="${hopDong.getMaSV()}"/>
             </div>
             <div class="half">
@@ -68,6 +87,12 @@
                 <input class="edit_input" id="maQL" type="text" name="maQL" disabled="disabled" placeholder="Mã quản lý" value="${hopDong.getMaQL()}"/>
             </div>
         </div>
+=======
+                <input class="edit_input" id="maSV" type="text" name="maSV" placeholder="Mã sinh viên" value="${hopDong.getMaSV()}"/>
+            </div>
+        </div>
+         <input type="hidden" id="nguoiSuaDoiCuoi" name="nguoiSuaDoiCuoi" value = "${sessionScope.USERNAME}">
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
         <button type="submit">Cập nhật</button>
     </form:form>
 
@@ -99,6 +124,37 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
 
+<<<<<<< HEAD
+=======
+/* Thông báo lỗi và kết quả*/
+document.addEventListener('DOMContentLoaded', function() {
+    var errorMessage = "${errorMessage}";
+    var successMessage = "${successMessage}";
+
+    if (errorMessage) {
+        Swal.fire({
+            title: 'Error!',
+            text: errorMessage,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    } else if (successMessage) {
+        Swal.fire({
+            title: 'Success!',
+            text: successMessage,
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }
+});
+/* Kết thúc */
+ 
+ /* Quay lại trang quản lý hợp đồng */
+function turnBackQLHopDong() {
+	 window.location.href = '/quan_ly_ktx/quanly/QLHopDong';
+}
+/* Kết thúc */
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 
 </script>
 </body>

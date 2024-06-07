@@ -21,6 +21,7 @@
 	<h1 class="title">Quản Lý Sinh Viên</h1>
 	<div class="searchContainer">
 		<form method="GET" action="/quan_ly_ktx/quanly/QLSinhVien/searchSinhVien" class="searchSinhVien" id="searchForm">
+<<<<<<< HEAD
 			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" id="nameInput"/>
 			<input type="text" name="ho" placeholder="Họ" class="inputSearch" id="nameInput"/>
 			<input type="text" name="ten" placeholder="Tên" class="inputSearch" id="nameInput"/>
@@ -34,6 +35,21 @@
 			<input type="text" name="diaChi" placeholder="Địa chỉ" class="inputSearch" id="nameInput"/>
 			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" id="nameInput"/>
 			<button type="submit" value="Search" class="buttonSearch"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+=======
+			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" value="${maSV}" id="maSV"/>
+			<input type="text" name="ho" placeholder="Họ" class="inputSearch" value="${ho}" id="ho"/>
+			<input type="text" name="ten" placeholder="Tên" class="inputSearch" value="${ten}" id="ten"/>
+			<select class="inputSearch" id="gioiTinh" name="gioiTinh">
+				<option value="">Giới tính</option>
+				<option value="Nam" ${'Nam'.equals(gioiTinh) ? 'selected' : ''}>Nam</option>
+				<option value="Nữ" ${'Nữ'.equals(gioiTinh) ? 'selected' : ''}>Nữ</option>
+			</select>
+			<input type="date" name="ngaySinh" placeholder="Ngày sinh" class="inputSearch" value="${ngaySinh}" id="ngaySinh"/>
+			<input type="text" name="diaChi" placeholder="Địa chỉ" class="inputSearch" value="${diaChi}" id="diaChi"/>
+			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" value="${lop}" id="lop"/>
+			<button type="submit" value="Search" class="buttonSearch"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+			<button type="button" value="Refresh" class="buttonRefresh" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate" ></i></button>
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 		</form>
 	</div>
 	
@@ -85,7 +101,10 @@
 					                        </c:when>
 					                    </c:choose>
 					                </c:if>
+<<<<<<< HEAD
 					               
+=======
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 					            </c:forEach>
 					            <!-- Ở vi phạm mức độ 3 nhân với 4 vì nếu vi phạm mức độ 3 1 lần là out lun -->
 					             <c:if test = "${(viPhamMucDo1*1) + (viPhamMucDo2)*2 + (viPhamMucDo3)*4 > 3}">
@@ -288,6 +307,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	    });
 	});
 /* Kết thúc */
+<<<<<<< HEAD
+=======
+ 
+/* Làm mới trang khi ấn vào nút refresh */
+function refreshPage() {
+	 window.location.href = '/quan_ly_ktx/quanly/QLSinhVien';
+}
+/* Kết thúc */
+
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 
 </script>
  

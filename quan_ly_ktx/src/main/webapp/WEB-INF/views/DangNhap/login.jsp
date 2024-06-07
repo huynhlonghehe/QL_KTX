@@ -21,7 +21,7 @@
             <h1>Hệ thống quản lý KTX</h1>
             <h4>Hãy điền thông tin tài khoản để đăng nhập</h4>
             <div class="input-group">
-                <label for="username">Tên đăng nhập</label>
+                <label for="username">Mã số sinh viên</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="input-group">

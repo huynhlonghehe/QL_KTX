@@ -8,7 +8,11 @@
         <li class="ptit"><a href="">Quản lý kí túc xá</a></li>
         <li class="func" id="toggleMenu"><a href="#">Chức năng</a></li>
         <li class="user">
-            <a href="">Xin chào, ${username}!</a>
+            <a href="">Xin chào,  <% if (session.getAttribute("USERNAME") != null) { %>
+							       <%= session.getAttribute("USERNAME") %>
+							    <% } else { %>
+							        User
+							    <% } %>! </a>
             <ul class="subnav">
                 <li><a href="">Chức năng 1</a></li>
                 <li><a href="">Chức năng 2</a></li>

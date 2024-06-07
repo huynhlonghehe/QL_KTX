@@ -12,8 +12,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<<<<<<< HEAD
 <style><%@include file="/WEB-INF/resources/css/QuanLy_CSS/QuanLyHopDong.css"%></style>
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> -->
+=======
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style><%@include file="/WEB-INF/resources/css/QuanLy_CSS/QuanLyHopDong.css"%></style>
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://kit.fontawesome.com/e70d1e2fed.js"></script>
 </head>
@@ -22,8 +27,83 @@
 <%@include file="/WEB-INF/views/includes/menu.jsp"%>
 
 <div class="main_content">
+<<<<<<< HEAD
 	<h1 class="title">Quản Lý Hợp Đồng</h1>
     <table>
+=======
+	<div class="requestHD-container">
+		<button type="button" class="requestHD-btn" onclick="toggleListSinhVienChuaCoHopDong()">Sinh Viên chưa có hợp đồng</button>
+		<span class="badge1"><strong>${soLuongSVChuaCoHD}</strong></span>
+	</div>
+	
+	<div id="ListSinhVienChuaCoHopDong" class="container mt-4" style="display: none">
+	    <c:choose>
+		    <c:when test="${not empty ListSVChuaCoHD}">
+		        <table class="table table-hover table-striped">
+		            <thead class="table-info">
+		                <tr>
+		                    <th scope="col">Mã sinh viên</th>
+		                    <th scope="col">Họ</th>
+		                    <th scope="col">Tên</th>
+		                    <th scope="col">Lớp</th>
+		                    <th scope="col">Ngày sinh</th>
+		                    <th scope="col">Điều kiện</th>
+		                    <th scope="col">Hành động</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach var="sinhVienChuaCoHD" items="${ListSVChuaCoHD}">
+		                    <tr>
+		                        <td>${sinhVienChuaCoHD.getMaSV()}</td>
+		                        <td>${sinhVienChuaCoHD.getHo()}</td>
+		                        <td>${sinhVienChuaCoHD.getTen()}</td>
+		                        <td>${sinhVienChuaCoHD.getLop()}</td>
+		                        <td>${sinhVienChuaCoHD.getNgaySinh()}</td>
+		                        <td>
+						            <c:set var="viPhamMucDo1" value="0"/>
+						            <c:set var="viPhamMucDo2" value="0"/>
+						            <c:set var="viPhamMucDo3" value="0"/>
+						            <c:set var="checked" value="false"/>
+						            <c:set var="tooltipText" value=""/>
+						            <c:forEach var="viPham" items="${ListSV_CoViPham}">
+						                <c:if test="${viPham.getMaSV() == sinhVienChuaCoHD.getMaSV()}">
+						                    <c:choose>
+						                        <c:when test="${viPham.getMucDoViPham() == 1}">
+						                        	<c:set var="viPhamMucDo1" value="${viPhamMucDo1 + 1}"/>
+						                        </c:when>
+						                        <c:when test="${viPham.getMucDoViPham() == 2}">
+						                        	<c:set var="viPhamMucDo2" value="${viPhamMucDo2 + 1}"/>
+						                        </c:when>
+						                        <c:when test="${viPham.getMucDoViPham() == 3}">
+						                        	<c:set var="viPhamMucDo3" value="${viPhamMucDo3 + 1}"/>
+						                        </c:when>
+						                    </c:choose>
+						                </c:if>
+						            </c:forEach>
+						            <!-- Ở vi phạm mức độ 3 nhân với 4 vì nếu vi phạm mức độ 3 1 lần là out lun -->
+						             <c:if test = "${(viPhamMucDo1*1) + (viPhamMucDo2)*2 + (viPhamMucDo3)*4 > 3}">
+						                	<c:set var="checked" value="true"/>
+					                </c:if>
+					                <c:set var="tooltipText" value="Vi phạm mức độ 1: ${viPhamMucDo1} lần, mức độ 2: ${viPhamMucDo2} lần, mức độ 3: ${viPhamMucDo3} lần" />
+						            <input class="check" type="checkbox" ${checked ? '' : 'checked'}  title="${tooltipText}" disabled="disabled"/>
+						        </td>
+		                        <td>
+		                            <a class="btn btn-primary btn-sm create-hopdong-btn" href="#" onclick="toggleCreateHopDongForm('${sinhVienChuaCoHD.getMaSV()}')">Tạo hợp đồng</a>
+		                        </td>
+		                    </tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
+		    </c:when>
+		    <c:otherwise>
+		        <h1 style="text-align: center; color: red">Không có dữ liệu sinh viên</h1>
+		    </c:otherwise>
+		</c:choose>
+	</div>
+	
+	<h1 class="title">Quản Lý Hợp Đồng</h1>
+    <table id="ListHopDong">
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
         <thead>
             <tr>
                 <th scope="col">Mã hợp đồng <a href="#" data-column="MAHD" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
@@ -34,7 +114,10 @@
 				<th scope="col">Học kỳ <a href="#" data-column="HOCKY" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>              
                 <th scope="col">Mã phòng </th>
                 <th scope="col">Mã sinh viên </th>
+<<<<<<< HEAD
                 <th scope="col">Mã quản lý </th>
+=======
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -49,10 +132,16 @@
                     <td>${hopDong.getHocKy()}</td>
                     <td>${hopDong.getMaPhong()}</td>
                     <td>${hopDong.getMaSV()}</td>
+<<<<<<< HEAD
                     <td>${hopDong.getMaQL()}</td>
                     <td>
 	                    <a href="../quanly/QLHopDong/${hopDong.getMaHD()}/edit">Sửa</a>
 	                    <a href="">Xoá</a>
+=======
+                    <td>
+	                    <a class="btn-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/edit"><i class="fa-solid fa-pen-to-square" style="color: #63E6BE;"></i></a>
+	                    <a class="btn-link delete-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/delete"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
                     </td>
                 </tr>
             </c:forEach>
@@ -62,7 +151,11 @@
 		<button type="button" class="btn btn-primary button_createHD" onclick="toggleCreateHopDongForm()">Hợp đồng mới</button>
 			<div id="createHopDongForm" style="display: none">
 		        <h2>Tạo hợp đồng mới</h2>
+<<<<<<< HEAD
 		        <form:form action="../quanly/QLHopDong/createHD" modelAttribute="hopDongMoi" method="post">
+=======
+		        <form:form action="/quan_ly_ktx/quanly/QLHopDong/createHD" modelAttribute="hopDongMoi" method="post">
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 		            <div class="form-group full">
 			            <label for="maHD">Mã hợp đồng</label>
 			            <input class="edit_input" id="maHD" type="text" name="maHD" placeholder="Mã hợp đồng" required="required"/>
@@ -103,17 +196,33 @@
 			            </div>
 			            <div class="half">
 			                <label for="maPhong">Mã phòng</label>
+<<<<<<< HEAD
 			                <input class="edit_input" id="maPhong" type="text" name="maPhong" placeholder="Mã phòng" required="required"/>
+=======
+			           		<select class="edit_input" id="maPhong" name="maPhong" required="required">
+			           			<c:forEach var="maPhong" items="${ListPhong}">
+						        	<option value="${maPhong}">${maPhong }</option>
+				    			</c:forEach>
+			           		</select>
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 			            </div>
 			        </div>
 			        <div class="form-group">
 			            <div class="half">
 			                <label for="maSV">Mã sinh viên</label>
+<<<<<<< HEAD
 			                <input class="edit_input" id="maSV" type="text" name="maSV" placeholder="Mã sinh viên" required="required"/>
 			            </div>
 			            <div class="half">
 			                <label for="maQL">Mã quản lý</label>
 			                <input class="edit_input" id="maQL" type="text" name="maQL" placeholder="Mã quản lý" required="required"/>
+=======
+			                <input class="edit_input" id="maSV" type="text" name="maSV" placeholder="Mã sinh viên" required="required" readonly="readonly"/>
+			            </div>
+			            <div class="half">
+			                <label for="maQL">Mã quản lý</label>
+			                <!-- <input class="edit_input" id="maQL" type="text" name="maQL" placeholder="Mã quản lý"/> -->
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 			            </div>
 			        </div>
 			        <button type="submit">Tạo</button>
@@ -124,6 +233,7 @@
 
 
 <script type="text/javascript">
+<<<<<<< HEAD
 	document.addEventListener("DOMContentLoaded", function() {
 	    var tbody = document.querySelector("table tbody");
 	    var rows = tbody.querySelectorAll("tr").length;
@@ -138,6 +248,28 @@
 	
 	 document.addEventListener("DOMContentLoaded", function() {
 	        var rows = document.querySelectorAll("tbody tr"); // Lấy tất cả các dòng trong tbody
+=======
+document.addEventListener("DOMContentLoaded", function() {
+    // Chọn phần tử tbody của bảng bạn muốn thêm các hàng trống
+    var tbody = document.querySelector("#ListHopDong tbody");
+
+    // Kiểm tra xem phần tử tbody có tồn tại hay không
+    if (tbody) {
+        var rows = tbody.querySelectorAll("tr").length;
+        var maxRows = 12;
+
+        for (var i = rows; i < maxRows; i++) {
+            var tr = document.createElement("tr");
+            tr.innerHTML = "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
+            tbody.appendChild(tr);
+        }
+    }
+});
+
+	
+	 document.addEventListener("DOMContentLoaded", function() {
+	        var rows = document.querySelectorAll("#ListHopDong tbody tr"); // Lấy tất cả các dòng trong tbody
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 	        var today = new Date().toISOString().slice(0, 10); // Ngày hiện tại ở dạng YYYY-MM-DD
 
 	        rows.forEach(function(row) {
@@ -173,8 +305,14 @@
 	 /* Kết thúc */
 	
 	 /* Ẩn hiện form tạo hợp đồng */
+<<<<<<< HEAD
 	 function toggleCreateHopDongForm(event) {
 		    var form = document.getElementById('createHopDongForm');
+=======
+	 function toggleCreateHopDongForm(maSV) {
+		    var form = document.getElementById('createHopDongForm');
+		    document.getElementById('maSV').value = maSV;
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 		    if (form.style.display === 'none' || form.style.display === '') {
 		        form.style.display = 'block';
 		    } else {
@@ -199,6 +337,70 @@
 		}
 	 /* Kết thúc */
 	 
+<<<<<<< HEAD
+=======
+	 /* Thông báo xác nhận muốn xoá sinh viên không */
+	document.addEventListener('DOMContentLoaded', function() {
+		    // Tìm tất cả các thẻ a có class là 'delete-link'
+		    var deleteLinks = document.querySelectorAll('.delete-link');
+	
+		    deleteLinks.forEach(function(link) {
+		        link.addEventListener('click', function(event) {
+		            event.preventDefault(); // Ngăn thẻ a chuyển hướng trực tiếp
+		            var href = this.href; // Lưu lại đường dẫn href của thẻ a
+	
+		            Swal.fire({
+		                title: 'Bạn có chắc chắn muốn xoá?',
+		                text: "Bạn sẽ không thể hoàn tác điều này!",
+		                icon: 'warning',
+		                showCancelButton: true,
+		                confirmButtonColor: '#3085d6',
+		                cancelButtonColor: '#d33',
+		                confirmButtonText: 'Xoá',
+		                cancelButtonText: 'Huỷ'
+		            }).then((result) => {
+		                if (result.isConfirmed) {
+		                    // Chuyển hướng đến href nếu người dùng xác nhận
+		                    window.location.href = href;
+		                }
+		            });
+		        });
+		    });
+		});
+	/* Kết thúc */
+	
+	function toggleListSinhVienChuaCoHopDong() {
+	    var table_SV = document.getElementById('ListSinhVienChuaCoHopDong');
+	    var table_HD = document.getElementById('ListHopDong');
+	    if (table_SV.style.display === 'none' || table_SV.style.display === '') {
+	    	table_SV.style.display = 'block';
+	    	table_HD.style.display = 'none';
+	    } else {
+	    	table_SV.style.display = 'none';
+	    	table_HD.style.display = 'block';
+	    }
+	}
+	
+	document.addEventListener("DOMContentLoaded", function() {
+	    var rows = document.querySelectorAll("#ListSinhVienChuaCoHopDong tbody tr"); // Lấy tất cả các dòng trong tbody
+
+	    rows.forEach(function(row) {
+	    	var checkbox = row.querySelector('.check'); // Tìm checkbox trong hàng này
+	        if (!checkbox.checked) { // Kiểm tra nếu checkbox tồn tại và chưa được đánh dấu
+                row.classList.add("table-danger"); // Thêm class 'expired' nếu chưa được đánh dấu và vi phạm mức 3
+             // Vô hiệu hóa nút "Tạo hợp đồng" trong hàng này
+                var createHDButton = row.querySelector('.create-hopdong-btn');
+                if (createHDButton) {
+                	createHDButton.removeAttribute('onclick');
+                	createHDButton.classList.remove("btn-primary")
+                	createHDButton.classList.add("btn-secondary")
+                	console.log(createHDButton)
+                }
+	        }
+	    });
+	});
+	 
+>>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 </script>
 
 </body>

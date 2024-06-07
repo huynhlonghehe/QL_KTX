@@ -2,7 +2,7 @@ package com.quan_ly_ktx.Entity.VATTU;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.List;
+
 
 public class VatTu {
     private String maSo;
@@ -13,12 +13,11 @@ public class VatTu {
     private Date ngayTao;
     private Date ngaySuaDoi;
     private String nguoiSuaDoiCuoi;
-    private List<String> duocQuanLyBoi;
 
     public VatTu() {
     }
 
-    public VatTu(String maSo, String maKhu, String maVT, String tenVT, double giaTien, Date ngayTao, Date ngaySuaDoi, String nguoiSuaDoiCuoi, List<String> duocQuanLyBoi) {
+    public VatTu(String maSo, String maKhu, String maVT, String tenVT, double giaTien, Date ngayTao, Date ngaySuaDoi, String nguoiSuaDoiCuoi) {
         this.maSo = maSo;
         this.maKhu = maKhu;
         this.maVT = maVT;
@@ -27,7 +26,6 @@ public class VatTu {
         this.ngayTao = ngayTao;
         this.ngaySuaDoi = ngaySuaDoi;
         this.nguoiSuaDoiCuoi = nguoiSuaDoiCuoi;
-        this.duocQuanLyBoi = duocQuanLyBoi;
     }
 
     public String getMaSo() {
@@ -94,13 +92,6 @@ public class VatTu {
         this.nguoiSuaDoiCuoi = nguoiSuaDoiCuoi;
     }
 
-    public List<String> getDuocQuanLyBoi() {
-        return duocQuanLyBoi;
-    }
-
-    public void setDuocQuanLyBoi(List<String> duocQuanLyBoi) {
-        this.duocQuanLyBoi = duocQuanLyBoi;
-    }
 
     public String getNgayTaoAsString() {
         if (ngayTao != null) {

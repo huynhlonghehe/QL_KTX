@@ -16,7 +16,13 @@ public class PhongServiceImpl implements PhongService {
     public List<Phong> getAllPhongs() {
         return phongDAO.getAllPhongs();
     }
-
+    
+    
+    @Override
+    public List<String> getAllMaPhong() {
+        return phongDAO.getAllMaPhong();
+    }
+    
     @Override
     public Phong getPhongById(String maPhong) {
         return phongDAO.getPhongById(maPhong);
@@ -47,7 +53,20 @@ public class PhongServiceImpl implements PhongService {
     }
     
     
-    public List<Phong> timKiemTheoBang(String column, String searchValue){
-    	return phongDAO.timKiemTheoBang(column, searchValue);
+    @Override
+    public List<Phong> timKiemTheoBang(String maPhong, String tinhTrang, String sucChua, String khuKTX, String soLuong, String maLoaiPhong) {
+        return phongDAO.timKiemTheoBang(maPhong, tinhTrang, sucChua, khuKTX, soLuong, maLoaiPhong);
+    }
+    
+    @Override
+    public int countHDByMaPhong(String maPhong) {
+		return phongDAO.countHDbyMaPhong(maPhong);
+	}
+    
+    @Override
+    public void deletePhongByIds(List<String> ids) {
+        for (String id : ids) {
+            phongDAO.deletePhong(id);
+        }
     }
 }
