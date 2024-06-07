@@ -48,4 +48,9 @@ public class HoaDonDienServiceImpl implements HoaDonDienService {
     public List<HoaDonDien> timKiemTheoBang(String maHDD, String chiSoTruoc, String chiSoSau, String heSoTienDien, String tienNo, String maPhong, String ngayTao, String ngaySuaDoi, String nguoiSuaDoiCuoi) {
         return hoaDonDienDAO.timKiemTheoBang(maHDD, chiSoTruoc, chiSoSau, heSoTienDien, tienNo, maPhong, ngayTao, ngaySuaDoi, nguoiSuaDoiCuoi);
     }
+    
+    @Override
+    public int getChiSoTruocByMaPhong(String maPhong) {
+    	return hoaDonDienDAO.getChiSoTruocByMaPhong(maPhong);
+    }
 }

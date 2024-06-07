@@ -1,8 +1,11 @@
 package com.quan_ly_ktx.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,49 +13,56 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.quan_ly_ktx.Entity.HoaDonDien.HoaDonDien;
 import com.quan_ly_ktx.service.HOADONDIEN.HoaDonDienService;
+import com.quan_ly_ktx.service.PHONG.PhongService;
 
 @Controller
-@RequestMapping("/hoa-don-dien")
+@RequestMapping("/hoadondien")
 public class HoaDonDienController {
 
     @Autowired
     private HoaDonDienService hoaDonDienService;
+    @Autowired
+    private PhongService phongService;
 
-    @GetMapping("/list")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showHoaDonDienList(Model model) {
         List<HoaDonDien> listHoaDonDien = hoaDonDienService.getAllHoaDonDien();
+        List<String> listPhong = phongService.getAllMaPhong();
         model.addAttribute("listHDD", listHoaDonDien);
+        model.addAttribute("listPhong", listPhong);
         return "HoaDonDien/QuanLyHDD";
     }
 
-    @PostMapping("/update-hoa-don-dien")
+    @RequestMapping(value = "/update-HDD", method = RequestMethod.POST)
     public String updateHoaDonDien(@ModelAttribute("hoaDonDien") HoaDonDien hoaDonDien) {
         hoaDonDienService.updateHoaDonDien(hoaDonDien);
-        return "redirect:/hoa-don-dien/list";
+        return "redirect:/hoadondien/list";
     }
 
-    @PostMapping("/add-hoa-don-dien")
+    
+    
+    @RequestMapping(value = "/add-HDD", method = RequestMethod.POST)
     public String addHoaDonDien(@ModelAttribute("hoaDonDien") HoaDonDien hoaDonDien, RedirectAttributes redirectAttributes) {
         hoaDonDienService.addHoaDonDien(hoaDonDien);
         redirectAttributes.addFlashAttribute("successMessage", "Thêm thành công");
-        return "redirect:/hoa-don-dien/list";
+        return "redirect:/hoadondien/list";
     }
 
-    @GetMapping("/delete-hoa-don-dien/{maHDD}")
+    @RequestMapping(value = "/delete-HDD/{maHDD}", method = RequestMethod.GET)
     public String deleteHoaDonDien(@PathVariable String maHDD, RedirectAttributes redirectAttributes) {
         hoaDonDienService.deleteHoaDonDien(maHDD);
         redirectAttributes.addFlashAttribute("successMessage", "Xóa thành công");
-        return "redirect:/hoa-don-dien/list";
+        return "redirect:/hoadondien/list";
     }
 
-    @GetMapping("/list/{column}/sort/{mode}")
+    @RequestMapping(value = "/list/{column}/sort/{mode}", method = RequestMethod.GET)
     public String sortHoaDonDien(Model model, @PathVariable("column") String column, @PathVariable("mode") String mode) {
         List<HoaDonDien> sortedHoaDonDien = hoaDonDienService.sortHDDByColumn(column, mode);
         model.addAttribute("listHoaDonDien", sortedHoaDonDien);
         return "HoaDonDien/QuanLyHoaDonDien";
     }
 
-    @GetMapping("/find")
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String timKiemTheoBang(Model model,
                                    @RequestParam(name = "maHDD", required = false) String maHDD,
                                    @RequestParam(name = "chiSoTruoc", required = false) String chiSoTruoc,

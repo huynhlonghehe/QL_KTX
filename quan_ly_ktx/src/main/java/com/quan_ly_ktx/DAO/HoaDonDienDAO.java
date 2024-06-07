@@ -1,5 +1,6 @@
 package com.quan_ly_ktx.DAO;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,18 @@ public class HoaDonDienDAO {
         String sql = "SELECT * FROM HOADONDIEN WHERE MAHDD = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{maHDD}, new HoaDonDienMapper());
     }
+    //lấy chỉ số sau của hợp đồng gần nhất để gán cho chỉ số trước mới nhất của phòng đó
+    public int getChiSoTruocByMaPhong(String maPhong) {
+        String sql = "SELECT TOP 1 CHISOSAU FROM HOADONDIEN WHERE MAPHONG = ? ORDER BY NGAYTAO DESC";
+        return jdbcTemplate.queryForObject(sql, new Object[]{maPhong}, Integer.class);
+    }
 
+    
     public void addHoaDonDien(HoaDonDien hoaDonDien) {
-        String sql = "INSERT INTO HOADONDIEN (MAHDD, CHISOTRUOC, CHISOSAU, HESOTIENDIEN, TIENNO, MAPHONG, NGAYTAO, NGAYSUADOI, NGUOISUADOICUOI) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, hoaDonDien.getMaHDD(), hoaDonDien.getChiSoTruoc(), hoaDonDien.getChiSoSau(), hoaDonDien.getHeSoTienDien(), hoaDonDien.isTienNo(), hoaDonDien.getMaPhong(), hoaDonDien.getNgayTao(), hoaDonDien.getNgaySuaDoi(), hoaDonDien.getNguoiSuaDoiCuoi());
+    	Timestamp ngayTao = new Timestamp(System.currentTimeMillis());
+    	
+        String sql = "INSERT INTO HOADONDIEN (MAHDD, CHISOTRUOC, CHISOSAU, HESOTIENDIEN, TIENNO, MAPHONG, NGAYTAO) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, hoaDonDien.getMaHDD(), hoaDonDien.getChiSoTruoc(), hoaDonDien.getChiSoSau(), hoaDonDien.getHeSoTienDien(), hoaDonDien.isTienNo(), hoaDonDien.getMaPhong(), ngayTao);
     }
 
     public int updateHoaDonDien(HoaDonDien hoaDonDien) {

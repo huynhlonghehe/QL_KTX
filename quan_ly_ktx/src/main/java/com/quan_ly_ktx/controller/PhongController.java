@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.quan_ly_ktx.DAO.PhongDAO;
 import com.quan_ly_ktx.DAO.VT_PhongDAO;
 import com.quan_ly_ktx.Entity.PHONG.Phong;
 import com.quan_ly_ktx.service.PHONG.PhongService;
@@ -16,6 +18,8 @@ public class PhongController {
 
     @Autowired
     PhongService phongService;
+    @Autowired
+    PhongDAO phongDAO;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showPhongList(Model model) {
@@ -55,20 +59,10 @@ public class PhongController {
     @Autowired
     private VT_PhongDAO vtPhongDAO;
     
-    @ResponseBody
-    @RequestMapping(value = "/check-foreign-key/{maPhong}", method= RequestMethod.GET)
-    public String checkForeignKey(@PathVariable String maPhong) {
-    	System.out.println("CHECK khoa ngoai: "+vtPhongDAO.existsReferencesToPhong(maPhong));
-        if (vtPhongDAO.existsReferencesToPhong(maPhong)) {
-            return "ERROR";
-        } else {
-            return "OK";
-        }
-    }
     
     @RequestMapping(value = "/delete-phong/{maPhong}", method = RequestMethod.GET)
     public String deletePhong(@PathVariable("maPhong") String maPhong, RedirectAttributes redirectAttributes) {
-        if (vtPhongDAO.existsReferencesToPhong(maPhong)) {
+        if (vtPhongDAO.existsReferencesToPhong(maPhong) || phongDAO.checkExistInHDD(maPhong)) {
             redirectAttributes.addFlashAttribute("errorMessage", "Phòng đang được sử dụng");
             return "redirect:/phong/list";
         } else {

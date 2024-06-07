@@ -19,4 +19,6 @@ public interface HoaDonDienService {
     List<HoaDonDien> sortHDDByColumn(String column, String sortDirection);
 
     List<HoaDonDien> timKiemTheoBang(String maHDD, String chiSoTruoc, String chiSoSau, String heSoTienDien, String tienNo, String maPhong, String ngayTao, String ngaySuaDoi, String nguoiSuaDoiCuoi);
+
+    int getChiSoTruocByMaPhong(String maPhong);
 }

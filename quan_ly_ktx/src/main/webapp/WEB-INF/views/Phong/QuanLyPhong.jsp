@@ -30,7 +30,7 @@
                             <th scope="col">Mã Phòng <a href="#" data-column="MAPHONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                             <th scope="col">Tình Trạng <a href="#" data-column="TINHTRANG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                             <th scope="col">Sức Chứa <a href="#" data-column="SUCCHUA" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                            <th scope="col">Khu KTX <a href="#" data-column="KHUKTX" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+                            <!-- <th scope="col">Khu KTX <a href="#" data-column="KHUKTX" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th> -->
                             <th scope="col">Số Lượng SV Đang Có <a href="#" data-column="SOLUONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                             <th scope="col">Loại Phòng <a href="#" data-column="MALOAIPHONG" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
                             <th scope="col">Ngày Tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
@@ -46,7 +46,7 @@
                                 <td>${phong.maPhong}</td>
                                 <td>${phong.tinhTrang}</td>
                                 <td>${phong.sucChua}</td>
-                                <td>${phong.khuKTX}</td>
+<%--                                 <td>${phong.khuKTX}</td> --%>
                                 <td>${phong.soLuong}</td>
                                 <td>
                                     <c:choose>

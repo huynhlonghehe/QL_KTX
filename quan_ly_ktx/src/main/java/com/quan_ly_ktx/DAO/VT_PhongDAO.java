@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.quan_ly_ktx.Entity.VATTU.VT_PHONG;
+import com.quan_ly_ktx.Entity.VATTU.VT_PHONGMapper;
 
 @Repository
 public class VT_PhongDAO {
@@ -40,7 +40,7 @@ public class VT_PhongDAO {
     
     public List<VT_PHONG> getAllVTPHONG() {
         String sql = "SELECT * FROM VT_PHONG ORDER BY MAPHONG ASC";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VT_PHONG.class));
+        return jdbcTemplate.query(sql, new VT_PHONGMapper());
     }
     
     public void addVTPhong(VT_PHONG vtPhong) {
@@ -50,7 +50,7 @@ public class VT_PhongDAO {
 
     public VT_PHONG getVTPhongById(String maVTPhong) {
         String sql = "SELECT * FROM VT_PHONG WHERE MAVTPHONG = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{maVTPhong}, new BeanPropertyRowMapper<>(VT_PHONG.class));
+        return jdbcTemplate.queryForObject(sql, new Object[]{maVTPhong}, new VT_PHONGMapper());
     }
 
     public void updateVTPhong(VT_PHONG vtPhong) {
@@ -79,7 +79,7 @@ public class VT_PhongDAO {
         }
 
         String sql = "SELECT * FROM VT_PHONG ORDER BY " + column + " " + sortDirection;
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(VT_PHONG.class));
+        return jdbcTemplate.query(sql, new VT_PHONGMapper());
     }
 
     public List<VT_PHONG> timKiemVTPhong(String maPhong, String maVT, String ngayCap, String ngaySuaDoi, String soLuong, String tinhTrang) {
@@ -112,7 +112,7 @@ public class VT_PhongDAO {
         }
 
         System.out.println(sql.toString());
-        return jdbcTemplate.query(sql.toString(), params.toArray(), new BeanPropertyRowMapper<>(VT_PHONG.class));
+        return jdbcTemplate.query(sql.toString(), params.toArray(), new VT_PHONGMapper());
     }
     
     public void xoaTheoBang(String maPhong, String maVT, String ngayCap, String ngaySuaDoi, String soLuong, String tinhTrang) {
@@ -146,6 +146,4 @@ public class VT_PhongDAO {
         System.out.println(sql.toString());
         jdbcTemplate.update(sql.toString(), params.toArray());
     }
-
-
 }

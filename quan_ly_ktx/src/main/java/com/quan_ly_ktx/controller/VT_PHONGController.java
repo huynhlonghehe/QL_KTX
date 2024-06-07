@@ -54,12 +54,6 @@ public class VT_PHONGController {
         return "VT_Phong/VT_PHONG";
     }
 
-/*    @GetMapping("/edit-vt-phong/{maVTPhong}")
-    public String showEditVTPhongForm(@PathVariable("maVTPhong") String maVTPhong) {
-        VT_PHONG vtPhong = vtPhongService.getVTPhongById(maVTPhong);
-        model.addAttribute("vtPhong", vtPhong);
-        return "VT_Phong/editVTPhong";
-    }*/
 
     @PostMapping("/update-vt-phong")
     public String updateVTPhong(@ModelAttribute("vtPhong") VT_PHONG vtPhong, RedirectAttributes redirectAttributes) {
