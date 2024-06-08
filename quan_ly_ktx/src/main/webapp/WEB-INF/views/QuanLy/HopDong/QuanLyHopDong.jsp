@@ -12,13 +12,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
+
 <style><%@include file="/WEB-INF/resources/css/QuanLy_CSS/QuanLyHopDong.css"%></style>
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> -->
-=======
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style><%@include file="/WEB-INF/resources/css/QuanLy_CSS/QuanLyHopDong.css"%></style>
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://kit.fontawesome.com/e70d1e2fed.js"></script>
 </head>
@@ -27,10 +27,8 @@
 <%@include file="/WEB-INF/views/includes/menu.jsp"%>
 
 <div class="main_content">
-<<<<<<< HEAD
 	<h1 class="title">Quản Lý Hợp Đồng</h1>
     <table>
-=======
 	<div class="requestHD-container">
 		<button type="button" class="requestHD-btn" onclick="toggleListSinhVienChuaCoHopDong()">Sinh Viên chưa có hợp đồng</button>
 		<span class="badge1"><strong>${soLuongSVChuaCoHD}</strong></span>
@@ -103,7 +101,6 @@
 	
 	<h1 class="title">Quản Lý Hợp Đồng</h1>
     <table id="ListHopDong">
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
         <thead>
             <tr>
                 <th scope="col">Mã hợp đồng <a href="#" data-column="MAHD" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
@@ -114,10 +111,7 @@
 				<th scope="col">Học kỳ <a href="#" data-column="HOCKY" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>              
                 <th scope="col">Mã phòng </th>
                 <th scope="col">Mã sinh viên </th>
-<<<<<<< HEAD
                 <th scope="col">Mã quản lý </th>
-=======
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -132,16 +126,13 @@
                     <td>${hopDong.getHocKy()}</td>
                     <td>${hopDong.getMaPhong()}</td>
                     <td>${hopDong.getMaSV()}</td>
-<<<<<<< HEAD
                     <td>${hopDong.getMaQL()}</td>
                     <td>
 	                    <a href="../quanly/QLHopDong/${hopDong.getMaHD()}/edit">Sửa</a>
 	                    <a href="">Xoá</a>
-=======
                     <td>
 	                    <a class="btn-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/edit"><i class="fa-solid fa-pen-to-square" style="color: #63E6BE;"></i></a>
 	                    <a class="btn-link delete-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/delete"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
                     </td>
                 </tr>
             </c:forEach>
@@ -151,11 +142,8 @@
 		<button type="button" class="btn btn-primary button_createHD" onclick="toggleCreateHopDongForm()">Hợp đồng mới</button>
 			<div id="createHopDongForm" style="display: none">
 		        <h2>Tạo hợp đồng mới</h2>
-<<<<<<< HEAD
-		        <form:form action="../quanly/QLHopDong/createHD" modelAttribute="hopDongMoi" method="post">
-=======
+
 		        <form:form action="/quan_ly_ktx/quanly/QLHopDong/createHD" modelAttribute="hopDongMoi" method="post">
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 		            <div class="form-group full">
 			            <label for="maHD">Mã hợp đồng</label>
 			            <input class="edit_input" id="maHD" type="text" name="maHD" placeholder="Mã hợp đồng" required="required"/>

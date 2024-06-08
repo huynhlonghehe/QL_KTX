@@ -1,34 +1,24 @@
 package com.quan_ly_ktx.DAO;
 
-<<<<<<< HEAD
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-=======
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.quan_ly_ktx.Entity.HopDong.HopDong;
 import com.quan_ly_ktx.Entity.HopDong.MapperHopDong;
+import com.quan_ly_ktx.Entity.SinhVien.MapperSinhVien;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 @Repository
 public class HopDongDAO {
 	@Autowired
@@ -52,16 +42,17 @@ public class HopDongDAO {
 	    }
 	}
 	
-<<<<<<< HEAD
-=======
-	public int countNumHopDongMaPhong(String maPhong)
-	{
-		String sql = "SELECT COUNT(*) AS count FROM HOPDONG WHERE MAPHONG = ?";
-		return _jdbcTemplate.queryForObject(sql, Integer.class, maPhong);
-		
+	public HopDong GetHopDongByMaSV(String maSV){
+		String sql = "SELECT * FROM HOPDONG WHERE MASV = ?";
+		List<HopDong> list = _jdbcTemplate.query(sql, new Object[]{maSV} ,new MapperHopDong());
+		if (!list.isEmpty()) {
+	        return list.get(0);
+	    } else {
+	        // Nếu không tìm thấy tài khoản, trả về null
+	        return null;
+	    }
 	}
 	
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 	/* kiểm tra sinh viên đã có hợp đồng chưa, không tính hợp đồng đã hết hạn */
 	public boolean checkSVDangConHopDong(String maSV) {
 		String sql_checkSV = "SELECT * FROM HOPDONG \r\n"
@@ -82,12 +73,8 @@ public class HopDongDAO {
 	    return count > 0;
 	}
 	
-	public void createHD(HopDong hopDong) {
-<<<<<<< HEAD
-		String sql_createHD = "INSERT INTO HOPDONG VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-=======
+	public void createHD(HopDong hopDong, int soLuongSVHienTaiTrongPhong) {
 		String sql_createHD = "INSERT INTO HOPDONG(MAHD, NGAYTAO, NGAYHETHAN, SOTIEN, NAMHOC, HOCKY, MAPHONG, MASV) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 		String maHD = hopDong.getMaHD();
 		String ngayTao = hopDong.getNgayTao();
 		String ngayHetHan = hopDong.getNgayHetHan();
@@ -96,20 +83,14 @@ public class HopDongDAO {
 		String hocKy = hopDong.getHocKy();
 		String maPhong = hopDong.getMaPhong();
 		String maSV = hopDong.getMaSV();
-<<<<<<< HEAD
-		String maQL = hopDong.getMaQL();
-		try {
-			_jdbcTemplate.update(sql_createHD, maHD, ngayTao, ngayHetHan, soTien, namHoc, hocKy, maPhong, maSV, maQL);
-=======
+		String sql_Update_SoLuongSinhVienPhongString = "UPDATE PHONG SET SOLUONG = ? WHERE MAPHONG = ?";
 		try {
 			_jdbcTemplate.update(sql_createHD, maHD, ngayTao, ngayHetHan, soTien, namHoc, hocKy, maPhong, maSV);
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+			_jdbcTemplate.update(sql_Update_SoLuongSinhVienPhongString, (soLuongSVHienTaiTrongPhong + 1), hopDong.getMaPhong());
 		} catch (DataAccessException e) {
  	        e.printStackTrace();
  	    }
 	}
-<<<<<<< HEAD
-=======
 	
 	public void updateHopDong(HopDong hopDong, String CurMaHD) {
 		String sql= "UPDATE HOPDONG SET MAHD = ?, NGAYTAO = ?, NGAYHETHAN = ?, SOTIEN = ?, NAMHOC = ?, HOCKY = ?, MAPHONG = ?, MASV = ?, NGAYSUADOI = ?, NGUOISUADOICUOI = ? WHERE MAHD = ?";
@@ -142,6 +123,25 @@ public class HopDongDAO {
 		}
 	}
 	
+	public String getMaxMaHD() {
+	    String sql = "SELECT MAX(MAHD) FROM HOPDONG";
+	    String maxMaHD = _jdbcTemplate.queryForObject(sql, String.class);
+	    return maxMaHD;
+	}
 	
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+	public List<String> getAllNamHoc() {
+        String sql = "SELECT DISTINCT NAMHOC FROM HOPDONG";
+        try {
+            return _jdbcTemplate.query(sql, new RowMapper<String>() {
+                @Override
+                public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getString("NAMHOC");
+                }
+            });
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return null; // hoặc xử lý lỗi theo cách khác
+        }
+    }
+	
 }

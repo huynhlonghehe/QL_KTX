@@ -25,25 +25,16 @@ public class HopDong {
 	private String maPhong;
 	@Column(name = "MASV")
 	private String maSV;
-<<<<<<< HEAD
-	@Column(name = "MAQL")
-	private String maQL;
-=======
 	@Column(name = "NGAYSUADOI")
 	private String ngaySuaDoi;
 	@Column(name = "NGUOISUADOICUOI")
 	private String nguoiSuaDoiCuoi;
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 	
 	public HopDong() {
 		super();
 	}
 	
-<<<<<<< HEAD
-	public HopDong(String maHD, String ngayTao, String ngayHetHan , long soTien, String namHoc, String hocKy, long tienNo, String maPhong, String maSV, String maQL){
-=======
 	public HopDong(String maHD, String ngayTao, String ngayHetHan , long soTien, String namHoc, String hocKy, long tienNo, String maPhong, String maSV, String ngaySuaDoi, String nguoiSuaDoiCuoi){
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 		this.maHD = maHD;
 		this.ngayTao = ngayTao;
 		this.ngayHetHan = ngayHetHan;
@@ -52,12 +43,8 @@ public class HopDong {
 		this.hocKy = hocKy;
 		this.maPhong = maPhong;
 		this.maSV = maSV;
-<<<<<<< HEAD
-		this.maQL = maQL;
-=======
 		this.ngaySuaDoi = ngaySuaDoi;
 		this.nguoiSuaDoiCuoi = nguoiSuaDoiCuoi;
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 	}
 
 	public String getMaHD() {
@@ -123,16 +110,6 @@ public class HopDong {
 	public void setMaSV(String maSV) {
 		this.maSV = maSV;
 	}
-<<<<<<< HEAD
-
-	public String getMaQL() {
-		return maQL;
-	}
-
-	public void setMaQL(String maQL) {
-		this.maQL = maQL;
-	}
-=======
 	public String getNgaySuaDoi() {
 		return ngaySuaDoi;
 	}
@@ -149,7 +126,6 @@ public class HopDong {
 		this.nguoiSuaDoiCuoi = nguoiSuaDoiCuoi;
 	}
 	
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 	
 	@Override
 	public String toString() {

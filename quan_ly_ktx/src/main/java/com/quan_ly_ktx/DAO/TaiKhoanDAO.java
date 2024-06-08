@@ -111,8 +111,8 @@ public class TaiKhoanDAO {
 	/**********************************************************************************************************/
 
 	/* Lấy danh sách quản lý sinh viên */
-	public List<String> getListQuanLySinhVien() {
-        String quyenQuanLySinhVien = "Quản lý sinh viên";
+	public List<String> getListQuanLy() {
+        String quyenQuanLySinhVien = "Quản lý";
         String sql = "SELECT USERNAME FROM TAIKHOAN WHERE QUYEN = ?";
         try {
             return _jdbcTemplate.query(sql, new Object[]{quyenQuanLySinhVien}, new RowMapper<String>() {
