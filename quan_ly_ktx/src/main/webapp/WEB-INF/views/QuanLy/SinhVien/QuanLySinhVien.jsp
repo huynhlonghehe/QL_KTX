@@ -21,9 +21,23 @@
 	<h1 class="title">Quản Lý Sinh Viên</h1>
 	<div class="searchContainer">
 		<form method="GET" action="/quan_ly_ktx/quanly/QLSinhVien/searchSinhVien" class="searchSinhVien" id="searchForm">
-			<input type="text" name="maHD" placeholder="Mã hợp đồng" class="inputSearch" value="${maHD}" id="search_maHD"/>
-			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" value="${maSV}" id="search_maSV"/>
-			
+			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" id="nameInput"/>
+			<input type="text" name="ho" placeholder="Họ" class="inputSearch" id="nameInput"/>
+			<input type="text" name="ten" placeholder="Tên" class="inputSearch" id="nameInput"/>
+			<!-- <input type="text" name="gioiTinh" placeholder="Giới tính" class="inputSearch" id="nameInput"/> -->
+			<select class="inputSearch"  id="nameInput" name="gioiTinh">
+				<option>Giới tính</option>
+               	<option value="Nam" >Nam</option>
+               	<option value="Nữ" >Nữ</option>
+            </select>
+			<input type="date" name="ngaySinh" placeholder="Ngày sinh" class="inputSearch" id="nameInput"/>
+			<input type="text" name="diaChi" placeholder="Địa chỉ" class="inputSearch" id="nameInput"/>
+			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" id="nameInput"/>			
+			<select class="inputSearch" id="dieuKien" name="dieuKienO"  style="width: 120px">
+				<option value="">Điều kiện ở</option>
+				<option value="duDieuKien"  ${'duDieuKien'.equals(dieuKien) ? 'selected' : ''}>Đủ điều kiện</option>
+				<option value="khongDuDieuKien" ${'khongDuDieuKien'.equals(dieuKien) ? 'selected' : ''}>Không đủ điều kiện</option>
+			</select>
 			<button type="submit" value="Search" class="buttonSearch" title="Tìm kiếm"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
 			<button type="button" value="Refresh" class="buttonRefresh" onclick="refreshPage()" title="Làm mới tìm kiếm"><i class="fa-solid fa-arrows-rotate" ></i></button>
 		</form>

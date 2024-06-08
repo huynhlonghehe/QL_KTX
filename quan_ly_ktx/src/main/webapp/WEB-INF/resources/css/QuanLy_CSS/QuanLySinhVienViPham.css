@@ -9,6 +9,7 @@
 body{
 	overflow-x: hidden; 
 	background-color: #EEE9E9;
+    height: 1360px;
 }
 
 .main_content{
@@ -19,14 +20,47 @@ body{
 
 .main_content .title{
 	margin: 16px 450px;
-	
+    font-size: 36px;
+    color: #009CFF;
 }
+
+.main_content .title_QuyTac{
+	position: absolute;
+    margin: 16px;
+    font-size: 36px;
+    color: #009CFF;
+    top: 650px;
+    left: 560px;
+}
+
 
 #ListSinhVienViPhamNoiQuy{
+	position: absolute;
+	top: 100px;
+	left: 40px;
+	z-index: 10;
+	max-height: 500px;
+    overflow-y: auto;
+    padding: 0px;
+    border-collapse: collapse;
+    border: 1px solid #333; 
+    max-width: 1421px;
 }
 
+#ListSinhVienViPhamNoiQuy .table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
 
-#ListSinhVienViPhamNoiQuy table {
+#ListSinhVienViPhamNoiQuy th, #ListSinhVienViPhamNoiQuy td {
+    text-align: left;
+    width: 150px;
+    margin-right: 32px;
+    align-content: center;
+}
+
+/* #ListSinhVienViPhamNoiQuy table {
     width: 86%;
     background-color: #e0f2f1;
     border-collapse: collapse;
@@ -34,21 +68,21 @@ body{
     position: absolute;
     top: 140px;
     left: 28px;
-    display: block; /* Biến table thành block để có thể áp dụng overflow */
-    max-height: 500px; /* Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng */
-    overflow-y: auto; /* Thêm thanh trượt dọc nếu nội dung bảng vượt quá chiều cao tối đa */
+    display: block; Biến table thành block để có thể áp dụng overflow
+    max-height: 500px; Giới hạn chiều cao tối đa, tính toán dựa trên chiều cao trung bình của một hàng
+    overflow-y: auto; Thêm thanh trượt dọc nếu nội dung bảng vượt quá chiều cao tối đa
 }
 
 
 #ListSinhVienViPhamNoiQuy  thead, #ListSinhVienViPhamNoiQuy tbody tr {
-    display: table; /* Đảm bảo các hàng vẫn tuân theo bố cục bảng */
+    display: table; Đảm bảo các hàng vẫn tuân theo bố cục bảng
     width: 100%;
-    table-layout: fixed; /* Giữ cho các cột có chiều rộng đồng đều */
+    table-layout: fixed; Giữ cho các cột có chiều rộng đồng đều
 }
 
-/* thead {
+thead {
     width: calc(100% - 17px); Trừ đi độ rộng của thanh trượt
-} */
+}
 
 #ListSinhVienViPhamNoiQuy th,#ListSinhVienViPhamNoiQuy td {
     padding: 10px;
@@ -66,9 +100,9 @@ body{
     background-color: #4CAF50;
     color: white;
    
-    z-index: 2; /* Đặt z-index lớn hơn các phần tử khác để hiển thị phía trên */
+    z-index: 2; Đặt z-index lớn hơn các phần tử khác để hiển thị phía trên
 }
-#ListSinhVienViPhamNoiQuy tr:hover {background-color: #f5f5f5;}
+#ListSinhVienViPhamNoiQuy tr:hover {background-color: #f5f5f5;} */
 
 #ListSinhVienViPhamNoiQuy .btn-link{
     font-weight: 500;
@@ -80,7 +114,7 @@ body{
 
 .serious {
         background-color: #f8d7da;/* màu đỏ nhạt */
-        color: #721c24; /* màu chữ */
+        color: #721c24 ; /* màu chữ */
 }
 
 .serious:hover {
@@ -91,12 +125,463 @@ body{
 .createReport{
 	position: absolute;
 	top: 20px;
-	left: 30px;
+	left: 80px;
+}
+
+
+.createReport #createReportForm {
+    max-width: 443px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100; /* Đặt z-index lớn hơn để form hiển thị trên cùng */
+    position: absolute; /* Đảm bảo form có vị trí tương đối */
+   	top: 310px;
+    left: 700px;
+    transform: translate(-50%, -50%); /* Dịch chuyển form ngược lại 50% của kích thước của chính nó, để căn giữa hoàn toàn */
+}
+
+#createReportForm h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#createReportForm .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#createReportForm .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+#createReportForm .form-group.full {
+    flex-direction: column;
+}
+
+#createReportForm .half {
+    flex: 1;
+    min-width: 200px;
+    margin-right: 4px;
+}
+
+#createReportForm .edit_input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createReportForm .edit_input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76,175,80,.6);
+}
+
+#createReportForm button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#createReportForm button:hover {
+    background-color: #45a049;
+}
+
+#createReportForm .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+}
+
+#createReportForm .close:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2); /* Màu đen với độ mờ 50% */
+    border-bottom-left-radius: 20px;
+}
+
+.searchContainer{
+	display: flex;
+	flex-wrap: wrap;
+    align-items: center;
+    position: absolute;
+    top: 80px;
+    left: 165px;
+    width: 80%
+}
+
+.inputSearch{
+	padding: 5px 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 120px;
+    height: 30px;
+}
+
+.buttonSearch {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buttonRefresh {
+  background-color: #00C288;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .createRule{
-	position: absolute;
-	top: 20px;
-	right: 220px;
+    position: absolute;
+    top: 690px;
+    left: 50px;
 }
 
+.createRule #createRuleForm {
+    max-width: 443px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100; /* Đặt z-index lớn hơn để form hiển thị trên cùng */
+    position: absolute; /* Đảm bảo form có vị trí tương đối */
+   	top: 210px;
+    left: 700px;
+    transform: translate(-50%, -50%); /* Dịch chuyển form ngược lại 50% của kích thước của chính nó, để căn giữa hoàn toàn */
+}
+
+#createRuleForm h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#createRuleForm .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#createRuleForm .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+#createRuleForm .form-group.full {
+    flex-direction: column;
+}
+
+#createRuleForm .half {
+    flex: 1;
+    min-width: 200px;
+    margin-right: 4px;
+}
+
+#createRuleForm .edit_input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#createRuleForm .edit_input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76,175,80,.6);
+}
+
+#createRuleForm button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#createRuleForm button:hover {
+    background-color: #45a049;
+}
+
+#createRuleForm .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+}
+
+#createRuleForm .close:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2); /* Màu đen với độ mờ 50% */
+    border-bottom-left-radius: 20px;
+}
+
+
+.editDetailReport{
+    position: absolute;
+    top: 20px;
+	left: 80px;
+}
+
+.editDetailReport #editDetailReportForm {
+    max-width: 443px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100; /* Đặt z-index lớn hơn để form hiển thị trên cùng */
+    position: absolute; /* Đảm bảo form có vị trí tương đối */
+   	top: 355px;
+    left: 700px;
+    transform: translate(-50%, -50%); /* Dịch chuyển form ngược lại 50% của kích thước của chính nó, để căn giữa hoàn toàn */
+}
+
+#editDetailReportForm h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#editDetailReportForm .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#editDetailReportForm .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+#editDetailReportForm .form-group.full {
+    flex-direction: column;
+}
+
+#editDetailReportForm .half {
+    flex: 1;
+    min-width: 200px;
+    margin-right: 4px;
+}
+
+#editDetailReportForm .edit_input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#editDetailReportForm .edit_input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76,175,80,.6);
+}
+
+#editDetailReportForm button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#editDetailReportForm button:hover {
+    background-color: #45a049;
+}
+
+#editDetailReportForm .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+}
+
+#editDetailReportForm .close:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2); /* Màu đen với độ mờ 50% */
+    border-bottom-left-radius: 20px;
+}
+
+
+#ListQuyTac{
+	position: absolute;
+	top: 720px;
+    left: 40px;
+	z-index: 10;
+	max-height: 500px;
+    overflow-y: auto;
+    padding: 0px;
+    border-collapse: collapse;
+    border: 1px solid #333; 
+    max-width: 1421px;
+}
+
+#ListQuyTac .table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+#ListQuyTac th, #ListQuyTac td {
+    text-align: left;
+    width: 150px;
+    margin-right: 32px;
+    align-content: center;
+}
+
+.editRule #editRuleForm {
+    max-width: 443px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100; /* Đặt z-index lớn hơn để form hiển thị trên cùng */
+    position: absolute; /* Đảm bảo form có vị trí tương đối */
+  	top: 900px;
+    left: 750px;
+    transform: translate(-50%, -50%); /* Dịch chuyển form ngược lại 50% của kích thước của chính nó, để căn giữa hoàn toàn */
+}
+
+#editRuleForm h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#editRuleForm .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+#editRuleForm .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+#editRuleForm .form-group.full {
+    flex-direction: column;
+}
+
+#editRuleForm .half {
+    flex: 1;
+    min-width: 200px;
+    margin-right: 4px;
+}
+
+#editRuleForm .edit_input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#editRuleForm .edit_input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76,175,80,.6);
+}
+
+#editRuleForm button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#editRuleForm button:hover {
+    background-color: #45a049;
+}
+
+#editRuleForm .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+}
+
+#editRuleForm .close:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2); /* Màu đen với độ mờ 50% */
+    border-bottom-left-radius: 20px;
+}
