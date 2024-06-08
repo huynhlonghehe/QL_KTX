@@ -12,13 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<style><%@include file="/WEB-INF/resources/css/QuanLy_CSS/QuanLyHopDong.css"%></style>
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> -->
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style><%@include file="/WEB-INF/resources/css/QuanLy_CSS/QuanLyHopDong.css"%></style>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://kit.fontawesome.com/e70d1e2fed.js"></script>
 </head>
@@ -27,11 +22,61 @@
 <%@include file="/WEB-INF/views/includes/menu.jsp"%>
 
 <div class="main_content">
-	<h1 class="title">Quản Lý Hợp Đồng</h1>
-    <table>
 	<div class="requestHD-container">
 		<button type="button" class="requestHD-btn" onclick="toggleListSinhVienChuaCoHopDong()">Sinh Viên chưa có hợp đồng</button>
 		<span class="badge1"><strong>${soLuongSVChuaCoHD}</strong></span>
+	</div>
+	
+	<div class="searchContainer" id="searchContainer">
+		<form method="GET" action="/quan_ly_ktx/quanly/QLSinhVien/searchSinhVien" class="searchSinhVien" id="searchForm">
+			<input type="text" name="maHD" placeholder="Mã hợp đồng" class="inputSearch" value="${maHD}" id="search_maSV"/>
+			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" value="${maSV}" id="search_maSV"/>
+			<select class="inputSearch" id="search_maPhong" name="maPhong" required="required">
+       			<option >Chọn phòng</option>
+       			<c:forEach var="phong" items="${listPhong}">
+		        	<option value="${phong.getMaPhong()}" data-khu = "${phong.khuKTX}">${phong.getMaPhong()}</option>
+   				</c:forEach>
+       		</select>
+       		
+       		<%-- <input type="date" name="ngayTao" class="inputSearch" value="${ngayTao}" id="search_ngayTao"/> 
+       		<input type="date" name="ngayHetHan" class="inputSearch" value="${ngayHetHan}" id="search_ngayHetHan"/> --%>
+       		<select class="inputSearch" id="searchType" onchange="toggleSearchFields()">
+                <option value="">Chọn kiểu tìm kiếm</option>
+                <option value="ngayTao">Theo ngày tạo</option>
+                <option value="ngayHetHan">Theo ngày hết hạn</option>
+                <option value="khoangNgay">Theo khoảng ngày</option>
+            </select>
+            
+            <div id="ngayTaoInput"  class="searchInputContainer">
+                <label for="ngayTao">Ngày tạo:</label>
+                <input type="date" name="ngayTao" class="inputSearch" value="${ngayTao}" id="ngayTao"/>
+            </div>
+            <div id="ngayHetHanInput"  class="searchInputContainer">
+                <label for="ngayHetHan">Ngày hết hạn:</label>
+                <input type="date" name="ngayHetHan" class="inputSearch" value="${ngayHetHan}" id="ngayHetHan"/>
+            </div>
+            <div id="khoangNgayInput"  class="searchInputContainer">
+                <label for="startDate">Từ ngày:</label>
+                <input type="date" name="startDate" class="inputSearch" id="startDate"/>
+                <label for="endDate">Đến ngày:</label>
+                <input type="date" name="endDate" class="inputSearch" id="endDate"/>
+            </div>
+            
+       		<select class="inputSearch" id="search_namHoc" name="namHoc" required="required">
+       			<option >Chọn năm học</option>
+       			<c:forEach var="namHoc" items="${AllNamHoc}">
+		        	<option value="${namHoc}">${namHoc}</option>
+   				</c:forEach>
+       		</select>
+       		<select class="inputSearch"  id="search_hocKy" name="hocKy" required="required">
+       			 <option>Chọn học kỳ</option>
+	           	 <option value="1">1</option>
+	           	 <option value="2">2</option>
+	           	 <option value="3">3</option>	
+             </select>
+			<button type="submit" value="Search" class="buttonSearch" title="Tìm kiếm"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+			<button type="button" value="Refresh" class="buttonRefresh" onclick="refreshPage()" title="Làm mới tìm kiếm"><i class="fa-solid fa-arrows-rotate" ></i></button>
+		</form>
 	</div>
 	
 	<div id="ListSinhVienChuaCoHopDong" class="container mt-4" style="display: none">
@@ -40,6 +85,7 @@
 		        <table class="table table-hover table-striped">
 		            <thead class="table-info">
 		                <tr>
+		                	<th scope="col" style="width: 50px">STT</th>
 		                    <th scope="col">Mã sinh viên</th>
 		                    <th scope="col">Họ</th>
 		                    <th scope="col">Tên</th>
@@ -50,8 +96,9 @@
 		                </tr>
 		            </thead>
 		            <tbody>
-		                <c:forEach var="sinhVienChuaCoHD" items="${ListSVChuaCoHD}">
+		                <c:forEach var="sinhVienChuaCoHD" items="${ListSVChuaCoHD}" varStatus = "i">
 		                    <tr>
+		                    	<td style="width: 50px">${i.index + 1}</td>
 		                        <td>${sinhVienChuaCoHD.getMaSV()}</td>
 		                        <td>${sinhVienChuaCoHD.getHo()}</td>
 		                        <td>${sinhVienChuaCoHD.getTen()}</td>
@@ -86,7 +133,7 @@
 						            <input class="check" type="checkbox" ${checked ? '' : 'checked'}  title="${tooltipText}" disabled="disabled"/>
 						        </td>
 		                        <td>
-		                            <a class="btn btn-primary btn-sm create-hopdong-btn" href="#" onclick="toggleCreateHopDongForm('${sinhVienChuaCoHD.getMaSV()}')">Tạo hợp đồng</a>
+		                            <a class="btn btn-primary btn-sm create-hopdong-btn" href="#" onclick="toggleCreateHopDongForm('${sinhVienChuaCoHD.getMaSV()}', '${nextMaHD }', '${sinhVienChuaCoHD.getGioiTinh()}')">Thêm thông tin</a>
 		                        </td>
 		                    </tr>
 		                </c:forEach>
@@ -98,55 +145,65 @@
 		    </c:otherwise>
 		</c:choose>
 	</div>
-	
 	<h1 class="title">Quản Lý Hợp Đồng</h1>
-    <table id="ListHopDong">
-        <thead>
-            <tr>
-                <th scope="col">Mã hợp đồng <a href="#" data-column="MAHD" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Ngày hết hạn <a href="#" data-column="NGAYHETHAN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Số tiền <a href="#" data-column="SOTIEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Năm học <a href="#" data-column="NAMHOC" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Học kỳ <a href="#" data-column="HOCKY" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>              
-                <th scope="col">Mã phòng </th>
-                <th scope="col">Mã sinh viên </th>
-                <th scope="col">Mã quản lý </th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="hopDong" items="${ListHD}">
+    <div id="ListHopDong" class="container mt-4">
+        <table class="table table-hover table-striped table-bordered">
+            <thead class="table-info">
                 <tr>
-                    <td>${hopDong.getMaHD()}</td>
-                    <td>${hopDong.getNgayTao()}</td>
-                    <td>${hopDong.getNgayHetHan()}</td>
-                    <td>${hopDong.getSoTien()}</td>
-                    <td>${hopDong.getNamHoc()}</td>
-                    <td>${hopDong.getHocKy()}</td>
-                    <td>${hopDong.getMaPhong()}</td>
-                    <td>${hopDong.getMaSV()}</td>
-                    <td>${hopDong.getMaQL()}</td>
-                    <td>
-	                    <a href="../quanly/QLHopDong/${hopDong.getMaHD()}/edit">Sửa</a>
-	                    <a href="">Xoá</a>
-                    <td>
-	                    <a class="btn-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/edit"><i class="fa-solid fa-pen-to-square" style="color: #63E6BE;"></i></a>
-	                    <a class="btn-link delete-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/delete"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
-                    </td>
+                	<th scope="col" style="width: 50px">STT</th>
+	                <th scope="col">Mã hợp đồng <a href="#" data-column="MAHD" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+					<th scope="col">Mã sinh viên </th>
+					<th scope="col">Mã phòng </th> 
+					<th scope="col">Ngày tạo <a href="#" data-column="NGAYTAO" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+					<th scope="col">Ngày hết hạn <a href="#" data-column="NGAYHETHAN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>					
+					<th scope="col">Năm học <a href="#" data-column="NAMHOC" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+					<th scope="col">Học kỳ <a href="#" data-column="HOCKY" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>    
+					<th scope="col">Số tiền <a href="#" data-column="SOTIEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+	                <th scope="col" style="width: 60px"></th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table> 
+            </thead>
+            <tbody>
+            	<c:choose>
+    				<c:when test="${not empty ListHDHetHan}">
+	                <c:forEach var="hopDong" items="${ListHD}" varStatus = "i">
+		                <tr>
+		                	<td style="width: 50px">${i.index + 1}</td>
+		                    <td>${hopDong.getMaHD()}</td>
+		                    <td>${hopDong.getMaSV()}</td>
+		                    <td>${hopDong.getMaPhong()}</td>
+		                    <td>${hopDong.getNgayTao()}</td>
+		                    <td>${hopDong.getNgayHetHan()}</td>
+		                    <td>${hopDong.getNamHoc()}</td>
+		                    <td>${hopDong.getHocKy()}</td>
+		                    <td>${hopDong.getSoTien()}</td>
+		                    <td>
+			                    <a class="btn-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/edit" title="Sửa hợp đồng mới"><i class="fa-solid fa-pen-to-square" style="color: #63E6BE;"></i></a>
+			                    <a class="btn-link delete-link" href="/quan_ly_ktx/quanly/QLHopDong/${hopDong.getMaHD()}/delete" title="Xoá hợp đồng"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
+		                    </td>
+		                </tr>
+		            </c:forEach>
+		            </c:when>
+			    <c:otherwise>
+			         <tr><td colspan="10" style="text-align: center; color: red">Không có dữ liệu hợp đồng</td></tr>
+			    </c:otherwise>
+			</c:choose>
+            </tbody>
+        </table>
+	</div>
 	<div class="creatHD">
-		<button type="button" class="btn btn-primary button_createHD" onclick="toggleCreateHopDongForm()">Hợp đồng mới</button>
 			<div id="createHopDongForm" style="display: none">
-		        <h2>Tạo hợp đồng mới</h2>
-
+				<div><i id="closeForm" class="fa-solid fa-xmark close" style="color: white;"></i></div>
+		        <h2>Thông tin hợp đồng mới</h2>
 		        <form:form action="/quan_ly_ktx/quanly/QLHopDong/createHD" modelAttribute="hopDongMoi" method="post">
-		            <div class="form-group full">
-			            <label for="maHD">Mã hợp đồng</label>
-			            <input class="edit_input" id="maHD" type="text" name="maHD" placeholder="Mã hợp đồng" required="required"/>
+			        <div class="form-group">
+				        <div class="half">
+			                 <label for="createHD_maHD">Mã hợp đồng</label>
+			            	<input class="edit_input" id="createHD_maHD" type="text" name="maHD" placeholder="Mã hợp đồng" required="required"/>
+			            </div>
+			            <div class="half">
+			                <label for="maSV">Mã sinh viên</label>
+			                <input class="edit_input" id="maSV" type="text" name="maSV" placeholder="Mã sinh viên" required="required" readonly="readonly"/>
+			            </div>
 			        </div>
 			        <div class="form-group">
 			            <div class="half">
@@ -160,8 +217,13 @@
 			        </div>
 			        <div class="form-group">
 			         	<div class="half">
-			                <label for="soTien">Số tiền</label>
-			                <input class="edit_input" id="soTien" type="number" min = 0 name="soTien" placeholder="Số tiền" required="required"/>
+			                <label for="maPhong">Mã phòng</label>
+			           		<select class="edit_input" id="maPhong" name="maPhong" required="required">
+			           			<option >Chọn phòng</option>
+			           			<c:forEach var="phong" items="${listPhong}">
+						        	<option value="${phong.getMaPhong()}" data-khu = "${phong.khuKTX}">${phong.getMaPhong()}</option>
+				    			</c:forEach>
+			           		</select>
 			            </div>
 			            <div class="half">
 			                <label for="namHoc">Năm học</label>
@@ -176,67 +238,27 @@
 			        <div class="form-group">
 			           <div class="half">
 			                <label for="hocKy">Học kỳ</label>
-			                <select class="edit_input"  id="hocKy" name="hocKy" required="required">
+			                <select class="edit_input"  id="createHD_hocKy" name="hocKy" required="required">
+			                	<option>Chọn học kỳ</option>
 			                	 <option value="1">1</option>
 			                	 <option value="2">2</option>
 			                	 <option value="3">3</option>	
 			                </select>
 			            </div>
 			            <div class="half">
-			                <label for="maPhong">Mã phòng</label>
-<<<<<<< HEAD
-			                <input class="edit_input" id="maPhong" type="text" name="maPhong" placeholder="Mã phòng" required="required"/>
-=======
-			           		<select class="edit_input" id="maPhong" name="maPhong" required="required">
-			           			<c:forEach var="maPhong" items="${ListPhong}">
-						        	<option value="${maPhong}">${maPhong }</option>
-				    			</c:forEach>
-			           		</select>
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
-			            </div>
-			        </div>
-			        <div class="form-group">
-			            <div class="half">
-			                <label for="maSV">Mã sinh viên</label>
-<<<<<<< HEAD
-			                <input class="edit_input" id="maSV" type="text" name="maSV" placeholder="Mã sinh viên" required="required"/>
-			            </div>
-			            <div class="half">
-			                <label for="maQL">Mã quản lý</label>
-			                <input class="edit_input" id="maQL" type="text" name="maQL" placeholder="Mã quản lý" required="required"/>
-=======
-			                <input class="edit_input" id="maSV" type="text" name="maSV" placeholder="Mã sinh viên" required="required" readonly="readonly"/>
-			            </div>
-			            <div class="half">
-			                <label for="maQL">Mã quản lý</label>
-			                <!-- <input class="edit_input" id="maQL" type="text" name="maQL" placeholder="Mã quản lý"/> -->
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+			                <label for="soTien">Số tiền</label>
+			                <input class="edit_input" id="createHD_soTien" type="number" min = 0 name="soTien" placeholder="Số tiền" required="required"/>
 			            </div>
 			        </div>
 			        <button type="submit">Tạo</button>
 	        </form:form>
 	    </div>
 	</div>
+
 </div>
 
 
 <script type="text/javascript">
-<<<<<<< HEAD
-	document.addEventListener("DOMContentLoaded", function() {
-	    var tbody = document.querySelector("table tbody");
-	    var rows = tbody.querySelectorAll("tr").length;
-	    var maxRows = 12;
-	
-	    for (var i = rows; i < maxRows; i++) {
-	        var tr = document.createElement("tr");
-	        tr.innerHTML = "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
-	        tbody.appendChild(tr);
-	    }
-	});
-	
-	 document.addEventListener("DOMContentLoaded", function() {
-	        var rows = document.querySelectorAll("tbody tr"); // Lấy tất cả các dòng trong tbody
-=======
 document.addEventListener("DOMContentLoaded", function() {
     // Chọn phần tử tbody của bảng bạn muốn thêm các hàng trống
     var tbody = document.querySelector("#ListHopDong tbody");
@@ -248,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         for (var i = rows; i < maxRows; i++) {
             var tr = document.createElement("tr");
-            tr.innerHTML = "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
+            tr.innerHTML = "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
             tbody.appendChild(tr);
         }
     }
@@ -257,13 +279,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	 document.addEventListener("DOMContentLoaded", function() {
 	        var rows = document.querySelectorAll("#ListHopDong tbody tr"); // Lấy tất cả các dòng trong tbody
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 	        var today = new Date().toISOString().slice(0, 10); // Ngày hiện tại ở dạng YYYY-MM-DD
 
 	        rows.forEach(function(row) {
-	            var ngayHetHan = row.cells[2].textContent; // Giả sử ngày hết hạn ở cột thứ 3
+	            var ngayHetHan = row.cells[5].textContent; // Giả sử ngày hết hạn ở cột thứ 3
 	            if (new Date(ngayHetHan) < new Date(today)) {
-	                row.classList.add("expired"); // Thêm class 'expired' nếu đã quá hạn
+	                row.classList.add("table-danger"); // Thêm class 'table-danger' trong bootstr nếu đã quá hạn
 	            }
 	        });
 	    });
@@ -292,15 +313,64 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	 /* Kết thúc */
 	
+	 function toggleSearchFields() {
+	    var searchType = document.getElementById("searchType").value;
+	    document.getElementById("ngayTaoInput").classList.remove("active");
+	    document.getElementById("ngayHetHanInput").classList.remove("active");
+	    document.getElementById("khoangNgayInput").classList.remove("active");
+	
+	    if (searchType === "ngayTao") {
+	        document.getElementById("ngayTaoInput").classList.add("active");
+	    } else if (searchType === "ngayHetHan") {
+	        document.getElementById("ngayHetHanInput").classList.add("active");
+	    } else if (searchType === "khoangNgay") {
+	        document.getElementById("khoangNgayInput").classList.add("active");
+	    }
+	}
+
+
+	 
 	 /* Ẩn hiện form tạo hợp đồng */
-<<<<<<< HEAD
-	 function toggleCreateHopDongForm(event) {
-		    var form = document.getElementById('createHopDongForm');
-=======
-	 function toggleCreateHopDongForm(maSV) {
+	 function toggleCreateHopDongForm(maSV, nextMaHD, gioiTinh) {
 		    var form = document.getElementById('createHopDongForm');
 		    document.getElementById('maSV').value = maSV;
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+		    document.getElementById('createHD_maHD').value = nextMaHD;
+		    var selectMaPhong = document.getElementById('maPhong');
+		    var options = selectMaPhong.options;
+		    for (var i = 0; i < options.length; i++) {
+		        var option = options[i];
+		        var khu = option.getAttribute('data-khu');
+		        
+		        /* if (gioiTinh === 'Nam' && khu === '1') {
+		            option.style.display = 'block';
+		        } else if (gioiTinh === 'Nữ' && khu === '0') {
+		            option.style.display = 'block';
+		        } else if (option.value === "") {
+		            option.style.display = 'block'; // Hiển thị tùy chọn mặc định "Chọn phòng"
+		        } else {
+		            option.style.display = 'none';
+		        } */
+		        
+		        
+		        if(gioiTinh == 'Nam'){
+		        	if(khu == '1'){
+		        		option.style.display = 'block';
+		        	}else{
+		        		option.style.display = 'none';
+		        	}
+		        }else if (gioiTinh == 'Nữ'){
+		        	if(khu == '0'){
+		        		option.style.display = 'block';
+		        	}else{
+		        		option.style.display = 'none';
+		        	}
+		        }else if(option.value === ""){
+		        	option.style.display = 'block'; // Hiển thị tùy chọn mặc định "Chọn phòng"
+		        }else {
+		            option.style.display = 'none';
+		        }
+		    }
+		    
 		    if (form.style.display === 'none' || form.style.display === '') {
 		        form.style.display = 'block';
 		    } else {
@@ -325,8 +395,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	 /* Kết thúc */
 	 
-<<<<<<< HEAD
-=======
 	 /* Thông báo xác nhận muốn xoá sinh viên không */
 	document.addEventListener('DOMContentLoaded', function() {
 		    // Tìm tất cả các thẻ a có class là 'delete-link'
@@ -360,12 +428,31 @@ document.addEventListener("DOMContentLoaded", function() {
 	function toggleListSinhVienChuaCoHopDong() {
 	    var table_SV = document.getElementById('ListSinhVienChuaCoHopDong');
 	    var table_HD = document.getElementById('ListHopDong');
+	    var table_HDHetHan = document.getElementById('ListSinhVienHetHanHopDong');
+	    var searchContainer = document.getElementById('searchContainer');
 	    if (table_SV.style.display === 'none' || table_SV.style.display === '') {
 	    	table_SV.style.display = 'block';
 	    	table_HD.style.display = 'none';
+	    	searchContainer.style.display = 'none';
 	    } else {
 	    	table_SV.style.display = 'none';
 	    	table_HD.style.display = 'block';
+	    	searchContainer.style.display = 'block';
+	    }
+	}
+	
+	function toggleListSinhVienHetHanHopDong() {
+		var table_SV = document.getElementById('ListSinhVienChuaCoHopDong');
+	    var table_HDHetHan = document.getElementById('ListSinhVienHetHanHopDong');
+	    var table_HD = document.getElementById('ListHopDong');
+	    if (table_HDHetHan.style.display === 'none' || table_HDHetHan.style.display === '') {
+	    	table_HDHetHan.style.display = 'block';
+	    	table_HD.style.display = 'none';
+	    	table_SV.style.display = 'none';
+	    } else {
+	    	table_HDHetHan.style.display = 'none';
+	    	table_HD.style.display = 'block';
+	    	table_SV.style.display = 'none';
 	    }
 	}
 	
@@ -388,7 +475,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	    });
 	});
 	 
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+	 /* Đóng form khi nhấn vào biểu tượng close */
+	document.getElementById('closeForm').addEventListener('click', function() {
+	    var form = document.getElementById('createHopDongForm');
+	    form.style.display = 'none';
+	});
+	/* Kết thúc */
 </script>
 
 </body>
