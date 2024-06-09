@@ -10,7 +10,7 @@ public class MapperQuyTac implements RowMapper<QuyTac>{
 	@Override
 	public QuyTac mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuyTac quyTac = new QuyTac();
-		quyTac.setMaQuyTac(rs.getString("MAQUYTAC"));
+		quyTac.setMaQuyTac(rs.getInt("MAQUYTAC"));
 		quyTac.setTenQuyTac(rs.getString("TENQUYTAC"));
 		quyTac.setMucDoViPham(rs.getInt("MUCDOVIPHAM"));
         return quyTac;

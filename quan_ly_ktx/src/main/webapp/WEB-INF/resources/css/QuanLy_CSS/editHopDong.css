@@ -19,7 +19,7 @@ body {
     border-radius: 16px;
     position: relative;
     top: 86px;
-    left: 210px;
+    left: 110px;
 }
 
 h2 {
@@ -77,15 +77,4 @@ button {
 
 button:hover {
     background-color: #45a049;
-}
-
-.turnBack{
-    position: absolute;
-    top: 70px;
-    left: 260px;
-    font-size: 30px;
-}
-
-.turnBack:hover {
-	cursor: pointer;
 }

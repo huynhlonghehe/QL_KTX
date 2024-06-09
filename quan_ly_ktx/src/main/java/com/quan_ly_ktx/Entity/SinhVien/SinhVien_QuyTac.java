@@ -9,35 +9,21 @@ import javax.persistence.Table;
 @Table(name = "QUYTAC")
 public class SinhVien_QuyTac {
 	@Id
-	@Column(name = "MASVVP")
-	private int maSVVP;
 	@Column(name = "MASV")
 	private String maSV;
 	@Column(name = "maQuyTac")
-	private String maQuyTac;
+	private int maQuyTac;
 	@Column(name = "THOIGIANVIPHAM")
 	private String thoiGianViPham;
-	@Column(name = "NGUOILAPBIENBAN")
-	private String nguoiLapBienBan;
+	
 	public SinhVien_QuyTac() {
 		super();
 	}
 	
-	public SinhVien_QuyTac(int maSVVP, String maSV, String maQuyTac, String thoiGianViPham, String nguoiLapBienBan) {
-		this.maSVVP = maSVVP;
+	public SinhVien_QuyTac(String maSV, int maQuyTac, String thoiGianViPham) {
 		this.maSV = maSV;
 		this.maQuyTac = maQuyTac;
 		this.thoiGianViPham = thoiGianViPham;
-		this.nguoiLapBienBan = nguoiLapBienBan;
-	}
-
-	
-	public int getMaSVVP() {
-		return maSVVP;
-	}
-
-	public void setMaSVVP(int maSVVP) {
-		this.maSVVP = maSVVP;
 	}
 
 	public String getMaSV() {
@@ -48,11 +34,11 @@ public class SinhVien_QuyTac {
 		this.maSV = maSV;
 	}
 
-	public String getMaQuyTac() {
+	public int getMaQuyTac() {
 		return maQuyTac;
 	}
 
-	public void setMaQuyTac(String maQuyTac) {
+	public void setMaQuyTac(int maQuyTac) {
 		this.maQuyTac = maQuyTac;
 	}
 
@@ -64,18 +50,9 @@ public class SinhVien_QuyTac {
 		this.thoiGianViPham = thoiGianViPham;
 	}
 	
-	
-	public String getNguoiLapBienBan() {
-		return nguoiLapBienBan;
-	}
-
-	public void setNguoiLapBienBan(String nguoiLapBienBan) {
-		this.nguoiLapBienBan = nguoiLapBienBan;
-	}
-
 	@Override
 	public String toString() {
-		return "MaSVVP: " + maSVVP + "Mã sinh viên: " + maSV + ", Mã quy tắc" + maQuyTac + ", Thời gian vi phạm: " + thoiGianViPham + ", Người lập biên bản: " + nguoiLapBienBan;
+		return "Mã sinh viên: " + maSV + ", Mã quy tắc" + maQuyTac + ", Thời gian vi phạm: " + thoiGianViPham;
 	}
 	
 }

@@ -44,7 +44,6 @@ public class VT_PhongDAO {
     }
     
     public void addVTPhong(VT_PHONG vtPhong) {
-    	Timestamp ngayTao = new Timestamp(System.currentTimeMillis());
         String sql = "INSERT INTO VT_PHONG (MAPHONG, MAVT, NGAYCAP, SOLUONG, TINHTRANG, TIENNO) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, vtPhong.getMaPhong(), vtPhong.getMaVT(), vtPhong.getNgayCap(), vtPhong.getSoLuong(), vtPhong.getTinhTrang(), vtPhong.isTienNo());
     }

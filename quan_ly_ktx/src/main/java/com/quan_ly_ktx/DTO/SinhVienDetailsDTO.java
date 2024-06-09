@@ -9,19 +9,17 @@ public class SinhVienDetailsDTO {
     private String sdt;
     private String gioiTinh;
     private String lop;
-    private String maPhong;
     private int maSinhVienViPham;
-    private String maQuyTac;
+    private int maQuyTac;
     private String thoiGianViPham;
     private String tenQuyTac;
     private int mucDoViPham;
-    private String nguoiLapBienBan;
     
     public SinhVienDetailsDTO() {
     	super();
     }
     
-    public SinhVienDetailsDTO( String maSV, String ho, String ten, String ngaySinh, String diaChi, String sdt, String gioiTinh, String lop, String maPhong, int maSinhVienViPham, String maQuyTac, String thoiGianViPham, String tenQuyTac, int mucDoViPham, String nguoiLapBienBan) {
+    public SinhVienDetailsDTO(String maSV, String ho, String ten, String ngayString, String diaChi, String sdt, String gioiTinh, int maSinhVienViPham, int maQuyTac, String thoiGianViPham, String tenQuyTac, int mucDoViPham) {
     	this.maSV = maSV;
     	this.ho = ho;
     	this.ten = ten;
@@ -30,13 +28,11 @@ public class SinhVienDetailsDTO {
     	this.sdt = sdt;
     	this.gioiTinh = gioiTinh;
     	this.lop = lop;
-    	this.maPhong = maPhong;
     	this.maSinhVienViPham = maSinhVienViPham;
     	this.maQuyTac = maQuyTac;
-    	this.thoiGianViPham = thoiGianViPham;
+    	this.maQuyTac = maQuyTac;
     	this.tenQuyTac = tenQuyTac;
     	this.mucDoViPham = mucDoViPham;
-    	this.nguoiLapBienBan = nguoiLapBienBan;
     	
     }
 
@@ -103,28 +99,20 @@ public class SinhVienDetailsDTO {
 	public void setLop(String lop) {
 		this.lop = lop;
 	}
-	
-	public String getMaPhong() {
-		return maPhong;
-	}
 
-	public void setMaPhong(String maPhong) {
-		this.maPhong = maPhong;
-	}
-
-	public int getMaSVVP() {
+	public int getMaSinhVienViPham() {
 		return maSinhVienViPham;
 	}
 
-	public void setMaSVVP(int maSinhVienViPham) {
+	public void setMaSinhVienViPham(int maSinhVienViPham) {
 		this.maSinhVienViPham = maSinhVienViPham;
 	}
 
-	public String getMaQuyTac() {
+	public int getMaQuyTac() {
 		return maQuyTac;
 	}
 
-	public void setMaQuyTac(String maQuyTac) {
+	public void setMaQuyTac(int maQuyTac) {
 		this.maQuyTac = maQuyTac;
 	}
 
@@ -152,16 +140,8 @@ public class SinhVienDetailsDTO {
 		this.mucDoViPham = mucDoViPham;
 	}
     
-    public String getNguoiLapBienBan() {
-		return nguoiLapBienBan;
-	}
-
-	public void setNguoiLapBienBan(String nguoiLapBienBan) {
-		this.nguoiLapBienBan = nguoiLapBienBan;
-	}
-
-	@Override
+    @Override
     public String toString() {
-    	return "Mã sinh viên: " + maSV + ", Họ: " + ho + ", Tên: " + ten + ", Ngày sinh: " + ngaySinh + ", Mã sinh viên vi phạm: " + maSinhVienViPham + ", Mã quy tắc: " + maQuyTac + ", Thời gian vi phạm: " + thoiGianViPham + ", Tên quy tắc: " + tenQuyTac + ", Mức độ vi phạm: " + mucDoViPham + ", Người lập biên bản: " + nguoiLapBienBan;
+    	return "Mã sinh viên: " + maSV + ", Họ: " + ho + ", Tên: " + ten + ", Mã sinh viên vi phạm: " + maSinhVienViPham + ", Mã quy tắc: " + maQuyTac + ", Thời gian vi phạm: " + thoiGianViPham + ", Tên quy tắc: " + tenQuyTac + ", Mức độ vi phạm: " + mucDoViPham;
     }
 }

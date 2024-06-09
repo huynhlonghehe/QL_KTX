@@ -26,88 +26,71 @@
 	</div>
 	
 	<div id="ListSinhVienDontHaveAccount" class="container mt-4" style="display: none">
-        <table class="table table-hover table-striped">
-            <thead class="table-info">
-                <tr>
-               		<th scope="col" style="width: 50px">STT</th>
-                    <th scope="col">Mã sinh viên</th>
-                    <th scope="col">Họ</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Lớp</th>
-                    <th scope="col">Ngày sinh</th>
-                    <th scope="col">Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-            <c:choose>
-   				 <c:when test="${not empty ListSV_ChuaCoTK}">
-                <c:forEach var="sinhVienChuaCoTK" items="${ListSV_ChuaCoTK}" varStatus = "i">
-                    <tr>
-                    	<td style="width: 50px">${i.index + 1}</td>
-                        <td>${sinhVienChuaCoTK.getMaSV()}</td>
-                        <td>${sinhVienChuaCoTK.getHo()}</td>
-                        <td>${sinhVienChuaCoTK.getTen()}</td>
-                        <td>${sinhVienChuaCoTK.getLop()}</td>
-                        <td>${sinhVienChuaCoTK.getNgaySinh()}</td>
-                        <td>
-                            <a class="btn btn-primary btn-sm" href="#" onclick="toggleCreateAccountForm('${sinhVienChuaCoTK.getMaSV()}')">Tạo tài khoản</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </c:when>
-			    <c:otherwise>
-			         <tr><td colspan="7" style="text-align: center; color: red">Không có dữ liệu tài khoản</td></tr>
-			    </c:otherwise>
-			</c:choose>
-            </tbody>
-        </table>
+	    <c:choose>
+		    <c:when test="${not empty ListSV_ChuaCoTK}">
+		        <table class="table table-hover table-striped">
+		            <thead class="table-info">
+		                <tr>
+		                    <th scope="col">Mã sinh viên</th>
+		                    <th scope="col">Họ</th>
+		                    <th scope="col">Tên</th>
+		                    <th scope="col">Lớp</th>
+		                    <th scope="col">Ngày sinh</th>
+		                    <th scope="col">Hành động</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach var="sinhVienChuaCoTK" items="${ListSV_ChuaCoTK}">
+		                    <tr>
+		                        <td>${sinhVienChuaCoTK.getMaSV()}</td>
+		                        <td>${sinhVienChuaCoTK.getHo()}</td>
+		                        <td>${sinhVienChuaCoTK.getTen()}</td>
+		                        <td>${sinhVienChuaCoTK.getLop()}</td>
+		                        <td>${sinhVienChuaCoTK.getNgaySinh()}</td>
+		                        <td>
+		                            <a class="btn btn-primary btn-sm" href="#" onclick="toggleCreateAccountForm('${sinhVienChuaCoTK.getMaSV()}')">Tạo tài khoản</a>
+		                        </td>
+		                    </tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
+		    </c:when>
+		    <c:otherwise>
+		        <h1 style="text-align: center; color: red">Không có dữ liệu sinh viên</h1>
+		    </c:otherwise>
+		</c:choose>
 	</div>
 
 	<!-- Kết thúc phần yêu cầu tạo tài khoản -->
 	
 	<!-- Phần này là phần danh sách các tài khoản -->
-    <div id="ListAccount" class="container mt-4">
-        <table class="table table-hover table-striped table-bordered">
-            <thead class="table-info">
+    <table id="ListAccount">
+        <thead>
+            <tr>
+                <th scope="col">Tên Tài Khoản</th>
+                <th scope="col">Mật Khẩu</th>
+                <th scope="col">Tình Trạng</th>
+                <th scope="col">Quyền</th>
+                <th scope="col" colspan="2">Hành động </th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="taikhoan" items="${ListTK}">
                 <tr>
-                	<th scope="col" style="width: 25px">STT</th>
-	                <th scope="col">Tên Tài Khoản</th>
-	                <th scope="col">Mật Khẩu</th>
-	                <th scope="col">Tình Trạng</th>
-	                <th scope="col">Quyền</th>
-	                <th scope="col" style="width: 50px">Hành động </th>
+                    <td>${taikhoan.getTenDangNhap()}</td>
+                    <td>${taikhoan.getMatKhau()}</td>
+                    <td>${taikhoan.getTinhTrang()}</td>
+                    <td>${taikhoan.getQuyen()}</td>
+                    <td><a class="btn-link" href="../quanly/QLTaiKhoan/${taikhoan.getTenDangNhap()}/edit">Sửa</a></td>
+                    <td><a class="btn-link delete-link"  href="../quanly/QLTaiKhoan/${taikhoan.getTenDangNhap()}/delete">Xoá</a></td>
                 </tr>
-            </thead>
-            <tbody>
-            	<c:choose>
-    				<c:when test="${not empty ListTK}">
-	                 	<c:forEach var="taikhoan" items="${ListTK}" varStatus = "i">
-			                <tr>
-			                	<td style="width: 50px">${i.index + 1}</td>
-			                    <td>${taikhoan.getTenDangNhap()}</td>
-			                    <td>${taikhoan.getMatKhau()}</td>
-			                    <td>${taikhoan.getTinhTrang()}</td>
-			                    <td>${taikhoan.getQuyen()}</td>
-			                    <td>
-			                    	<a class="btn-link" href="../quanly/QLTaiKhoan/${taikhoan.getTenDangNhap()}/edit" title="Sửa thông tin tài khoản"><i class="fa-solid fa-pen-to-square" style="color: #63E6BE;"></i></a>
-			                    	<a class="btn-link delete-link"  href="../quanly/QLTaiKhoan/${taikhoan.getTenDangNhap()}/delete" title="Xoá tài khoản"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
-			                    </td>
-			                </tr>
-			            </c:forEach>
-			         </c:when>
-		            <c:otherwise>
-				        <tr><td rowspan="6" style="text-align: center; color: red">Không có dữ liệu sinh viên</td></tr>
-				    </c:otherwise>
-		    	</c:choose>
-            </tbody>
-        </table>
-		    
-	</div>
+            </c:forEach>
+        </tbody>
+    </table> 
    <!-- Kết thúc phần danh sách các tài khoản -->
    
    <!--  <button type="button" class="btn btn-primary button_createTK" onclick="toggleCreateAccountForm()">Tạo tài khoản</button> -->
 	<div id="createAccountForm" style="display: none">
-		<div><i id="closeForm" class="fa-solid fa-xmark close" style="color: white;"></i></div>
         <h2>Tạo Tài Khoản</h2>
         <form:form action="/quan_ly_ktx/quanly/QLTaiKhoan/createTK" method="post">
             <div class="form-group">
@@ -130,19 +113,6 @@
     </div>
 </div>
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-	    var tbody = document.querySelector("table tbody");
-	    var rows = tbody.querySelectorAll("tr").length;
-	    var maxRows = 12;
-	
-	    for (var i = rows; i < maxRows; i++) {
-	        var tr = document.createElement("tr");
-	        tr.innerHTML = "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
-	        tbody.appendChild(tr);
-	    }
-	});
-	
-
 	function toggleCreateAccountForm(maSV) {
 	    var form = document.getElementById('createAccountForm');
 	    document.getElementById('tenDangNhap').value = maSV;
@@ -221,12 +191,6 @@
 	    }
 	}
 
-	 /* Đóng form khi nhấn vào biểu tượng close */
-	document.getElementById('closeForm').addEventListener('click', function() {
-	    var form = document.getElementById('createAccountForm');
-	    form.style.display = 'none';
-	});
-	/* Kết thúc */
 </script>
 </body>
 </html>

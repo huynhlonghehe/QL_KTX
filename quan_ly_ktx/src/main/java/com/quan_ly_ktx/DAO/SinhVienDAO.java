@@ -2,7 +2,6 @@ package com.quan_ly_ktx.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,10 +16,8 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.quan_ly_ktx.Entity.SinhVien.MapperQuanLy_SinhVien;
-import com.quan_ly_ktx.Entity.SinhVien.MapperQuyTac;
 import com.quan_ly_ktx.Entity.SinhVien.MapperSinhVien;
 import com.quan_ly_ktx.Entity.SinhVien.QuanLy_SinhVien;
-import com.quan_ly_ktx.Entity.SinhVien.QuyTac;
 import com.quan_ly_ktx.Entity.SinhVien.SinhVien;
 import com.quan_ly_ktx.Entity.TaiKhoan.MapperTaiKhoan;
 import com.quan_ly_ktx.Entity.TaiKhoan.TaiKhoan;
@@ -80,14 +77,9 @@ public class SinhVienDAO {
 	} 
 	
 	public void deleteSinhVien(String maSV) {
-		String sql1 = "DELETE FROM SINHVIEN_QUYTAC WHERE MASV = ?";
-		String sql2 = "DELETE SINHVIEN WHERE MASV = ?";
-		String sql3 = "DELETE TAIKHOAN WHERE USERNAME = ?";
-		
+		String sql = "DELETE SINHVIEN WHERE MASV = ?";
 		try {
-			_jdbcTemplate.update(sql1, maSV);
-			_jdbcTemplate.update(sql2, maSV);
-			_jdbcTemplate.update(sql3, maSV);
+			_jdbcTemplate.update(sql, maSV);
 		}catch (DataAccessException e) {
 			e.printStackTrace();
 		}
@@ -131,9 +123,8 @@ public class SinhVienDAO {
 		}
 	}
 	
-	public List<SinhVien> searchSinhVien(String maSV, String ho, String ten, String gioiTinh, String ngaySinh, String diaChi, String lop, String dieuKien, String sort, String direction) {
+	public List<SinhVien> searchSinhVien(String maSV, String ho, String ten, String gioiTinh, String ngaySinh, String diaChi, String lop, String sort, String direction) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM SINHVIEN WHERE 1 = 1");
-		//StringBuilder sql = new StringBuilder("SELECT sv.*, svq.MASVVP, svq.MAQUYTAC, svq.THOIGIANVIPHAM, qt.TENQUYTAC, qt.MUCDOVIPHAM FROM SINHVIEN sv LEFT JOIN SINHVIEN_QUYTAC svq ON sv.MASV = svq.MASV LEFT JOIN QUYTAC qt ON svq.MAQUYTAC = qt.MAQUYTAC WHERE 1 = 1 ");
         // Sử dụng StringBuilder để xây dựng câu truy vấn
         if (maSV != null && !maSV.isEmpty()) {
             sql.append(" AND MASV LIKE ?");
@@ -159,7 +150,7 @@ public class SinhVienDAO {
         if (sort != null && direction != null) {
             sql.append(" ORDER BY " + sort + " " + direction);
         }
-		/* System.out.println("SQL: " + sql.toString()); */
+        System.out.println("SQL: " + sql.toString());
         return _jdbcTemplate.query(sql.toString(), new PreparedStatementSetter() {
             public void setValues(PreparedStatement ps) throws SQLException {
                 int index = 1;
@@ -192,7 +183,10 @@ public class SinhVienDAO {
 	
 	/* Lấy danh sách các sinh viên chưa có hợp đồng */
 	public List<SinhVien> getSVChuaCoHD() {
-		 String sql = "SELECT SINHVIEN.* FROM SINHVIEN LEFT JOIN HOPDONG ON SINHVIEN.MASV = HOPDONG.MASV WHERE HOPDONG.MASV IS NULL";
+		 String sql = "SELECT SINHVIEN.* " +
+                "FROM SINHVIEN " +
+                "LEFT JOIN HOPDONG ON SINHVIEN.MASV = HOPDONG.MASV " +
+                "WHERE HOPDONG.MASV IS NULL";
 		 List<SinhVien> sinhVienChuaCoHDList = new ArrayList<SinhVien>();
 		 try {
 			 sinhVienChuaCoHDList =  _jdbcTemplate.query(sql, new MapperSinhVien());
@@ -204,105 +198,11 @@ public class SinhVienDAO {
 	
 	
 	/* Lấy danh sách các sinh viên có vi phạm */
-	public List<SinhVienDetailsDTO> GetDataSinhVienCoViPham(){
-			
-			List<SinhVienDetailsDTO> listSinhVienViPham = new ArrayList<SinhVienDetailsDTO>();
-			String sql2 = "SELECT sv.*, hd.MAPHONG ,svq.MASVVP, svq.MAQUYTAC, svq.THOIGIANVIPHAM, svq.NGUOILAPBIENBAN, qt.TENQUYTAC, qt.MUCDOVIPHAM FROM SINHVIEN sv JOIN SINHVIEN_QUYTAC svq ON sv.MASV = svq.MASV JOIN HOPDONG hd on sv.MASV = hd.MASV JOIN QUYTAC qt ON svq.MAQUYTAC = qt.MAQUYTAC";
-			listSinhVienViPham = _jdbcTemplate.query(sql2, new MapperSinhVienDetailsDTO());
-			return listSinhVienViPham;
+public List<SinhVienDetailsDTO> GetDataSinhVienCoViPham(){
+		
+		List<SinhVienDetailsDTO> listSinhVienViPham = new ArrayList<SinhVienDetailsDTO>();
+		String sql2 = "SELECT sv.*, svq.MASVVP, svq.MAQUYTAC, svq.THOIGIANVIPHAM, qt.TENQUYTAC, qt.MUCDOVIPHAM FROM SINHVIEN sv JOIN SINHVIEN_QUYTAC svq ON sv.MASV = svq.MASV JOIN QUYTAC qt ON svq.MAQUYTAC = qt.MAQUYTAC";
+		listSinhVienViPham = _jdbcTemplate.query(sql2, new MapperSinhVienDetailsDTO());
+		return listSinhVienViPham;
 	}
-	
-	public List<SinhVienDetailsDTO> sortSinhVienViPhamByColumn(String column, String sortDirection) {
-	    // Xác định danh sách các cột và hướng sắp xếp hợp lệ
-	    List<String> validColumns = Arrays.asList("MASV", "TEN", "MAPHONG", "NGAYSINH");
-	    List<String> validDirections = Arrays.asList("asc", "desc");
-
-	    // Kiểm tra tính hợp lệ của đầu vào
-	    if (!validColumns.contains(column) || !validDirections.contains(sortDirection)) {
-	        throw new IllegalArgumentException("Invalid column name or sort direction");
-	    }
-	    
-	    String sql = "SELECT sv.*, hd.MAPHONG ,svq.MASVVP, svq.MAQUYTAC, svq.THOIGIANVIPHAM, svq.NGUOILAPBIENBAN, qt.TENQUYTAC, qt.MUCDOVIPHAM FROM SINHVIEN sv JOIN SINHVIEN_QUYTAC svq ON sv.MASV = svq.MASV JOIN HOPDONG hd on sv.MASV = hd.MASV JOIN QUYTAC qt ON svq.MAQUYTAC = qt.MAQUYTAC ORDER BY " + column + " " + sortDirection;
-	    return _jdbcTemplate.query(sql, new MapperSinhVienDetailsDTO());
-	}
-	
-	public List<SinhVienDetailsDTO> searchSinhVienViPham(String maSV, String ho, String ten, String maPhong, String noiDungViPham, int mucDoViPham, String nguoiLapBienBan, String sort, String direction) {
-		StringBuilder sql = new StringBuilder("SELECT sv.*, hd.MAPHONG ,svq.MASVVP, svq.MAQUYTAC, svq.THOIGIANVIPHAM, svq.NGUOILAPBIENBAN, qt.TENQUYTAC, qt.MUCDOVIPHAM FROM SINHVIEN sv JOIN SINHVIEN_QUYTAC svq ON sv.MASV = svq.MASV JOIN HOPDONG hd on sv.MASV = hd.MASV JOIN QUYTAC qt ON svq.MAQUYTAC = qt.MAQUYTAC WHERE 1 = 1");
-		//StringBuilder sql = new StringBuilder("SELECT sv.*, svq.MASVVP, svq.MAQUYTAC, svq.THOIGIANVIPHAM, qt.TENQUYTAC, qt.MUCDOVIPHAM FROM SINHVIEN sv LEFT JOIN SINHVIEN_QUYTAC svq ON sv.MASV = svq.MASV LEFT JOIN QUYTAC qt ON svq.MAQUYTAC = qt.MAQUYTAC WHERE 1 = 1 ");
-        // Sử dụng StringBuilder để xây dựng câu truy vấn
-        if (maSV != null && !maSV.isEmpty()) {
-            sql.append(" AND sv.MASV LIKE ?");
-        }
-        if (ho != null && !ho.isEmpty()) {
-            sql.append(" AND sv.HO LIKE ?");
-        }
-        if (ten != null && !ten.isEmpty()) {
-            sql.append(" AND sv.TEN LIKE ?");
-        }
-        if (!maPhong.equals("Phòng") && !maPhong.isEmpty()) {
-            sql.append(" AND hd.MAPHONG LIKE ?");
-        }
-        if (noiDungViPham != null && !noiDungViPham.isEmpty()) {
-            sql.append(" AND qt.TENQUYTAC LIKE ?");
-        }
-        if (mucDoViPham != 0) {
-            sql.append(" AND qt.MUCDOVIPHAM LIKE ?");
-        }
-        if (nguoiLapBienBan != null && !nguoiLapBienBan.isEmpty()) {
-            sql.append(" AND svq.NGUOILAPBIENBAN LIKE ?");
-        }
-        if (sort != null && direction != null) {
-            sql.append(" ORDER BY " + sort + " " + direction);
-        }
-		/* System.out.println("SQL: " + sql.toString()); */
-        return _jdbcTemplate.query(sql.toString(), new PreparedStatementSetter() {
-            public void setValues(PreparedStatement ps) throws SQLException {
-                int index = 1;
-                if (maSV != null && !maSV.isEmpty()) {
-                    ps.setString(index++, "%" + maSV + "%");
-                }
-                if (ho != null && !ho.isEmpty()) {
-                    ps.setString(index++, "%" + ho + "%");
-                }
-                if (ten != null && !ten.isEmpty()) {
-                    ps.setString(index++, "%" + ten + "%");
-                }
-                if (!maPhong.equals("Phòng") && !maPhong.isEmpty()) {
-                    ps.setString(index++, "%" + maPhong + "%");
-                }
-                if (noiDungViPham != null && !noiDungViPham.isEmpty()) {
-                    ps.setString(index++, "%" + noiDungViPham + "%");
-                }
-                if (mucDoViPham != 0) {
-                    ps.setString(index++, "%" + mucDoViPham + "%");
-                }
-                if (nguoiLapBienBan != null && !nguoiLapBienBan.isEmpty()) {
-                    ps.setString(index++, "%" + nguoiLapBienBan + "%");
-                }
-             
-            }
-        }, new MapperSinhVienDetailsDTO());
-    }
-	
-	public void updateSinhVienViPham(int maSVVP, String maQuyTac, Timestamp thoiGianViPham) {
-		String sql = "UPDATE SINHVIEN_QUYTAC SET MAQUYTAC = ?, THOIGIANVIPHAM = ? WHERE MASVVP = ?";
-		try {
-			_jdbcTemplate.update(sql, maQuyTac, thoiGianViPham, maSVVP);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void deleteSinhVienViPham(int maSVVP) {
-		String sql = "DELETE SINHVIEN_QUYTAC WHERE MASVVP = ?";
-		try {
-			_jdbcTemplate.update(sql, maSVVP);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
-	}
-	
 }
-
-
-

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class QuyTac {
 	@Id
 	@Column(name = "MAQUYTAC")
-	private String maQuyTac;
+	private int maQuyTac;
 	@Column(name = "TENQuyTac")
 	private String tenQuyTac;
 	@Column(name = "MUCDOVIPHAM")
@@ -20,7 +20,7 @@ public class QuyTac {
 		super();
 	}
 	
-	public QuyTac(String maQuyTac, String tenQuyTac, int mucDoViPham) {
+	public QuyTac(int maQuyTac, String tenQuyTac, int mucDoViPham) {
 		this.maQuyTac = maQuyTac;
 		this.tenQuyTac = tenQuyTac;
 		this.mucDoViPham = mucDoViPham;
@@ -28,11 +28,11 @@ public class QuyTac {
 
 	
 	
-	public String getMaQuyTac() {
+	public int getMaQuyTac() {
 		return maQuyTac;
 	}
 
-	public void setMaQuyTac(String maQuyTac) {
+	public void setMaQuyTac(int maQuyTac) {
 		this.maQuyTac = maQuyTac;
 	}
 
