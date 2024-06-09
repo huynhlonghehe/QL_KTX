@@ -1,7 +1,5 @@
 package com.quan_ly_ktx.Entity.HoaDonDien;
 
-import java.util.Date;
-
 public class HoaDonDien {
     private String maHDD;
     private String chiSoTruoc;
@@ -9,8 +7,8 @@ public class HoaDonDien {
     private float heSoTienDien;
     private boolean tienNo;
     private String maPhong;
-    private Date ngayTao;
-    private Date ngaySuaDoi;
+    private String ngayTao;
+    private String ngaySuaDoi;
     private String nguoiSuaDoiCuoi;
 
     // Getters and Setters
@@ -62,19 +60,19 @@ public class HoaDonDien {
         this.maPhong = maPhong;
     }
 
-    public Date getNgayTao() {
+    public String getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(String ngayTao) {
         this.ngayTao = ngayTao;
     }
 
-    public Date getNgaySuaDoi() {
+    public String getNgaySuaDoi() {
         return ngaySuaDoi;
     }
 
-    public void setNgaySuaDoi(Date ngaySuaDoi) {
+    public void setNgaySuaDoi(String ngaySuaDoi) {
         this.ngaySuaDoi = ngaySuaDoi;
     }
 

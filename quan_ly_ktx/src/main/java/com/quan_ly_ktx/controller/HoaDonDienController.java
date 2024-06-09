@@ -1,11 +1,11 @@
 package com.quan_ly_ktx.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,17 +35,37 @@ public class HoaDonDienController {
 
     @RequestMapping(value = "/update-HDD", method = RequestMethod.POST)
     public String updateHoaDonDien(@ModelAttribute("hoaDonDien") HoaDonDien hoaDonDien) {
+    	System.out.println(hoaDonDien.getNgayTao());
         hoaDonDienService.updateHoaDonDien(hoaDonDien);
         return "redirect:/hoadondien/list";
+    }
+    
+    @RequestMapping(value = "/get-chi-so-truoc", method = RequestMethod.GET)
+    @ResponseBody
+    public String getChiSoTruoc(@RequestParam("maPhong") String maPhong) {
+        // Retrieve the previous value based on the maPhong from the database
+        // For simplicity, let's assume it returns a dummy value
+        int chiSoTruoc = hoaDonDienService.getChiSoTruocByMaPhong(maPhong);
+        System.out.println(chiSoTruoc);
+        return String.valueOf(chiSoTruoc);
     }
 
     
     
     @RequestMapping(value = "/add-HDD", method = RequestMethod.POST)
     public String addHoaDonDien(@ModelAttribute("hoaDonDien") HoaDonDien hoaDonDien, RedirectAttributes redirectAttributes) {
-        hoaDonDienService.addHoaDonDien(hoaDonDien);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm thành công");
-        return "redirect:/hoadondien/list";
+        
+        if(!hoaDonDienService.existsByMaHDD(hoaDonDien.getMaHDD())) {
+            redirectAttributes.addFlashAttribute("successMessage", "Thêm thành công");
+            hoaDonDienService.addHoaDonDien(hoaDonDien);
+            return "redirect:/hoadondien/list";
+        }
+        else {
+        	redirectAttributes.addFlashAttribute("errorMessage", "Mã hóa đơn tồn tại");
+        	return "redirect:/hoadondien/list";
+        }
+
+          
     }
 
     @RequestMapping(value = "/delete-HDD/{maHDD}", method = RequestMethod.GET)
@@ -87,5 +107,16 @@ public class HoaDonDienController {
         List<HoaDonDien> searchedHoaDonDien = hoaDonDienService.timKiemTheoBang(maHDD, chiSoTruoc, chiSoSau, heSoTienDien, tienNo, maPhong, ngayTao, ngaySuaDoi, nguoiSuaDoiCuoi);
         model.addAttribute("listHDD", searchedHoaDonDien);
         return "HoaDonDien/QuanLyHoaDonDien";
+    }
+    
+	@RequestMapping(value = "/delete-selected", method = RequestMethod.POST)
+    public String deleteSelected(@RequestParam("selectedItems") List<String> selectedItems, RedirectAttributes redirectAttributes) {
+        try {
+            hoaDonDienService.deleteHDDByIds(selectedItems);
+            redirectAttributes.addFlashAttribute("successMessage", "Xóa thành công các phòng đã lựa chọn.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Có lỗi xảy ra khi xóa các phòng(Phòng có thể đang được sử dụng).");
+        }
+        return "redirect:/phong/list";
     }
 }

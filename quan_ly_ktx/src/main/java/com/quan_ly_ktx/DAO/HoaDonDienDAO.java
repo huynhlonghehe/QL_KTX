@@ -31,6 +31,12 @@ public class HoaDonDienDAO {
         return jdbcTemplate.queryForObject(sql, new Object[]{maPhong}, Integer.class);
     }
 
+
+    public boolean existsByMaHDD(String maHDD) {
+        String sql = "SELECT COUNT(*) FROM HOADONDIEN WHERE MAHDD = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, maHDD);
+        return count != null && count > 0;
+    }
     
     public void addHoaDonDien(HoaDonDien hoaDonDien) {
     	Timestamp ngayTao = new Timestamp(System.currentTimeMillis());
@@ -40,8 +46,9 @@ public class HoaDonDienDAO {
     }
 
     public int updateHoaDonDien(HoaDonDien hoaDonDien) {
+    	Timestamp ngaySuaDoi = new Timestamp(System.currentTimeMillis());
         String sql = "UPDATE HOADONDIEN SET CHISOTRUOC = ?, CHISOSAU = ?, HESOTIENDIEN = ?, TIENNO = ?, MAPHONG = ?, NGAYTAO = ?, NGAYSUADOI = ?, NGUOISUADOICUOI = ? WHERE MAHDD = ?";
-        return jdbcTemplate.update(sql, hoaDonDien.getChiSoTruoc(), hoaDonDien.getChiSoSau(), hoaDonDien.getHeSoTienDien(), hoaDonDien.isTienNo(), hoaDonDien.getMaPhong(), hoaDonDien.getNgayTao(), hoaDonDien.getNgaySuaDoi(), hoaDonDien.getNguoiSuaDoiCuoi(), hoaDonDien.getMaHDD());
+        return jdbcTemplate.update(sql, hoaDonDien.getChiSoTruoc(), hoaDonDien.getChiSoSau(), hoaDonDien.getHeSoTienDien(), hoaDonDien.isTienNo(), hoaDonDien.getMaPhong(), hoaDonDien.getNgayTao(), ngaySuaDoi, hoaDonDien.getNguoiSuaDoiCuoi(), hoaDonDien.getMaHDD());
     }
 
     public int deleteHoaDonDien(String maHDD) {

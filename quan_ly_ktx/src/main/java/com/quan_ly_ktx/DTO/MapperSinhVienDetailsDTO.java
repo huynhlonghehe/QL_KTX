@@ -17,11 +17,13 @@ public class MapperSinhVienDetailsDTO implements RowMapper<SinhVienDetailsDTO> {
         dto.setSdt(rs.getString("SDT"));
         dto.setGioiTinh(rs.getString("GIOITINH"));
         dto.setLop(rs.getString("LOP"));
-        dto.setMaSinhVienViPham(rs.getInt("MASVVP"));
-        dto.setMaQuyTac(rs.getInt("MAQUYTAC"));
+        dto.setMaPhong(rs.getString("MAPHONG"));
+        dto.setMaSVVP(rs.getInt("MASVVP"));
+        dto.setMaQuyTac(rs.getString("MAQUYTAC"));
         dto.setThoiGianViPham(rs.getString("THOIGIANVIPHAM"));
         dto.setTenQuyTac(rs.getString("TENQUYTAC"));
         dto.setMucDoViPham(rs.getInt("MUCDOVIPHAM"));
+        dto.setNguoiLapBienBan(rs.getString("NGUOILAPBIENBAN"));
         return dto;
     }
 }

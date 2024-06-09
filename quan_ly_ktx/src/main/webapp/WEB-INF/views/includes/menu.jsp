@@ -23,7 +23,7 @@
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="${pageContext.request.contextPath}/quanly/QLTaiKhoan">Thông tin tài khoản</a></li>
+	      <li><a href="/quan_ly_ktx/quanly/QLTaiKhoan">Thông tin tài khoản</a></li>
 	      <li><a href="#">History book 2</a></li>
 	      <li><a href="#">History book 3</a></li>
 	    </ul>
@@ -33,18 +33,18 @@
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="${pageContext.request.contextPath}/quanly/QLSinhVien">Thông tin sinh viên</a></li>
-	      <li><a href="${pageContext.request.contextPath}/quanly/QuanLySinhVien/SinhVienViPham">Sinh viên vi phạm</a></li>
+	      <li><a href="/quan_ly_ktx/quanly/QLSinhVien">Thông tin sinh viên</a></li>
+	      <li><a href="/quan_ly_ktx/quanly/QLSinhVien/SinhVienViPham">Sinh viên vi phạm</a></li>
 	      <li><a href="#">Thống kê sinh viên</a></li>
 	    </ul>
 	  </li>
 	  <li>
-	    <div class="dropdownlink"><i class="fa-solid fa-file-contract" aria-hidden="true"></i> Quản lý hợp đồng
+	    <div class="dropdownlink"><i class="fa fa-quote-left" aria-hidden="true"></i> Quản lý hợp đồng
 	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
 	    </div>
 	    <ul class="submenuItems">
-	      <li><a href="${pageContext.request.contextPath}/quanly/QLHopDong">Thông tin hợp đồng</a></li>
-	      <li><a href="#">Fantasy book 2</a></li>
+	      <li><a href="/quan_ly_ktx/quanly/QLHopDong">Thông tin hợp đồng</a></li>
+	      <li><a href="/quan_ly_ktx/quanly/QLHopDong/HopDongHetHan">Hợp đồng hết hạn</a></li>
 	      <li><a href="#">Fantasy book 3</a></li>
 	    </ul>
 	  </li>
@@ -74,6 +74,16 @@
 	    </div>
 	    <ul class="submenuItems">
 	      <li><a href="${pageContext.request.contextPath}/vtphong/list">Thông tin vật tư - phòng</a></li>
+	      <li><a href="${pageContext.request.contextPath}/phong/list"><i class="fa-solid fa-house" aria-hidden="true"></i> Thông tin phòng</a></li>
+	      <li><a href="${pageContext.request.contextPath}/vattu/list"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Thông tin vật tư</a></li>
+	    </ul>
+	  </li>
+	  <li>
+	    <div class="dropdownlink"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i>Quản lý hóa đơn điện
+	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+	    </div>
+	    <ul class="submenuItems">
+	      <li><a href="${pageContext.request.contextPath}/hoadondien/list">Thông tin hóa đơn điện</a></li>
 	      <li><a href="#">Action book 2</a></li>
 	      <li><a href="#">Action book 3</a></li>
 	    </ul>

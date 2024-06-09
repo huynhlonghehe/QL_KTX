@@ -16,8 +16,8 @@ public class HoaDonDienMapper implements RowMapper<HoaDonDien> {
         hoaDonDien.setHeSoTienDien(rs.getFloat("HESOTIENDIEN"));
         hoaDonDien.setTienNo(rs.getBoolean("TIENNO"));
         hoaDonDien.setMaPhong(rs.getString("MAPHONG"));
-        hoaDonDien.setNgayTao(rs.getDate("NGAYTAO"));
-        hoaDonDien.setNgaySuaDoi(rs.getDate("NGAYSUADOI"));
+        hoaDonDien.setNgayTao(rs.getString("NGAYTAO"));
+        hoaDonDien.setNgaySuaDoi(rs.getString("NGAYSUADOI"));
         hoaDonDien.setNguoiSuaDoiCuoi(rs.getString("NGUOISUADOICUOI"));
         return hoaDonDien;
     }

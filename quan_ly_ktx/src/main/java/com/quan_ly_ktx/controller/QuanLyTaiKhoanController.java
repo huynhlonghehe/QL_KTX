@@ -1,5 +1,6 @@
 package com.quan_ly_ktx.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,14 @@ public class QuanLyTaiKhoanController {
 	@Autowired
 	SinhVienDAO sinhVienDAO;
 	
-	@RequestMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView trangChu() {
 		ModelAndView mv = new ModelAndView("QuanLy/main");
 		
 		return mv;
 	}
 	
-	@RequestMapping("QLTaiKhoan")
+	@RequestMapping(value = "QLTaiKhoan", method = RequestMethod.GET)
 	public ModelAndView QLTaiKhoan() {
 		ModelAndView mv = new ModelAndView("QuanLy/TaiKhoan/QuanLyTaiKhoan");
 		List<TaiKhoan> resultTaiKhoan = taiKhoanDAO.GetDataTaiKhoan();

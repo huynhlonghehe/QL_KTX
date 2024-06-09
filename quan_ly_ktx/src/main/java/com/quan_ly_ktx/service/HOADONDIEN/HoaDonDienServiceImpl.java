@@ -53,4 +53,18 @@ public class HoaDonDienServiceImpl implements HoaDonDienService {
     public int getChiSoTruocByMaPhong(String maPhong) {
     	return hoaDonDienDAO.getChiSoTruocByMaPhong(maPhong);
     }
+    
+    @Override
+    public boolean existsByMaHDD(String maHDD) {
+    	return hoaDonDienDAO.existsByMaHDD(maHDD);
+    }
+    
+    @Override
+    public void deletePhongByIds(List<String> ids) {
+        for (String id : ids) {
+            phongDAO.deletePhong(id);
+        }
+    }
+    
 }
+

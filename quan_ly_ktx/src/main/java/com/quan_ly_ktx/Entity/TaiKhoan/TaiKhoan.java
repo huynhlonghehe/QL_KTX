@@ -1,11 +1,5 @@
 package com.quan_ly_ktx.Entity.TaiKhoan;
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

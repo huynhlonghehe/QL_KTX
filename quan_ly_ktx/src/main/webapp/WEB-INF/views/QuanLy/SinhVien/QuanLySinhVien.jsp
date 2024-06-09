@@ -21,7 +21,6 @@
 	<h1 class="title">Quản Lý Sinh Viên</h1>
 	<div class="searchContainer">
 		<form method="GET" action="/quan_ly_ktx/quanly/QLSinhVien/searchSinhVien" class="searchSinhVien" id="searchForm">
-<<<<<<< HEAD
 			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" id="nameInput"/>
 			<input type="text" name="ho" placeholder="Họ" class="inputSearch" id="nameInput"/>
 			<input type="text" name="ten" placeholder="Tên" class="inputSearch" id="nameInput"/>
@@ -33,103 +32,95 @@
             </select>
 			<input type="date" name="ngaySinh" placeholder="Ngày sinh" class="inputSearch" id="nameInput"/>
 			<input type="text" name="diaChi" placeholder="Địa chỉ" class="inputSearch" id="nameInput"/>
-			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" id="nameInput"/>
-			<button type="submit" value="Search" class="buttonSearch"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
-=======
-			<input type="text" name="maSV" placeholder="Mã sinh viên" class="inputSearch" value="${maSV}" id="maSV"/>
-			<input type="text" name="ho" placeholder="Họ" class="inputSearch" value="${ho}" id="ho"/>
-			<input type="text" name="ten" placeholder="Tên" class="inputSearch" value="${ten}" id="ten"/>
-			<select class="inputSearch" id="gioiTinh" name="gioiTinh">
-				<option value="">Giới tính</option>
-				<option value="Nam" ${'Nam'.equals(gioiTinh) ? 'selected' : ''}>Nam</option>
-				<option value="Nữ" ${'Nữ'.equals(gioiTinh) ? 'selected' : ''}>Nữ</option>
+			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" id="nameInput"/>			
+			<select class="inputSearch" id="dieuKien" name="dieuKienO"  style="width: 120px">
+				<option value="">Điều kiện ở</option>
+				<option value="duDieuKien"  ${'duDieuKien'.equals(dieuKien) ? 'selected' : ''}>Đủ điều kiện</option>
+				<option value="khongDuDieuKien" ${'khongDuDieuKien'.equals(dieuKien) ? 'selected' : ''}>Không đủ điều kiện</option>
 			</select>
-			<input type="date" name="ngaySinh" placeholder="Ngày sinh" class="inputSearch" value="${ngaySinh}" id="ngaySinh"/>
-			<input type="text" name="diaChi" placeholder="Địa chỉ" class="inputSearch" value="${diaChi}" id="diaChi"/>
-			<input type="text" name="lop" placeholder="Lớp" class="inputSearch" value="${lop}" id="lop"/>
-			<button type="submit" value="Search" class="buttonSearch"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
-			<button type="button" value="Refresh" class="buttonRefresh" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate" ></i></button>
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
+			<button type="submit" value="Search" class="buttonSearch" title="Tìm kiếm"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+			<button type="button" value="Refresh" class="buttonRefresh" onclick="refreshPage()" title="Làm mới tìm kiếm"><i class="fa-solid fa-arrows-rotate" ></i></button>
 		</form>
 	</div>
 	
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">Mã sinh viên <a href="#" data-column="MASV" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Họ </th>
-				<th scope="col">Tên <a href="#" data-column="TEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Giới tính <a href="#" data-column="GIOITINH" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-				<th scope="col">Ngày sinh <a href="#" data-column="NGAYSINH" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
-                <th scope="col">Lớp</th>
-                <th scope="col">Địa chỉ</th>
-                <th scope="col">SDT</th>
-                <th scope="col">Xét điều kiện ở</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-        	<c:choose>
-	        	<c:when test="${not empty ListSV}">
-		            <c:forEach var="sinhVien" items="${ListSV}">
-		                <tr>
-		                    <td>${sinhVien.getMaSV()}</td>
-		                    <td>${sinhVien.getHo()}</td>
-		                    <td>${sinhVien.getTen()}</td>
-		                    <td>${sinhVien.getGioiTinh()}</td>
-		                    <td>${sinhVien.getNgaySinh()}</td>
-		                    <td>${sinhVien.getLop()}</td>
-		                    <td>${sinhVien.getDiaChi()}</td>
-		                    <td>${sinhVien.getSdt()}</td>
-		                    <td style="text-align: center">
-					            <c:set var="viPhamMucDo1" value="0"/>
-					            <c:set var="viPhamMucDo2" value="0"/>
-					            <c:set var="viPhamMucDo3" value="0"/>
-					            <c:set var="checked" value="false"/>
-					            <c:set var="tooltipText" value=""/>
-					            <c:forEach var="viPham" items="${ListSV_CoViPham}">
-					                <c:if test="${viPham.getMaSV() == sinhVien.getMaSV()}">
-					                    <c:choose>
-					                        <c:when test="${viPham.getMucDoViPham() == 1}">
-					                        	<c:set var="viPhamMucDo1" value="${viPhamMucDo1 + 1}"/>
-					                        </c:when>
-					                        <c:when test="${viPham.getMucDoViPham() == 2}">
-					                        	<c:set var="viPhamMucDo2" value="${viPhamMucDo2 + 1}"/>
-					                        </c:when>
-					                        <c:when test="${viPham.getMucDoViPham() == 3}">
-					                        	<c:set var="viPhamMucDo3" value="${viPhamMucDo3 + 1}"/>
-					                        </c:when>
-					                    </c:choose>
+    <div id="ListSinhVien" class="container mt-4">
+        <table class="table table-hover table-striped table-bordered">
+            <thead class="table-info">
+                <tr>
+                	<th scope="col" style="width: 50px">STT</th>
+	                <th scope="col">Mã sinh viên <a href="#" data-column="MASV" data-mode="desc"><i class="fa-solid fa-sort"></i></a></th>
+					<th scope="col">Họ </th>
+					<th scope="col">Tên <a href="#" data-column="TEN" data-mode="asc"><i class="fa-solid fa-sort"></i></a></th>
+					<th scope="col">Giới tính <a href="#" data-column="GIOITINH" data-mode="desc"><i class="fa-solid fa-sort"></i></a></th>
+					<th scope="col">Ngày sinh <a href="#" data-column="NGAYSINH" data-mode="desc"><i class="fa-solid fa-sort"></i></a></th>
+	                <th scope="col">Lớp</th>
+	                <th scope="col">Địa chỉ</th>
+	                <th scope="col">SDT</th>
+	                <th scope="col">Xét điều kiện ở</th>
+	                <th scope="col" style="width: 60px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:choose>
+		        	<c:when test="${not empty ListSV}">
+			            <c:forEach var="sinhVien" items="${ListSV}" varStatus = "i">
+			                <tr>
+			                	<td style="width: 50px">${i.index + 1}</td>
+			                    <td>${sinhVien.getMaSV()}</td>
+			                    <td>${sinhVien.getHo()}</td>
+			                    <td>${sinhVien.getTen()}</td>
+			                    <td>${sinhVien.getGioiTinh()}</td>
+			                    <td>${sinhVien.getNgaySinh()}</td>
+			                    <td>${sinhVien.getLop()}</td>
+			                    <td>${sinhVien.getDiaChi()}</td>
+			                    <td>${sinhVien.getSdt()}</td>
+			                    <td style="text-align: center">
+						            <c:set var="viPhamMucDo1" value="0"/>
+						            <c:set var="viPhamMucDo2" value="0"/>
+						            <c:set var="viPhamMucDo3" value="0"/>
+						            <c:set var="checked" value="false"/>
+						            <c:set var="tooltipText" value=""/>
+						            <c:forEach var="viPham" items="${ListSV_CoViPham}">
+						                <c:if test="${viPham.getMaSV() == sinhVien.getMaSV()}">
+						                    <c:choose>
+						                        <c:when test="${viPham.getMucDoViPham() == 1}">
+						                        	<c:set var="viPhamMucDo1" value="${viPhamMucDo1 + 1}"/>
+						                        </c:when>
+						                        <c:when test="${viPham.getMucDoViPham() == 2}">
+						                        	<c:set var="viPhamMucDo2" value="${viPhamMucDo2 + 1}"/>
+						                        </c:when>
+						                        <c:when test="${viPham.getMucDoViPham() == 3}">
+						                        	<c:set var="viPhamMucDo3" value="${viPhamMucDo3 + 1}"/>
+						                        </c:when>
+						                    </c:choose>
+						                </c:if>
+						            </c:forEach>
+						            <!-- Ở vi phạm mức độ 3 nhân với 4 vì nếu vi phạm mức độ 3 1 lần là out lun -->
+						             <c:if test = "${(viPhamMucDo1*1) + (viPhamMucDo2)*2 + (viPhamMucDo3)*4 > 3}">
+						                	<c:set var="checked" value="true"/>
 					                </c:if>
-<<<<<<< HEAD
-					               
-=======
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
-					            </c:forEach>
-					            <!-- Ở vi phạm mức độ 3 nhân với 4 vì nếu vi phạm mức độ 3 1 lần là out lun -->
-					             <c:if test = "${(viPhamMucDo1*1) + (viPhamMucDo2)*2 + (viPhamMucDo3)*4 > 3}">
-					                	<c:set var="checked" value="true"/>
-				                </c:if>
-				                <c:set var="tooltipText" value="Vi phạm mức độ 1: ${viPhamMucDo1} lần, mức độ 2: ${viPhamMucDo2} lần, mức độ 3: ${viPhamMucDo3} lần" />
-					            <input class="check" type="checkbox" ${checked ? '' : 'checked'}  title="${tooltipText}" disabled="disabled"/>
-					        </td>
-		                    <td>
-			                    <a class="btn-link" href="/quan_ly_ktx/quanly/QLSinhVien/${sinhVien.getMaSV()}/edit"><i class="fa-solid fa-pen-to-square" style="color: #63E6BE;"></i></a>
-			                    <a class="btn-link delete-link" href="/quan_ly_ktx/quanly/QLSinhVien/${sinhVien.getMaSV()}/delete"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
-			                    <a href="">Chi tiết</a>
-		                    </td>
-		                </tr>
-		            </c:forEach>
-	            </c:when>
-	            <c:otherwise>
-			        <tr><td rowspan="10" style="text-align: center; color: red">Không có dữ liệu sinh viên</td></tr>
-			    </c:otherwise>
-	    	</c:choose>
-        </tbody>
-    </table> 
+					                <c:set var="tooltipText" value="Vi phạm mức độ 1: ${viPhamMucDo1} lần, mức độ 2: ${viPhamMucDo2} lần, mức độ 3: ${viPhamMucDo3} lần" />
+						            <input class="check" type="checkbox" ${checked ? '' : 'checked'}  title="${tooltipText}" disabled="disabled"/>
+						        </td>
+			                    <td>
+				                    <a class="btn-link" href="/quan_ly_ktx/quanly/QLSinhVien/${sinhVien.getMaSV()}/edit" title="Sửa thông tin sinh viên"><i class="fa-solid fa-pen-to-square" style="color: #63E6BE;"></i></a>
+				                    <a class="btn-link delete-link" href="/quan_ly_ktx/quanly/QLSinhVien/${sinhVien.getMaSV()}/delete" title="Xoá sinh viên"><i class="fa-solid fa-trash" style="color: #fa0000;"></i></a>
+			                    	<!-- <a class="btn-link delete-link" href="" title="Chi tiết sinh viên"><i class="fa-solid fa-circle-info" style="color: #74C0FC;"></i></a> -->
+			                    </td>
+			                </tr>
+			            </c:forEach>
+		            </c:when>
+		            <c:otherwise>
+				        <tr><td colspan="11" style="text-align: center; color: red">Không có dữ liệu sinh viên</td></tr>
+				    </c:otherwise>
+		    	</c:choose>
+            </tbody>
+        </table>
+	</div>
     <div class="create_SV">
 	    <button type="button" class="btn btn-outline-primary button_createSV" onclick="toggleCreateSinhVienForm()">Thêm sinh viên</button>
 	    <div id="createSinhVienForm" style="display: none">
+	    	<div><i id="closeForm" class="fa-solid fa-xmark close" style="color: white;"></i></div>
 		     <form:form action="/quan_ly_ktx/quanly/QLSinhVien/createSV" class="form" modelAttribute="newSinhVien">
 		        <h2>Thêm Sinh Viên</h2>
 		        <div class="form-group full">
@@ -202,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for (var i = rows; i < maxRows; i++) {
         var tr = document.createElement("tr");
-        tr.innerHTML = "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
+        tr.innerHTML = "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
         tbody.appendChild(tr);
     }
 });
@@ -307,8 +298,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	    });
 	});
 /* Kết thúc */
-<<<<<<< HEAD
-=======
+ 
+ /* Đóng form khi nhấn vào biểu tượng close */
+document.getElementById('closeForm').addEventListener('click', function() {
+    var form = document.getElementById('createSinhVienForm');
+    form.style.display = 'none';
+});
+/* Kết thúc */
  
 /* Làm mới trang khi ấn vào nút refresh */
 function refreshPage() {
@@ -316,7 +312,6 @@ function refreshPage() {
 }
 /* Kết thúc */
 
->>>>>>> 17e1134b9aa9bdc953f04b1a95e57e6ab57c8d50
 
 </script>
  
