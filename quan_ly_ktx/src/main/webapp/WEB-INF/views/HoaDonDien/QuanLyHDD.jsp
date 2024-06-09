@@ -52,8 +52,8 @@
                                 <td>${hdd.ngaySuaDoi != null ? hdd.ngaySuaDoi : 'N/A'}</td>
                                 <td>${hdd.nguoiSuaDoiCuoi != null ? hdd.nguoiSuaDoiCuoi : 'N/A'}</td>
                                 <td>
-                                    <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditHDDForm('${hdd.maHDD}', '${hdd.chiSoTruoc}', '${hdd.chiSoSau}', '${hdd.heSoTienDien}', '${hdd.tienNo}', '${hdd.maPhong}', '${sessionScope.USERNAME}')"></a>
-                                    <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/hoadondien/delete-hdd/${hdd.maHDD}'); return false;"></a>
+                                    <a href="javascript:void(0);" class="fa-solid fa-pen-to-square" style="color: #63E6BE;" title="Sửa" onclick="toggleEditHDDForm('${hdd.maHDD}', '${hdd.chiSoTruoc}', '${hdd.chiSoSau}', '${hdd.heSoTienDien}', '${hdd.tienNo}', '${hdd.maPhong}', '${hdd.ngayTao}', '${sessionScope.USERNAME}')"></a>
+                                    <a href="javascript:void(0);" class="fa-solid fa-trash" style="color: #fa0000;" title="Xoá" onclick="showConfirm('${pageContext.request.contextPath}/hoadondien/delete-HDD/${hdd.maHDD}'); return false;"></a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -99,7 +99,7 @@
                     <div class="form-group">
                         <label for="maPhong" class="form-label">Mã Phòng:</label>
                         <select class="form-control" id="add_maPhong" name="maPhong" required>
-                        	<option value="" disabled selected>Chọn phòng</option>
+                            <option value="" disabled selected>Chọn phòng</option>
                             <c:forEach var="phong" items="${listPhong}">
                                 <option value="${phong}">${phong}</option>
                             </c:forEach>
@@ -120,93 +120,139 @@
                     <div class="form-group">
                         <label for="add_tienNo" class="form-label">Tiền Nợ:</label>
                         <select id="add_tienNo" name="tienNo" class="form-select" required>
-                            <option value="0">Không</option>
-                            <option value="1">Có</option>
+                            <option value="False">Không</option>
+                            <option value="True">Có</option>
                         </select>
                     </div>
-
                     <button type="submit" class="btn btn-them">Thêm Hóa Đơn</button>
                 </form>
             </div>
+        </div>
 
-            <!-- Form chỉnh sửa hóa đơn -->
-            <div id="editHDDForm" style="display: none">
-                <span class="close" onclick="closeForm('editHDDForm')">&times;</span>
-                <h2>Chỉnh Sửa Hóa Đơn Điện</h2>
-                <form id="editHDDFormDetails" action="${pageContext.request.contextPath}/hoadondien/edit-hdd" method="POST" onsubmit="return validateEditHDDForm()">
-                    <input type="hidden" id="edit_maHDD_hidden" name="maHDD">
-                    <input type="hidden" id="edit_tenNguoiChinhSua_hidden" name="tenNguoiChinhSua" value="${sessionScope.USERNAME}">
-                    <div class="form-group">
-                        <label for="edit_maHDD" class="form-label">Mã HDD:</label>
-                        <input type="text" class="form-control" id="edit_maHDD" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_chiSoTruoc" class="form-label">Chỉ Số Trước:</label>
-                        <input type="number" class="form-control" id="edit_chiSoTruoc" name="chiSoTruoc" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_chiSoSau" class="form-label">Chỉ Số Sau:</label>
-                        <input type="number" class="form-control" id="edit_chiSoSau" name="chiSoSau" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_heSoTienDien" class="form-label">Hệ Số Tiền Điện:</label>
-                        <input type="number" step="0.01" class="form-control" id="edit_heSoTienDien" name="heSoTienDien" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_tienNo" class="form-label">Tiền Nợ:</label>
-                        <select id="edit_tienNo" name="tienNo" class="form-select" required>
-                            <option value="0">Không</option>
-                            <option value="1">Có</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="maPhong" class="form-label">Mã Phòng:</label>
-                        <select class="form-control" id="edit_maPhong" name="maPhong" required>
-                            <c:forEach var="phong" items="${listPhong}">
-                                <option value="${phong}">${phong}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
+        <!-- Form chỉnh sửa hóa đơn -->
+        <div id="editHDDForm" style="display: none">
+            <span class="close" onclick="closeForm('editHDDForm')">&times;</span>
+            <h2>Chỉnh Sửa Hóa Đơn Điện</h2>
+            <form id="editHDDFormDetails" action="${pageContext.request.contextPath}/hoadondien/update-HDD" method="POST" onsubmit="return validateEditHDDForm()">
+                <input type="hidden" id="edit_maHDD_hidden" name="maHDD">
+                <!--  <input type="hidden" id="edit_ngayTao_hidden" name="ngayTao"> -->
+                <input type="hidden" id="edit_tenNguoiChinhSua_hidden" name="tenNguoiChinhSua" value="${sessionScope.USERNAME}">
+                <div class="form-group">
+                    <label for="edit_maHDD" class="form-label">Mã HDD:</label>
+                    <input type="text" class="form-control" id="edit_maHDD" disabled>
+                </div>
 
-                    <button type="submit" class="btn btn-them">Lưu Thay Đổi</button>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label for="maPhong" class="form-label">Mã Phòng:</label>
+                    <select class="form-control" id="edit_maPhong" name="maPhong" required>
+                        <c:forEach var="phong" items="${listPhong}">
+                            <option value="${phong}">${phong}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit_ngayTao" class="form-label">Ngày tạo:</label>
+                    <input type="datetime-local" class="form-control" id="edit_ngayTao" name="ngayTao" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_chiSoTruoc" class="form-label">Chỉ Số Trước:</label>
+                    <input type="number" class="form-control" id="edit_chiSoTruoc" name="chiSoTruoc" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_chiSoSau" class="form-label">Chỉ Số Sau:</label>
+                    <input type="number" class="form-control" id="edit_chiSoSau" name="chiSoSau" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_heSoTienDien" class="form-label">Hệ Số Tiền Điện:</label>
+                    <input type="number" step="0.01" class="form-control" id="edit_heSoTienDien" name="heSoTienDien" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_tienNo" class="form-label">Tiền Nợ:</label>
+                    <select id="edit_tienNo" name="tienNo" class="form-select" required>
+                        <option value="False">Không</option>
+                        <option value="True">Có</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-them">Lưu Thay Đổi</button>
+            </form>
         </div>
         <script>
-            $(document).ready(function() {
-                $("#selectAll").click(function() {
-                    $(".select-item").prop("checked", this.checked);
+            function showAlert(title, message, icon) {
+                Swal.fire({
+                    title: title,
+                    text: message,
+                    icon: icon,
+                    confirmButtonText: 'OK'
+                });
+            }
+
+            /* Thông báo lỗi và kết quả */
+            document.addEventListener('DOMContentLoaded', function() {
+                var errorMessage = "${errorMessage}";
+                var successMessage = "${successMessage}";
+
+                if (errorMessage) {
+                    showAlert("Lỗi", errorMessage, 'error');
+                } else if (successMessage) {
+                    showAlert("Thành công", successMessage, 'success');
+                }
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var selectAll = document.getElementById("selectAll");
+                var selectItems = document.querySelectorAll(".select-item");
+                var deleteSelectedButton = document.getElementById("deleteSelectedButton");
+
+                selectAll.addEventListener('click', function() {
+                    selectItems.forEach(function(item) {
+                        item.checked = selectAll.checked;
+                    });
                     toggleDeleteSelectedButton();
                 });
 
-                $(".select-item").click(function() {
-                    if ($(".select-item:checked").length == $(".select-item").length) {
-                        $("#selectAll").prop("checked", true);
-                    } else {
-                        $("#selectAll").prop("checked", false);
-                    }
-                    toggleDeleteSelectedButton();
+                selectItems.forEach(function(item) {
+                    item.addEventListener('click', function() {
+                        if (document.querySelectorAll(".select-item:checked").length === selectItems.length) {
+                            selectAll.checked = true;
+                        } else {
+                            selectAll.checked = false;
+                        }
+                        toggleDeleteSelectedButton();
+                    });
                 });
             });
 
             function toggleCreateHDDForm() {
-                $("#createHDDForm").toggle();
+                var form = document.getElementById("createHDDForm");
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
             }
 
-            function toggleEditHDDForm(maHDD, chiSoTruoc, chiSoSau, heSoTienDien, tienNo, maPhong, tenNguoiChinhSua) {
-                $("#editHDDForm").toggle();
-                $("#edit_maHDD").val(maHDD);
-                $("#edit_maHDD_hidden").val(maHDD);
-                $("#edit_chiSoTruoc").val(chiSoTruoc);
-                $("#edit_chiSoSau").val(chiSoSau);
-                $("#edit_heSoTienDien").val(heSoTienDien);
-                $("#edit_tienNo").val(tienNo);
-                $("#edit_maPhong").val(maPhong);
-                $("#edit_tenNguoiChinhSua_hidden").val(tenNguoiChinhSua);
+            function toggleEditHDDForm(maHDD, chiSoTruoc, chiSoSau, heSoTienDien, tienNo, maPhong, ngayTao, tenNguoiChinhSua) {
+                var form = document.getElementById("editHDDForm");
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+
+                document.getElementById("edit_maHDD").value = maHDD;
+                document.getElementById("edit_maHDD_hidden").value = maHDD;
+                document.getElementById("edit_chiSoTruoc").value = chiSoTruoc;
+                document.getElementById("edit_chiSoSau").value = chiSoSau;
+                document.getElementById("edit_heSoTienDien").value = heSoTienDien;
+                document.getElementById("edit_tienNo").value = tienNo === "true" ? "True" : "False";
+                document.getElementById("edit_maPhong").value = maPhong;
+                document.getElementById("edit_ngayTao").value = ngayTao;
+                document.getElementById("edit_tenNguoiChinhSua_hidden").value = tenNguoiChinhSua;
+                
+                console.log("Edit form populated with:");
+                console.log("maHDD:", maHDD);
+                console.log("chiSoTruoc:", chiSoTruoc);
+                console.log("chiSoSau:", chiSoSau);
+                console.log("heSoTienDien:", heSoTienDien);
+                console.log("tienNo:", tienNo);
+                console.log("maPhong:", maPhong);
+                console.log("ngayTao:", ngayTao);
             }
 
             function closeForm(formId) {
-                $("#" + formId).hide();
+                document.getElementById(formId).style.display = 'none';
             }
 
             function showConfirm(deleteUrl) {
@@ -225,38 +271,14 @@
                 });
             }
 
-            /*         function validateCreateHDDForm() {
-                        var maHDD = $("#add_maHDD").val();
-                        var chiSoTruoc = $("#add_chiSoTruoc").val();
-                        var chiSoSau = $("#add_chiSoSau").val();
-                        var heSoTienDien = $("#add_heSoTienDien").val();
-                        var maPhong = $("#add_maPhong").val();
-
-                        if (maHDD == '' || chiSoTruoc == '' || chiSoSau == '' || heSoTienDien == '' || maPhong == '') {
-                            alert('Vui lòng nhập đầy đủ thông tin.');
-                            return false;
-                        }
-                        return true;
-                    }
-
-                    function validateEditHDDForm() {
-                        var chiSoTruoc = $("#edit_chiSoTruoc").val();
-                        var chiSoSau = $("#edit_chiSoSau").val();
-                        var heSoTienDien = $("#edit_heSoTienDien").val();
-                        var maPhong = $("#edit_maPhong").val();
-
-                        if (chiSoTruoc == '' || chiSoSau == '' || heSoTienDien == '' || maPhong == '') {
-                            alert('Vui lòng nhập đầy đủ thông tin.');
-                            return false;
-                        }
-                        return true;
-                    } */
-
             function toggleDeleteSelectedButton() {
-                if ($(".select-item:checked").length > 0) {
-                    $("#deleteSelectedButton").show();
+                var deleteSelectedButton = document.getElementById("deleteSelectedButton");
+                var checkedItems = document.querySelectorAll(".select-item:checked");
+
+                if (checkedItems.length > 0) {
+                    deleteSelectedButton.style.display = 'block';
                 } else {
-                    $("#deleteSelectedButton").hide();
+                    deleteSelectedButton.style.display = 'none';
                 }
             }
 
@@ -271,12 +293,33 @@
                     confirmButtonText: 'Có, xóa chúng!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $("#deleteSelectedForm").submit();
+                        document.getElementById("deleteSelectedForm").submit();
                     }
                 });
             }
 
+            document.addEventListener('DOMContentLoaded', function() {
+                var addMaPhong = document.getElementById("add_maPhong");
+                var addChiSoTruoc = document.getElementById("add_chiSoTruoc");
+
+                addMaPhong.addEventListener('change', function() {
+                    var maPhong = addMaPhong.value;
+                    if (maPhong) {
+                        fetch('${pageContext.request.contextPath}/hoadondien/get-chi-so-truoc?maPhong=' + maPhong)
+                            .then(response => response.json())
+                            .then(data => {
+                                addChiSoTruoc.value = data;
+                            })
+                            .catch(() => {
+                                addChiSoTruoc.value = '';
+                            });
+                    } else {
+                        addChiSoTruoc.value = '';
+                    }
+                });
+            });
         </script>
+
     </body>
 
 </html>

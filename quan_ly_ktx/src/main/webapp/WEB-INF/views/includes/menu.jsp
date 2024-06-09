@@ -74,6 +74,16 @@
 	    </div>
 	    <ul class="submenuItems">
 	      <li><a href="${pageContext.request.contextPath}/vtphong/list">Thông tin vật tư - phòng</a></li>
+	      <li><a href="${pageContext.request.contextPath}/phong/list"><i class="fa-solid fa-house" aria-hidden="true"></i> Thông tin phòng</a></li>
+	      <li><a href="${pageContext.request.contextPath}/vattu/list"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>Thông tin vật tư</a></li>
+	    </ul>
+	  </li>
+	  <li>
+	    <div class="dropdownlink"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i>Quản lý hóa đơn điện
+	      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+	    </div>
+	    <ul class="submenuItems">
+	      <li><a href="${pageContext.request.contextPath}/hoadondien/list">Thông tin hóa đơn điện</a></li>
 	      <li><a href="#">Action book 2</a></li>
 	      <li><a href="#">Action book 3</a></li>
 	    </ul>
